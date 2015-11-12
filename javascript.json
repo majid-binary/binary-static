@@ -73,6 +73,7 @@
     "src/javascript/binary/pages/frontend.js",
     "src/javascript/binary/pages/livechart.js",
     "src/javascript/binary/pages/payment_agent.js",
+    "src/javascript/binary/pages/portfiliows.js",
     "src/javascript/binary/pages/portfolio.js",
     "src/javascript/binary/pages/pricingtable.js",
     "src/javascript/binary/pages/profit_table.js",
