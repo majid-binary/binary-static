@@ -4649,24 +4649,6 @@ table .loss, table .lower {
   }
 }
 
-a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
-  display: none !important;
-}
-
-#portfolio {
-  min-height: 300px;
-}
-#portfolio td {
-  padding: 10px 30px;
-}
-#portfolio th {
-  padding: 10px 30px;
-  text-align: left;
-}
-#portfolio th.details {
-  width: 45%;
-}
-
 /* static pages */
 @keyframes spinning {
   from {

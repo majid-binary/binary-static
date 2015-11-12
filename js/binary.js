@@ -51914,7 +51914,7 @@ pjax_config_page('rise_fall_table', function() {
     };
 });
 
-pjax_config_page('portfoliows|portfolio|trade.cgi|statement|f_manager_statement|f_manager_history|' +
+pjax_config_page('portfolio|trade.cgi|statement|f_manager_statement|f_manager_history|' +
     'f_profit_table|profit_table|trading|statementws|profit_tablews', function() {
     return {
         onLoad: function() {
@@ -57266,6 +57266,150 @@ pjax_config_page('user/assessment', function() {
         }
     };
 });
+;var PasswordWS = (function(){
+
+	var $form, $result;
+
+	var init = function() {
+		$form   = $("#change-password > form");
+		$result = $("#change-password > div[data-id='success-result']");
+		$form.find("button").on("click", function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			PasswordWS.sendRequest();
+		});
+	};
+	
+	var validateForm = function() {
+
+		var isValid 	= true,
+			old_pass 	= $form.find("input[name='oldpassword']").val(),
+			new_pass 	= $form.find("input[name='new-password']").val(),
+			repeat_pass = $form.find("input[name='repeat-password']").val();
+
+		/**
+		 * Validation for new-password
+		**/
+
+		// Old passwrod cannot be blank. We leave the actual matching to backend
+		if(0 === old_pass.length) {
+			$form.find("p[data-error='old-blank']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='old-blank']").addClass("hidden");
+		}		
+
+		// New password cannot be the same as the old password
+		if(new_pass.length > 0 && new_pass === old_pass) {
+			$form.find("p[data-error='same-as-old']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='same-as-old']").addClass("hidden");
+		}
+
+		// Min length
+		if(new_pass.length < 6) {
+			$form.find("p[data-error='too-short']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='too-short']").addClass("hidden");
+		}
+
+		// Max length
+		if(new_pass.length > 25) {
+			$form.find("p[data-error='too-long']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='too-long']").addClass("hidden");
+		}
+
+		// Invalid characters
+		var regexp = new RegExp('^[\\s.A-Za-z0-9@_:+-\/=]*$');
+		if(new_pass.length && !regexp.test(new_pass)){
+			$form.find("p[data-error='bad-chars']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='bad-chars']").addClass("hidden");
+		}
+
+
+		// New and Repeat should be the same
+		if(new_pass !== repeat_pass) {
+			$form.find("p[data-error='not-the-same']").removeClass("hidden");
+			isValid = false;
+		} else {
+			$form.find("p[data-error='not-the-same']").addClass("hidden");
+		}
+
+		if(isValid) return {
+			old_pass: old_pass,
+			new_pass: new_pass
+		};
+
+		return false;
+
+	};
+
+	var sendRequest = function() {
+
+		$form.find("p[data-error='server-sent-error']").addClass("hidden");
+
+		var passwords = validateForm();
+		if(false === passwords) return false;
+
+		TradeSocket.send({
+		    "change_password": "1",
+		    "old_password": passwords.old_pass,
+		    "new_password": passwords.new_pass
+		});
+
+	};
+
+	var apiResponse = function(resp) {
+
+		console.log("apiResponse:", resp);
+
+		/** 
+		 * Failed
+		**/
+		if("error" in resp) {
+			var errorMsg = text.localize("Changing password failed.");
+			if("message" in resp.error) {
+				errorMsg = resp.error.message;
+			}
+			$form.find("p[data-error='server-sent-error']").text(errorMsg).removeClass("hidden");
+			return false;
+		}
+
+		/**
+		 * Succeeded
+		**/
+		$form.addClass("hidden");
+		$result.removeClass("hidden");
+		window.setTimeout(function() {
+			// When the user changes her password, server does not destroy her session, so we logout here
+			window.location = window.location.protocol + "//" + window.location.hostname + "/logout" + window.location.search;
+		}, 5000);
+
+		return true;
+
+	};
+
+	return {
+		init: init,
+		sendRequest: sendRequest,
+		apiResponse: apiResponse
+	};
+
+})();
+
+pjax_config_page("user/change_password", function() {
+    return {
+        onLoad: function() {
+            PasswordWS.init();
+        }
+    };
+});
 ;var ClientForm = function(init_params) {
     this.valid_loginids = new RegExp(init_params['valid_loginids']);
 };
@@ -58024,187 +58168,6 @@ $(function() {
       collapsible: true,
       active: false
     });
-});
-;var PortfolioWS =  (function() {
-
-    'use strict';
-
-    var pageLanguage = page.language();
-    if(!pageLanguage) pageLanguage = "EN";
-
-    var rowTemplate;
-    var retry;
-
-    var init = function() {
-        // get the row template and then discard the node as it has served its purpose
-        rowTemplate = $("#portfolio-dynamic tr:first")[0].outerHTML;
-        $("#portfolio-dynamic tr:first").remove();
-        TradeSocket.init({"then_do":"updateBalance"});
-    };
-
-    
-    var updateBalance = function(data) {
-        $("span[data-id='balance']").text(fixCurrency(data.authorize.balance, data.authorize.currency));
-        if(parseFloat(data.authorize.balance, 10) > 0) {
-            $("#if-balance-zero").remove();
-        }
-    };
-
-    /**
-     * Updates portfolio table
-    **/
-    var updatePortfolio = function(data) {
-
-        /**
-         * Check for error
-        **/
-        if("error" in data) {
-            throw new Error("Trying to get portfolio data, we got this error", data.error);
-        }
-
-        /**
-         * no contracts
-        **/
-        if(0 === data.portfolio.contracts.length) {
-            $("#portfolio-table").remove();
-            $("#portfolio-no-contract").removeClass("dynamic");
-            return true;
-        }
-
-        /**
-         * User has at least one contract
-        **/
-
-        $("#portfolio-no-contract").remove();
-        var contracts = '';
-        var sumPurchase = 0.0;
-        var currency;
-        $.each(data.portfolio.contracts, function(ci, c) {
-            sumPurchase += parseFloat(c.buy_price, 10);
-            currency = c.currency;
-            contracts += rowTemplate
-            .split("!transaction_id!").join(c.transaction_id)
-            .split("!contract_id!").join(c.contract_id)
-            .split("!longcode!").join(c.longcode)
-            .split("!currency!").join(c.currency)
-            .split("!buy_price!").join(fixCurrency(c.buy_price));
-        });
-
-        // contracts is ready to be added to the dom
-        $("#portfolio-dynamic").replaceWith(trans(contracts));
-
-        // update footer area data
-        sumPurchase = sumPurchase.toFixed(2);
-        $("#cost-of-open-positions").text( fixCurrency(sumPurchase, currency));
-
-        // request "proposal_open_contract"
-        TradeSocket.send({"proposal_open_contract":1});
-
-        // ready to show portfolio table
-        $("#trading_init_progress").remove();
-        $("#portfolio-content").removeClass("dynamic");
-
-    };
-
-    var updateIndicative = function(data) {
-
-        if("error" in data) {
-            // if api returns a response like the one below. 
-            // we assume the indicative to be 0 if this happens
-            /*
-            {
-              "echo_req": {
-                "proposal_open_contract": 1
-              },
-              "error": {
-                "code": "ContractSellValidationError",
-                "message": "Resale of this contract is not offered."
-              },
-              "proposal_open_contract": {
-                "id": "c4f8b5176928a7823ff09f8f44a51528"
-              },
-              "msg_type": "proposal_open_contract"
-            }
-            */
-            return false;
-        }
-
-        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] strong.indicative_price").text(data.proposal_open_contract.ask_price);
-
-        var indicative_sum = 0, indicative_price = 0;
-        $("strong.indicative_price").each(function() {
-            indicative_price = $(this).text();
-            indicative_price = parseFloat(indicative_price, 2);
-            if(!isNaN(indicative_price)) {
-                indicative_sum += indicative_price;
-            }
-        });
-
-        indicative_sum = indicative_sum.toFixed(2);
-
-        $("#value-of-open-positions").text(fixCurrency(indicative_sum, "USD"));
-
-    };
-
-
-    /*** utility functions ***/
-
-    // Dynamic text
-    var dTexts = ["view", "indicative"];
-
-    /**
-     * In the dynamic parts we have strings to include
-     * For instance, in portfolio table, we have a 'View' button
-     * for each contract.
-    **/
-    var trans = function(str) {
-        var placeholder;
-        for(var i = 0, l = dTexts.length; i < l; i++) {
-            placeholder = ":"+dTexts[i]+":";
-            if(-1 === str.indexOf(placeholder)) continue;
-            str = str.split(placeholder).join(text.localize(dTexts[i]));
-        }
-        return str;
-    };
-
-    /**
-     * Amounts received from the API could be integer or decimal numbers.
-     * In case we have an integer, like 73, we want to display a decimal
-     * with two fractions, i.e. 73:00
-     * This function does that.
-     * Adapted from http://stackoverflow.com/a/14428340
-     * Kudos to: [VisioN](http://stackoverflow.com/users/1249581)
-    **/
-    var fixCurrency = function(n, c) {
-        var currency = ""; 
-        if("number" !== typeof n) n = parseFloat(n);
-        var snum = n + "", dec;
-        if(-1 === snum.indexOf(".")) {
-            dec = 2;
-        } else {
-            dec = snum.split(".")[1].length;
-        }
-        if("string" === typeof c) {
-            currency = c + " ";
-        }
-        return currency + " " + n.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-    };
- 
-    return {
-        init: init,
-        updateBalance: updateBalance,
-        updatePortfolio: updatePortfolio,
-        updateIndicative: updateIndicative
-    };
-
-})();
-
-pjax_config_page('portfoliows', function() {
-    return {
-        onLoad: function() {
-            PortfolioWS.init();
-        }
-    };
 });
 ;function currencyConvertorCalculator()
 {
@@ -60988,8 +60951,7 @@ var Message = (function () {
         process: process
     };
 
-})();
-;/*
+})();;/*
  * Price object handles all the functions we need to display prices
  *
  * We create Price proposal that we need to send to server to get price,
@@ -61825,8 +61787,7 @@ var TradeSocket = (function () {
         setClosedFlag: function (flag) { isClosedOnNavigation = flag; }
     };
 
-})();
-;/*
+})();;/*
  * Handles start time display
  *
  * It process `Contract.startDates` in case of forward
