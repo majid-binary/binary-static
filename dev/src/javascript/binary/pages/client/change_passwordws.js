@@ -89,7 +89,7 @@ var PasswordWS = (function(){
 		var passwords = validateForm();
 		if(false === passwords) return false;
 
-		TradeSocket.send({
+		BinarySocket.send({
 		    "change_password": "1",
 		    "old_password": passwords.old_pass,
 		    "new_password": passwords.new_pass
