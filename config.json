@@ -2,7 +2,7 @@
 	"website_name": "Binary.com",
 	"display_languages": "EN,ID,RU,ES,FR,PT,DE,ZH_CN,PL,AR,ZH_TW,VI,IT",
 	"static": {
-		"url": "https://majid-binary.github.io/binary-static/",
+		"url": "https://static.binary.com/",
 		"version": "3.8.0"
 	},
 	"marketing": {
@@ -34,6 +34,6 @@
 			"RU": "binaryhelplineru"
 		}
 	},
-	"binary_js_hash": "73c6f7b104ec3868ec25a1ee3ef575fe",
+	"binary_js_hash": "379a5154e872346fcee8dc52bfc347f1",
 	"binary_css_hash": "845280371d63bd73f416348c879951c1"
 }

@@ -138,6 +138,17 @@ var PasswordWS = (function(){
 pjax_config_page("user/change_password", function() {
     return {
         onLoad: function() {
+        	BinarySocket.init({
+                onmessage: function(msg){
+                    var response = JSON.parse(msg.data);
+                    if (response) {
+                        var type = response.msg_type;
+                        if (type === 'change_password'){
+                            PasswordWS.apiResponse(response);
+                        }
+                    }
+                }
+            });		 
             PasswordWS.init();
         }
     };
