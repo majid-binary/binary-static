@@ -141,18 +141,7 @@ pjax_config_page('chart_application', function () {
 
 pjax_config_page('trading', function () {
     return {
-        onLoad: function () {
-            TradeSocket.init();
-            TradingEvents.init();
-            Content.populate();
-            Symbols.getSymbols(1);
-            if (document.getElementById('websocket_form')) {
-                addEventListenerForm();
-            }
-        },
-        onUnload: function() {
-            forgetTradingStreams();
-            TradeSocket.socket().onclose(1);
-        }
+        onLoad: function(){TradePage.onLoad();},
+        onUnload: function(){TradePage.onUnload();}
     };
 });

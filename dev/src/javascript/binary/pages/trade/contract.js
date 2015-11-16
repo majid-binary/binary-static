@@ -114,7 +114,7 @@ var Contract = (function () {
     };
 
     var getContracts = function(underlying) {
-        TradeSocket.send({ contracts_for: underlying });
+        BinarySocket.send({ contracts_for: underlying });
     };
 
     var getContractForms = function() {

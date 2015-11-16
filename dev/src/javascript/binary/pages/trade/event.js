@@ -86,7 +86,7 @@ var TradingEvents = (function () {
                     // forget the old tick id i.e. close the old tick stream
                     processForgetTicks();
                     // get ticks for current underlying
-                    TradeSocket.send({ ticks : underlying });
+                    BinarySocket.send({ ticks : underlying });
                 }
             });
         }
@@ -98,6 +98,9 @@ var TradingEvents = (function () {
         if (durationAmountElement) {
             // jquery needed for datepicker
             $('#duration_amount').on('change', debounce(function (e) {
+                if (e.target.value % 1 !== 0 ) {
+                    e.target.value = Math.floor(e.target.value);
+                }
                 sessionStorage.setItem('duration_amount',e.target.value);
                 Durations.select_amount(e.target.value);
                 processPriceRequest();
@@ -259,7 +262,7 @@ var TradingEvents = (function () {
                 }
             }
             if (id && askPrice) {
-                TradeSocket.send(params);
+                BinarySocket.send(params);
                 Price.incrFormId();
                 processForgetProposals();
             }

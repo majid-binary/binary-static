@@ -60,7 +60,7 @@ if(typeof is_japan === 'function'){
         };
 
         var getContracts = function(underlying) {
-            TradeSocket.send({ contracts_for: underlying, region: 'japan' });
+            BinarySocket.send({ contracts_for: underlying, region: 'japan' });
         };
 
         var getContractForms = function() {

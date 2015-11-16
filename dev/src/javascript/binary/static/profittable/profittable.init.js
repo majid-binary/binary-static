@@ -73,7 +73,7 @@ var ProfitTableWS = (function () {
                 return;
             }
 
-            if (pFromTop < hidableHeight(70)) {
+            if (pFromTop < hidableHeight(50)) {
                 return;
             }
 

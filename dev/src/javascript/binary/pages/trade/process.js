@@ -61,7 +61,7 @@ function processMarketUnderlying() {
     // forget the old tick id i.e. close the old tick stream
     processForgetTicks();
     // get ticks for current underlying
-    TradeSocket.send({ ticks : underlying });
+    BinarySocket.send({ ticks : underlying });
 
     Tick.clean();
     
@@ -225,7 +225,7 @@ function forgetTradingStreams(){
 function processForgetProposals() {
     'use strict';
     showPriceOverlay();
-    TradeSocket.send({forget_all: "proposal"});
+    BinarySocket.send({forget_all: "proposal"});
     Price.clearMapping();   
 }
 
@@ -241,7 +241,7 @@ function processPriceRequest() {
     showPriceOverlay();
     for (var typeOfContract in Contract.contractType()[Contract.form()]) {
         if(Contract.contractType()[Contract.form()].hasOwnProperty(typeOfContract)) {
-            TradeSocket.send(Price.proposal(typeOfContract));
+            BinarySocket.send(Price.proposal(typeOfContract));
         }
     }
 }
@@ -252,7 +252,7 @@ function processPriceRequest() {
  */
 function processForgetTicks() {
     'use strict';
-    TradeSocket.send({ forget_all: 'ticks' });
+    BinarySocket.send({ forget_all: 'ticks' });
 }
 
 /*
@@ -299,7 +299,7 @@ function processTradingTimesRequest(date){
     }
     else{
         showPriceOverlay();
-        TradeSocket.send({ trading_times: date });
+        BinarySocket.send({ trading_times: date });
     }
 }
 

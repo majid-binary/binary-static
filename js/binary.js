@@ -49866,7 +49866,7 @@ Page.prototype = {
         this.record_affiliate_exposure();
         this.contents.on_load();
         this.on_click_acc_transfer();
-        this.on_click_view_balances();
+        ViewBalance.init();
         $('#current_width').val(get_container_width());//This should probably not be here.
     },
     on_unload: function() {
@@ -49895,34 +49895,6 @@ Page.prototype = {
                 return false;
             }
             $('#acc_transfer_submit').submit();
-        });
-    },
-    on_click_view_balances: function() {
-        $('#view-balances').on('click', function(event) {
-            event.preventDefault();
-            if ($(this).hasClass("disabled")) {
-                return false;
-            }
-            $(this).addClass("disabled");
-
-            $.ajax({
-                url: page.url.url_for('user/balance'),
-                dataType: 'text',
-                success: function (data) {
-                    var outer = $('#client-balances');
-                    if (outer) outer.remove();
-
-                    outer = $("<div id='client-balances' class='lightbox'></div>").appendTo('body');
-                    middle = $('<div />').appendTo(outer);
-                    $('<div>' + data + '</div>').appendTo(middle);
-
-                    $('#client-balances [bcont=1]').on('click', function () {
-                        $('#client-balances').remove();
-                    });
-                },
-            }).always(function() {
-                $('#view-balances').removeClass("disabled");
-            });
         });
     },
 
@@ -51936,19 +51908,8 @@ pjax_config_page('chart_application', function () {
 
 pjax_config_page('trading', function () {
     return {
-        onLoad: function () {
-            TradeSocket.init();
-            TradingEvents.init();
-            Content.populate();
-            Symbols.getSymbols(1);
-            if (document.getElementById('websocket_form')) {
-                addEventListenerForm();
-            }
-        },
-        onUnload: function() {
-            forgetTradingStreams();
-            TradeSocket.socket().onclose(1);
-        }
+        onLoad: function(){TradePage.onLoad();},
+        onUnload: function(){TradePage.onUnload();}
     };
 });
 ;var BetAnalysis = function () {
@@ -58467,11 +58428,6 @@ function initialize_pricing_table() {
 }
 
 onLoad.queue_for_url(initialize_pricing_table, 'pricing_table');
-;onLoad.queue_for_url(function() {
-    $('#profit-table-date').on('change', function() {
-        $('#submit-date').removeClass('invisible');
-    });
-}, 'profit_table');
 ;
 var self_exclusion_date_picker = function () {
     // 6 months from now
@@ -58505,7 +58461,11 @@ onLoad.queue_for_url(function () {
     self_exclusion_date_picker();
     self_exclusion_validate_date();
 }, 'self_exclusion');
-;/*
+;onLoad.queue_for_url(function() {
+    $('#statement-date').on('change', function() {
+        $('#submit-date').removeClass('invisible');
+    });
+}, 'statement');;/*
  * This file contains the code related to loading of trading page bottom analysis
  * content. It will contain jquery so as to compatible with old code and less rewrite
  *
@@ -59903,7 +59863,7 @@ var Contract = (function () {
     };
 
     var getContracts = function(underlying) {
-        TradeSocket.send({ contracts_for: underlying });
+        BinarySocket.send({ contracts_for: underlying });
     };
 
     var getContractForms = function() {
@@ -60422,7 +60382,7 @@ var TradingEvents = (function () {
                     // forget the old tick id i.e. close the old tick stream
                     processForgetTicks();
                     // get ticks for current underlying
-                    TradeSocket.send({ ticks : underlying });
+                    BinarySocket.send({ ticks : underlying });
                 }
             });
         }
@@ -60434,6 +60394,9 @@ var TradingEvents = (function () {
         if (durationAmountElement) {
             // jquery needed for datepicker
             $('#duration_amount').on('change', debounce(function (e) {
+                if (e.target.value % 1 !== 0 ) {
+                    e.target.value = Math.floor(e.target.value);
+                }
                 sessionStorage.setItem('duration_amount',e.target.value);
                 Durations.select_amount(e.target.value);
                 processPriceRequest();
@@ -60595,7 +60558,7 @@ var TradingEvents = (function () {
                 }
             }
             if (id && askPrice) {
-                TradeSocket.send(params);
+                BinarySocket.send(params);
                 Price.incrFormId();
                 processForgetProposals();
             }
@@ -60837,6 +60800,55 @@ var TradingEvents = (function () {
     };
 })();
 
+;/*
+ * This Message object process the response from server and fire
+ * events based on type of response
+ */
+var Message = (function () {
+    'use strict';
+
+    var process = function (msg) {
+        var response = JSON.parse(msg.data);
+        if(!TradePage.is_trading_page()){
+            forgetTradingStreams();
+            return;
+        }
+        if (response) {
+            var type = response.msg_type;
+            if (type === 'active_symbols') {
+                processActiveSymbols(response);
+            } else if (type === 'contracts_for') {
+                processContract(response);
+            } else if (type === 'payout_currencies') {
+                sessionStorage.setItem('currencies', msg.data);
+                displayCurrencies();
+                Symbols.getSymbols(1);
+            } else if (type === 'proposal') {
+                processProposal(response);
+            } else if (type === 'buy') {
+                Purchase.display(response);
+            } else if (type === 'tick') {
+                processTick(response);
+            } else if (type === 'trading_times'){
+                processTradingTimes(response);
+            } else if (type === 'statement'){
+                StatementWS.statementHandler(response);
+            } else if (type === 'profit_table'){
+                ProfitTableWS.profitTableHandler(response);
+            } else if (type === 'error') {
+                $(".error-msg").text(response.error.message);
+            }
+        } else {
+
+            console.log('some error occured');
+        }
+    };
+
+    return {
+        process: process
+    };
+
+})();
 ;/*
  * Price object handles all the functions we need to display prices
  *
@@ -61125,7 +61137,7 @@ function processMarketUnderlying() {
     // forget the old tick id i.e. close the old tick stream
     processForgetTicks();
     // get ticks for current underlying
-    TradeSocket.send({ ticks : underlying });
+    BinarySocket.send({ ticks : underlying });
 
     Tick.clean();
     
@@ -61289,7 +61301,7 @@ function forgetTradingStreams(){
 function processForgetProposals() {
     'use strict';
     showPriceOverlay();
-    TradeSocket.send({forget_all: "proposal"});
+    BinarySocket.send({forget_all: "proposal"});
     Price.clearMapping();   
 }
 
@@ -61305,7 +61317,7 @@ function processPriceRequest() {
     showPriceOverlay();
     for (var typeOfContract in Contract.contractType()[Contract.form()]) {
         if(Contract.contractType()[Contract.form()].hasOwnProperty(typeOfContract)) {
-            TradeSocket.send(Price.proposal(typeOfContract));
+            BinarySocket.send(Price.proposal(typeOfContract));
         }
     }
 }
@@ -61316,7 +61328,7 @@ function processPriceRequest() {
  */
 function processForgetTicks() {
     'use strict';
-    TradeSocket.send({ forget_all: 'ticks' });
+    BinarySocket.send({ forget_all: 'ticks' });
 }
 
 /*
@@ -61363,7 +61375,7 @@ function processTradingTimesRequest(date){
     }
     else{
         showPriceOverlay();
-        TradeSocket.send({ trading_times: date });
+        BinarySocket.send({ trading_times: date });
     }
 }
 
@@ -61721,7 +61733,7 @@ var Symbols = (function () {
     };
 
     var getSymbols = function (update) {
-        TradeSocket.send({
+        BinarySocket.send({
             active_symbols: "brief"
         });
         need_page_update = update;
@@ -61861,7 +61873,52 @@ WSTickDisplay.updateChart = function(data){
     }           
 };
 
-;var TUser = (function () {
+;var TradePage = (function(){
+	
+	var trading_page = 0;
+
+	var onLoad = function(){
+		trading_page = 1;
+		if(sessionStorage.getItem('currencies')){
+			displayCurrencies();
+		}		
+		BinarySocket.init({
+			onmessage: function(msg){
+				Message.process(msg);
+			},
+			onclose: function(){
+				processMarketUnderlying();
+			}
+		});
+		Price.clearFormId();
+		TradingEvents.init();
+		Content.populate();
+		
+		if(sessionStorage.getItem('currencies')){
+			displayCurrencies();
+			Symbols.getSymbols(1);
+		}
+		else {
+			BinarySocket.send({ payout_currencies: 1 });
+		}
+		
+		if (document.getElementById('websocket_form')) {
+		    addEventListenerForm();
+		}
+	};
+
+	var onUnload = function(){
+		trading_page = 0;
+		forgetTradingStreams();
+		BinarySocket.clear();
+	};
+
+	return {
+		onLoad: onLoad,
+		onUnload : onUnload,
+		is_trading_page: function(){return trading_page;}
+	};
+})();;var TUser = (function () {
     var data = {};
     return {
         set: function(a){ data = a; },
@@ -62110,6 +62167,156 @@ if (!/backoffice/.test(document.URL)) { // exclude BO
                                                        LocalStore);
     });
 }
+;/*
+ * It provides a abstraction layer over native javascript Websocket.
+ *
+ * Provide additional functionality like if connection is close, open
+ * it again and process the buffered requests
+ *
+ *
+ * Usage:
+ *
+ * `BinarySocket.init()` to initiate the connection
+ * `BinarySocket.send({contracts_for : 1})` to send message to server
+ */
+var BinarySocket = (function () {
+    'use strict';
+
+    var binarySocket,
+        socketUrl = "wss://"+window.location.host+"/websockets/v3",
+        bufferedSends = [],
+        manualClosed = false,
+        events = {},
+        authorized = false;
+
+    if (page.language()) {
+        socketUrl += '?l=' + page.language();
+    }
+
+    var status = function () {
+        return binarySocket && binarySocket.readyState;
+    };
+
+    var isReady = function () {
+        return binarySocket && binarySocket.readyState === 1;
+    };
+
+    var isClose = function () {
+        return !binarySocket || binarySocket.readyState === 2 || binarySocket.readyState === 3;
+    };
+
+    var sendBufferedSends = function () {
+        while (bufferedSends.length > 0) {
+            binarySocket.send(JSON.stringify(bufferedSends.shift()));
+        }
+    };
+
+    var send = function(data) {
+
+        if (isClose()) {
+            bufferedSends.push(data);
+            init(1);
+        } else if (isReady() && (authorized || TradePage.is_trading_page())) {
+            binarySocket.send(JSON.stringify(data));
+        } else {
+            bufferedSends.push(data);
+        }
+    };
+
+    var init = function (es) {
+
+        if(!es){
+            events = {};
+        }
+        if(typeof es === 'object'){
+            bufferedSends = [];
+            manualClosed = false;
+            events = es;
+        }
+
+        if(isClose()){
+            binarySocket = new WebSocket(socketUrl);
+        }
+        
+        binarySocket.onopen = function (){
+
+            var loginToken = getCookieItem('login');
+            if(loginToken) {
+                binarySocket.send(JSON.stringify({authorize: loginToken}));
+            }
+            else {
+                sendBufferedSends();
+            }
+
+            if(typeof events.onopen === 'function'){
+                events.onopen();
+            }
+        };
+
+        binarySocket.onmessage = function (msg){
+
+            var response = JSON.parse(msg.data);
+            if (response) {
+                var type = response.msg_type;
+                if (type === 'authorize') {
+                    authorized = true;
+                    TUser.set(response.authorize);
+                    if(typeof events.onauth === 'function'){
+                        events.onauth();
+                    }
+                    send({balance:1, subscribe: 1});
+                    sendBufferedSends();
+                } else if (type === 'balance') {
+                    ViewBalanceUI.updateBalances(response.balance);
+                }
+
+                if(typeof events.onmessage === 'function'){
+                    events.onmessage(msg);
+                }
+            }
+        };
+
+        binarySocket.onclose = function (e) {
+
+            authorized = false;
+
+            if(!manualClosed){
+                init(1);
+            }
+            if(typeof events.onclose === 'function'){
+                events.onclose();
+            }
+        };
+
+        binarySocket.onerror = function (error) {
+            console.log('socket error', error);
+        };
+    };
+
+    var close = function () {
+        manualClosed = true;
+        bufferedSends = [];
+        events = {};
+        if (binarySocket) {
+            binarySocket.close();
+        }
+    };
+
+    var clear = function(){
+        bufferedSends = [];
+        manualClosed = false;
+        events = {};
+    };
+
+    return {
+        init: init,
+        send: send,
+        close: close,
+        socket: function () { return binarySocket; },
+        clear: clear
+    };
+
+})();
 ;var Button = (function(){
     "use strict";
     function createBinaryStyledButton(){
@@ -62273,7 +62480,6 @@ var Table = (function(){
         return $tr;
     }
 
-
     function clearTableBody(id){
         var tbody = document.querySelector("#" + id +">tbody");
         while (tbody.firstElementChild){
@@ -62317,10 +62523,22 @@ var Table = (function(){
         appendTableBody: appendTableBody
     };
 }());;
+
 pjax_config_page("profit_table", function(){
     return {
         onLoad: function() {
-            TradeSocket.init();
+            BinarySocket.init({
+                onmessage: function(msg){
+                    var response = JSON.parse(msg.data);
+
+                    if (response) {
+                        var type = response.msg_type;
+                        if (type === 'profit_table'){
+                            ProfitTableWS.profitTableHandler(response);
+                        }
+                    }
+                }
+            });
             Content.populate();
             ProfitTableWS.init();
         },
@@ -62328,7 +62546,8 @@ pjax_config_page("profit_table", function(){
             ProfitTableWS.clean();
         }
     };
-});;
+});
+;
 var ProfitTableData = (function(){
     function getProfitTable(opts){
         var req = {profit_table: 1, description: 1};
@@ -62336,7 +62555,7 @@ var ProfitTableData = (function(){
             $.extend(true, req, opts);
         }
 
-        TradeSocket.send(req);
+        BinarySocket.send(req);
     }
 
     return {
@@ -62417,7 +62636,7 @@ var ProfitTableWS = (function () {
                 return;
             }
 
-            if (pFromTop < hidableHeight(70)) {
+            if (pFromTop < hidableHeight(50)) {
                 return;
             }
 
@@ -62527,7 +62746,6 @@ var ProfitTableUI = (function(){
         var data = [buyDate, ref, contract, buyPrice, sellDate, sellPrice, pl];
         var $row = Table.createFlexTableRow(data, cols, "data");
 
-        $row.children(".buy-date").addClass("break-line");
         $row.children(".pl").addClass(plType);
 
         //create view button and append
@@ -62561,10 +62779,21 @@ var ProfitTableUI = (function(){
         initDatepicker: initDatepicker,
         cleanTableContent: clearTableContent
     };
-}());;pjax_config_page("statement", function(){
+}());;pjax_config_page("statementws", function(){
     return {
         onLoad: function() {
-            TradeSocket.init();
+            BinarySocket.init({
+                onmessage: function(msg){
+                    var response = JSON.parse(msg.data);
+
+                    if (response) {
+                        var type = response.msg_type;
+                        if (type === 'statement'){
+                            StatementWS.statementHandler(response);
+                        }
+                    }
+                }
+            });
             Content.populate();
             StatementWS.init();
         },
@@ -62573,7 +62802,6 @@ var ProfitTableUI = (function(){
         }
     };
 });
-
 ;var StatementData = (function(){
     "use strict";
     var hasOlder = true;
@@ -62584,7 +62812,7 @@ var ProfitTableUI = (function(){
             $.extend(true, req, opts);    
         }
 
-        TradeSocket.send(req);
+        BinarySocket.send(req);
     }
 
     return {
@@ -62757,7 +62985,6 @@ var ProfitTableUI = (function(){
 
         var $statementRow = Table.createFlexTableRow([date, ref, action, desc, amount, balance], columns, "data");
         $statementRow.children(".credit").addClass(creditDebitType);
-        $statementRow.children(".date").addClass("break-line");
 
         //create view button and append
         if (action === "Sell" || action === "Buy") {
@@ -62781,6 +63008,34 @@ var ProfitTableUI = (function(){
         clearTableContent: clearTableContent,
         createEmptyStatementTable: createEmptyStatementTable,
         updateStatementTable: updateStatementTable
+    };
+}());
+;
+var ViewBalance = (function () {
+    function init(){
+        BinarySocket.init(1);
+    }
+
+    return {
+        init: init
+    };
+}());;
+var ViewBalanceUI = (function(){
+
+    function updateBalances(balance){
+        var bal = Number(parseFloat(balance.balance)).toFixed(2);
+        var currency = balance.currency;
+        var view = currency.toString() + " " + bal.toString();
+
+        if(!currency){
+            return;
+        }
+
+        $("#balance").text(view);
+    }
+
+    return {
+        updateBalances: updateBalances
     };
 }());
 ;//////////////////////////////////////////////////////////////////
@@ -63278,7 +63533,7 @@ function attach_tabs(element) {
         };
 
         var getContracts = function(underlying) {
-            TradeSocket.send({ contracts_for: underlying, region: 'japan' });
+            BinarySocket.send({ contracts_for: underlying, region: 'japan' });
         };
 
         var getContractForms = function() {

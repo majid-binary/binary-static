@@ -50,7 +50,6 @@ var StatementUI = (function(){
 
         var $statementRow = Table.createFlexTableRow([date, ref, action, desc, amount, balance], columns, "data");
         $statementRow.children(".credit").addClass(creditDebitType);
-        $statementRow.children(".date").addClass("break-line");
 
         //create view button and append
         if (action === "Sell" || action === "Buy") {

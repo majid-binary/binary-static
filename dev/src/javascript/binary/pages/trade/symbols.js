@@ -71,7 +71,7 @@ var Symbols = (function () {
     };
 
     var getSymbols = function (update) {
-        TradeSocket.send({
+        BinarySocket.send({
             active_symbols: "brief"
         });
         need_page_update = update;
