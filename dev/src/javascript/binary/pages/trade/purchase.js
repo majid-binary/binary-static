@@ -107,18 +107,18 @@ var Purchase = (function () {
                 contract_sentiment = 'down';
             }
             WSTickDisplay.initialize({
-                "symbol":passthrough.symbol,
-                "number_of_ticks":passthrough.duration,
-                "previous_tick_epoch":receipt['start_time'],
-                "contract_category":"callput",
-
-                "display_symbol":Symbols.getName(passthrough.symbol),
-                "contract_start":receipt['start_time'],
-                "decimal":3,
-                "contract_sentiment":contract_sentiment,
-                "price":passthrough['ask-price'],
-                "payout":passthrough['amount'],
-                "show_contract_result":1
+                symbol:passthrough.symbol,
+                number_of_ticks:passthrough.duration,
+                previous_tick_epoch:receipt['start_time'],
+                contract_category:sessionStorage.getItem('formname')==='asian' ? 'asian' : 'callput',
+                display_symbol:Symbols.getName(passthrough.symbol),
+                contract_start:receipt['start_time'],
+                decimal:3,
+                contract_sentiment:contract_sentiment,
+                price:passthrough['ask-price'],
+                payout:passthrough['amount'],
+                show_contract_result:1,
+                width: $('#confirmation_message').width(),
             });
         }
     };

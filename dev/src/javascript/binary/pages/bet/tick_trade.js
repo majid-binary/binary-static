@@ -33,12 +33,13 @@ var TickDisplay = function() {
             }
 
             var minimize = data.show_contract_result;
+            
             $self.set_x_indicators();
-
             $self.initialize_chart({
                 plot_from: data.previous_tick_epoch * 1000,
                 plot_to: new Date((parseInt(data.contract_start) + parseInt(($self.number_of_ticks+2)*tick_frequency)) * 1000).getTime(),
                 minimize: minimize,
+                width: data.width ? data.width : undefined
             });
         },
         set_x_indicators: function() {
@@ -84,7 +85,7 @@ var TickDisplay = function() {
                 chart: {
                     type: 'line',
                     renderTo: 'tick_chart',
-                    width: config.minimize ? 394 : null,
+                    width: config.width ? config.width : (config.minimize ? 394 : null),
                     height: config.minimize ? 143 : null,
                     backgroundColor: null,
                     events: { load: $self.plot(config.plot_from, config.plot_to) },

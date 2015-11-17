@@ -131,35 +131,35 @@
          target.removeChild(target.firstChild);
      }
 
-     for (var key in elements) {
-         if (elements.hasOwnProperty(key)){
-             var option = document.createElement('option'), content = document.createTextNode(elements[key].name);
-             option.setAttribute('value', key);
-             if (selected && selected === key) {
-                 option.setAttribute('selected', 'selected');
-             }
-             if(!elements[key].is_active){
-                option.setAttribute('disabled', '');
-             }
-             option.appendChild(content);
-             fragment.appendChild(option);
+     var keys1 = Object.keys(elements).sort(marketSort);
+     for (var i=0; i<keys1.length; i++) {
+         var key = keys1[i]; 
+         var option = document.createElement('option'), content = document.createTextNode(elements[key].name);
+         option.setAttribute('value', key);
+         if (selected && selected === key) {
+             option.setAttribute('selected', 'selected');
+         }
+         if(!elements[key].is_active){
+            option.setAttribute('disabled', '');
+         }
+         option.appendChild(content);
+         fragment.appendChild(option);
 
-             if(elements[key].submarkets && Object.keys(elements[key].submarkets).length){
-                for(var key2 in elements[key].submarkets){
-                    if(key2){
-                        option = document.createElement('option');
-                        option.setAttribute('value', key2);
-                        if (selected && selected === key2) {
-                            option.setAttribute('selected', 'selected');
-                        }
-                        if(!elements[key].submarkets[key2].is_active){
-                           option.setAttribute('disabled', '');
-                        }
-                        option.textContent = '\xA0\xA0\xA0\xA0'+elements[key].submarkets[key2].name;
-                        fragment.appendChild(option);
-                    }
+         if(elements[key].submarkets && Object.keys(elements[key].submarkets).length){
+            var keys2 = Object.keys(elements[key].submarkets).sort(marketSort);
+            for (var j=0; j<keys2.length; j++) {
+                var key2 = keys2[j]; 
+                option = document.createElement('option');
+                option.setAttribute('value', key2);
+                if (selected && selected === key2) {
+                    option.setAttribute('selected', 'selected');
                 }
-             }
+                if(!elements[key].submarkets[key2].is_active){
+                   option.setAttribute('disabled', '');
+                }
+                option.textContent = '\xA0\xA0\xA0\xA0'+elements[key].submarkets[key2].name;
+                fragment.appendChild(option);
+            }
          }
      }
      if (target) {
@@ -213,8 +213,17 @@ function displayUnderlyings(id, elements, selected) {
         var keys = Object.keys(elements).sort(function(a, b) {
             return elements[a]['display'].localeCompare(elements[b]['display']);
         });
-        keys.forEach(function (key) {
-            if (elements.hasOwnProperty(key)){
+        var submarkets = {};
+        for(var i=0; i<keys.length; i++){
+            if(!submarkets.hasOwnProperty(elements[keys[i]].submarket)){
+                submarkets[elements[keys[i]].submarket] = [];
+            }
+            submarkets[elements[keys[i]].submarket].push(keys[i]);
+        }
+        var keys2 = Object.keys(submarkets).sort(marketSort);
+        for(var j=0; j<keys2.length; j++){
+            for(var k=0; k<submarkets[keys2[j]].length; k++){
+                var key = submarkets[keys2[j]][k];
                 var option = document.createElement('option'), content = document.createTextNode(text.localize(elements[key]['display']));
                 option.setAttribute('value', key);
                 if (elements[key]['is_active'] !== 1) {
@@ -226,7 +235,7 @@ function displayUnderlyings(id, elements, selected) {
                 option.appendChild(content);
                 fragment.appendChild(option);
             }
-        });
+        }
     }
     if (target) {
         target.appendChild(fragment);
@@ -666,6 +675,44 @@ function durationOrder(duration){
         d:5
     };
     return order[duration];
+}
+
+function marketOrder(market){
+    'use strict';
+    var order = {
+        forex: 0,
+        major_pairs: 1,
+        minor_pairs: 2,
+        smart_fx: 3,
+        indices: 4,
+        asia_oceania: 5,
+        europe_africa: 6,
+        americas: 7,
+        stocks: 8,
+        france: 9,
+        belgium: 10,
+        amsterdam: 11,
+        commodities: 12,
+        metals: 13,
+        energy: 14,
+        random: 15,
+        random_index: 16,
+        random_daily: 17,
+        random_nightly: 18
+    };
+    return order[market];
+}
+
+function marketSort(a,b){
+    if(marketOrder(a) > marketOrder(b)){
+        return 1;
+    }
+    else if(marketOrder(a) < marketOrder(b)){
+        return -1;
+    }
+    else{
+        return 0;
+    }
 }
 
 function displayTooltip(market, symbol){

@@ -14,7 +14,7 @@ var Barriers = (function () {
         var barriers = Contract.barriers()[sessionStorage.getItem('underlying')],
             formName = Contract.form();
 
-        if (barriers && formName) {
+        if (barriers && formName && sessionStorage.getItem('formname')!=='risefall') {
             var barrier = barriers[formName];
             if(barrier) {
                 var unit = document.getElementById('duration_units'),

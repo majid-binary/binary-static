@@ -1,6 +1,10 @@
 pjax_config_page("statementws", function(){
     return {
         onLoad: function() {
+            if (!getCookieItem('login')) {
+                window.location.href = page.url.url_for('login');
+                return;
+            }
             BinarySocket.init({
                 onmessage: function(msg){
                     var response = JSON.parse(msg.data);
