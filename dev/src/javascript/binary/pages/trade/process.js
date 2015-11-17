@@ -58,6 +58,8 @@ function processMarketUnderlying() {
     var underlying = document.getElementById('underlying').value;
     sessionStorage.setItem('underlying', underlying);
 
+    showFormOverlay();
+
     // forget the old tick id i.e. close the old tick stream
     processForgetTicks();
     // get ticks for current underlying
@@ -66,7 +68,7 @@ function processMarketUnderlying() {
     Tick.clean();
     
     updateWarmChart();
-
+    
     Contract.getContracts(underlying);
 
     displayTooltip(sessionStorage.getItem('market'),underlying);
@@ -79,6 +81,11 @@ function processContract(contracts) {
     'use strict';
 
     Contract.setContracts(contracts);
+
+    if(typeof contracts.contracts_for !== 'undefined'){
+        Tick.setQuote(contracts.contracts_for.spot);
+        Tick.display(contracts.contracts_for.spot);
+    }
 
     var contract_categories = Contract.contractForms();
     var formname;
@@ -108,6 +115,8 @@ function processContract(contracts) {
     processContractForm();
 
     TradingAnalysis.request();
+
+    hideFormOverlay();
 }
 
 function processContractForm() {

@@ -339,6 +339,23 @@ function hidePriceOverlay() {
     if (elm) {
         elm.style.display = 'none';
     }
+    
+}
+
+function hideFormOverlay(){
+    'use strict';
+    var elm = document.getElementById('loading_container3');
+    if (elm) {
+        elm.style.display = 'none';
+    }
+}
+
+function showFormOverlay(){
+    'use strict';
+    var elm = document.getElementById('loading_container3');
+    if (elm) {
+        elm.style.display = 'block';
+    }
 }
 
 /*

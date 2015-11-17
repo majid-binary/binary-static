@@ -72,6 +72,7 @@ var TradingEvents = (function () {
         if (underlyingElement) {
             underlyingElement.addEventListener('change', function(e) {
                 if (e.target) {
+                    showFormOverlay();
                     showPriceOverlay();
                     var underlying = e.target.value;
                     sessionStorage.setItem('underlying', underlying);

@@ -105,7 +105,7 @@ var PasswordWS = (function(){
 		 * Failed
 		**/
 		if("error" in resp) {
-			var errorMsg = text.localize("Changing password failed.");
+			var errorMsg = text.localize("Old password is wrong.");
 			if("message" in resp.error) {
 				errorMsg = resp.error.message;
 			}
@@ -118,11 +118,6 @@ var PasswordWS = (function(){
 		**/
 		$form.addClass("hidden");
 		$result.removeClass("hidden");
-		window.setTimeout(function() {
-			// When the user changes her password, server does not destroy her session, so we logout here
-			window.location = window.location.protocol + "//" + window.location.hostname + "/logout" + window.location.search;
-		}, 5000);
-
 		return true;
 
 	};

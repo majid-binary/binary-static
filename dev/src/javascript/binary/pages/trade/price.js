@@ -130,6 +130,11 @@ var Price = (function () {
         }
 
         var position = contractTypeDisplayMapping(type);
+
+        if(!position){
+            return;
+        }
+        
         var container = document.getElementById('price_container_'+position);
 
         var h4 = container.getElementsByClassName('contract_heading')[0],

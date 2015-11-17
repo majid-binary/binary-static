@@ -57334,7 +57334,7 @@ pjax_config_page('user/assessment', function() {
 		 * Failed
 		**/
 		if("error" in resp) {
-			var errorMsg = text.localize("Changing password failed.");
+			var errorMsg = text.localize("Old password is wrong.");
 			if("message" in resp.error) {
 				errorMsg = resp.error.message;
 			}
@@ -57347,11 +57347,6 @@ pjax_config_page('user/assessment', function() {
 		**/
 		$form.addClass("hidden");
 		$result.removeClass("hidden");
-		window.setTimeout(function() {
-			// When the user changes her password, server does not destroy her session, so we logout here
-			window.location = window.location.protocol + "//" + window.location.hostname + "/logout" + window.location.search;
-		}, 5000);
-
 		return true;
 
 	};
@@ -58675,7 +58670,7 @@ var Barriers = (function () {
     var isBarrierUpdated = false;
 
     var display = function (barrierCategory) {
-        var barriers = Contract.barriers(),
+        var barriers = Contract.barriers()[sessionStorage.getItem('underlying')],
             formName = Contract.form();
 
         if (barriers && formName) {
@@ -59134,6 +59129,23 @@ function hidePriceOverlay() {
     var elm = document.getElementById('loading_container2');
     if (elm) {
         elm.style.display = 'none';
+    }
+    
+}
+
+function hideFormOverlay(){
+    'use strict';
+    var elm = document.getElementById('loading_container3');
+    if (elm) {
+        elm.style.display = 'none';
+    }
+}
+
+function showFormOverlay(){
+    'use strict';
+    var elm = document.getElementById('loading_container3');
+    if (elm) {
+        elm.style.display = 'block';
     }
 }
 
@@ -59825,23 +59837,24 @@ var Contract = (function () {
                     startDates.has_spot = 1;
                 }
 
-                var barrierObj = {};
+                var symbol = currentObj['underlying_symbol'];
                 if(currentObj.barrier_category && currentObj.barrier_category !== "non_financial"){
+                    if(!barriers.hasOwnProperty(symbol)){
+                        barriers[symbol] = {};
+                    }
                     if (currentObj.barriers === 1) {
-                        if (!barriers.hasOwnProperty(contractCategory)) {
-                            barrierObj['count'] = 1;
-                            barrierObj['barrier'] = currentObj['barrier'];
-                            barrierObj['barrier_category'] = currentObj['barrier_category'];
-                            barriers[formName] = barrierObj;
-                        }
+                        barriers[symbol][contractCategory] = {
+                            count: 1,
+                            barrier: currentObj['barrier'],
+                            barrier_category: currentObj['barrier_category']
+                        };
                     } else if (currentObj.barriers === 2) {
-                        if (!barriers.hasOwnProperty(contractCategory)) {
-                            barrierObj['count'] = 2;
-                            barrierObj['barrier'] = currentObj['high_barrier'];
-                            barrierObj['barrier1'] = currentObj['low_barrier'];
-                            barrierObj['barrier_category'] = currentObj['barrier_category'];
-                            barriers[formName] = barrierObj;
-                        }
+                        barriers[symbol][contractCategory] = {
+                            count: 2,
+                            barrier: currentObj['high_barrier'],
+                            barrier1: currentObj['low_barrier'],
+                            barrier_category: currentObj['barrier_category']
+                        };
                     }
                 }
 
@@ -60368,6 +60381,7 @@ var TradingEvents = (function () {
         if (underlyingElement) {
             underlyingElement.addEventListener('change', function(e) {
                 if (e.target) {
+                    showFormOverlay();
                     showPriceOverlay();
                     var underlying = e.target.value;
                     sessionStorage.setItem('underlying', underlying);
@@ -60981,6 +60995,11 @@ var Price = (function () {
         }
 
         var position = contractTypeDisplayMapping(type);
+
+        if(!position){
+            return;
+        }
+        
         var container = document.getElementById('price_container_'+position);
 
         var h4 = container.getElementsByClassName('contract_heading')[0],
@@ -61134,6 +61153,8 @@ function processMarketUnderlying() {
     var underlying = document.getElementById('underlying').value;
     sessionStorage.setItem('underlying', underlying);
 
+    showFormOverlay();
+
     // forget the old tick id i.e. close the old tick stream
     processForgetTicks();
     // get ticks for current underlying
@@ -61142,7 +61163,7 @@ function processMarketUnderlying() {
     Tick.clean();
     
     updateWarmChart();
-
+    
     Contract.getContracts(underlying);
 
     displayTooltip(sessionStorage.getItem('market'),underlying);
@@ -61155,6 +61176,11 @@ function processContract(contracts) {
     'use strict';
 
     Contract.setContracts(contracts);
+
+    if(typeof contracts.contracts_for !== 'undefined'){
+        Tick.setQuote(contracts.contracts_for.spot);
+        Tick.display(contracts.contracts_for.spot);
+    }
 
     var contract_categories = Contract.contractForms();
     var formname;
@@ -61184,6 +61210,8 @@ function processContract(contracts) {
     processContractForm();
 
     TradingAnalysis.request();
+
+    hideFormOverlay();
 }
 
 function processContractForm() {
@@ -61796,6 +61824,7 @@ var Tick = (function () {
     };
 
     var display = function () {
+        $('#spot').fadeIn(200);
         var spotElement = document.getElementById('spot');
         var message = '';
         if (errorMessage) {
@@ -61822,8 +61851,13 @@ var Tick = (function () {
         id: function () { return id; },
         epoch: function () { return epoch; },
         errorMessage: function () { return errorMessage; },
-        clean: function(){ spots = [];},
-        spots: function(){ return spots;}
+        clean: function(){ 
+            spots = []; 
+            quote = '';
+            $('#spot').fadeOut(200);
+        },
+        spots: function(){ return spots;},
+        setQuote: function(q){ quote = q; }
     };
 })();
 ;var WSTickDisplay = Object.create(TickDisplay);
