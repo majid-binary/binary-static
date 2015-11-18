@@ -57372,7 +57372,7 @@ pjax_config_page("user/change_password", function() {
                     var response = JSON.parse(msg.data);
                     if (response) {
                         var type = response.msg_type;
-                        if (type === 'change_password' || (type === 'error' && "change_password" in response.echo_req)){
+                        if (type === "change_password" || (type === "error" && "change_password" in response.echo_req)){
                             PasswordWS.apiResponse(response);
                         }
                     }
@@ -58461,11 +58461,7 @@ onLoad.queue_for_url(function () {
     self_exclusion_date_picker();
     self_exclusion_validate_date();
 }, 'self_exclusion');
-;onLoad.queue_for_url(function() {
-    $('#statement-date').on('change', function() {
-        $('#submit-date').removeClass('invisible');
-    });
-}, 'statement');;/*
+;/*
  * This file contains the code related to loading of trading page bottom analysis
  * content. It will contain jquery so as to compatible with old code and less rewrite
  *
@@ -58698,7 +58694,7 @@ var Barriers = (function () {
                         tooltip = document.getElementById('barrier_tooltip'),
                         span = document.getElementById('barrier_span');
                     if ((unit && unit.value === 'd') || (end_time && moment(end_time.value).isAfter(moment(),'day'))) {
-                        if (currentTick && !isNaN(currentTick)) {
+                        if (currentTick && !isNaN(currentTick) && barrier['barrier'].match(/^[+-]/)) {
                             elm.value = (parseFloat(currentTick) + parseFloat(barrier['barrier'])).toFixed(decimalPlaces);
                             elm.textContent = (parseFloat(currentTick) + parseFloat(barrier['barrier'])).toFixed(decimalPlaces);
                         } else {
@@ -58734,7 +58730,7 @@ var Barriers = (function () {
                         low_span = document.getElementById('barrier_low_span');
 
                     if (unit && unit.value === 'd') {
-                        if (currentTick && !isNaN(currentTick)) {
+                        if (currentTick && !isNaN(currentTick) && barrier['barrier'].match(/^[+-]/)) {
                             high_elm.value = (parseFloat(currentTick) + parseFloat(barrier['barrier'])).toFixed(decimalPlaces);
                             high_elm.textContent = (parseFloat(currentTick) + parseFloat(barrier['barrier'])).toFixed(decimalPlaces);
 
@@ -58876,6 +58872,7 @@ var Barriers = (function () {
                      a.setAttribute('menuitem',first);
                      ul.appendChild(fragment2);
                      ul.setAttribute('class', 'tm-ul-2');
+                     ul.setAttribute('id', el1[0]+'-submenu');
 
                      if(flag){
                         li.classList.add('active');
@@ -59056,6 +59053,9 @@ function getFormNameBarrierCategory(displayFormName) {
         } else if (displayFormName === 'callput'){
             obj['formName'] = displayFormName;
             obj['barrierCategory'] = 'euro_atm';
+        } else if (displayFormName === 'overunder' || displayFormName === 'evenodd' || displayFormName === 'matchdiff'){
+            obj['formName'] = 'digits';
+            obj['barrierCategory'] = '';
         } else {
             obj['formName'] = displayFormName;
             obj['barrierCategory'] = '';
@@ -59083,6 +59083,10 @@ function contractTypeDisplayMapping(type) {
         ASIAND: "bottom",
         DIGITMATCH: "top",
         DIGITDIFF: "bottom",
+        DIGITEVEN: "top",
+        DIGITODD: "bottom",
+        DIGITOVER: "top",
+        DIGITUNDER: "bottom",
         EXPIRYRANGE: "top",
         EXPIRYMISS: "bottom",
         RANGE: "top",
@@ -59214,7 +59218,11 @@ function getContractCategoryTree(elements){
             'staysinout']
         ],
         'asian',
-        'digits',
+        ['digits',
+            ['matchdiff',
+            'evenodd',
+            'overunder']
+        ],
         'spreads'
     ];
 
@@ -59560,6 +59568,22 @@ function selectOption(option, select){
     }
 }
 
+function updatePurchaseStatus(final_price, pnl, contract_status){
+    $('#contract_purchase_heading').text(text.localize(contract_status));
+    $payout = $('#contract_purchase_payout');
+    $cost = $('#contract_purchase_cost');
+    $profit = $('#contract_purchase_profit');
+
+    $payout.html(Content.localize().textBuyPrice + '<p>'+Math.abs(pnl)+'</p>');
+    $cost.html(Content.localize().textFinalPrice + '<p>'+final_price+'</p>');
+    if(!final_price){
+        $profit.html(Content.localize().textLoss + '<p>'+pnl+'</p>');
+    }
+    else{
+        $profit.html(Content.localize().textProfit + '<p>'+(Math.round((final_price-pnl)*100)/100)+'</p>');        
+    }
+}
+
 function updateWarmChart(){
     var $chart = $('#trading_worm_chart');
     var spots = Tick.spots();
@@ -59583,6 +59607,27 @@ function updateWarmChart(){
             $chart.hide();
         }  
     }  
+}
+
+function reloadPage(){
+    sessionStorage.removeItem('market');
+    sessionStorage.removeItem('formname');
+    sessionStorage.removeItem('underlying');
+
+    sessionStorage.removeItem('expiry_type');
+    sessionStorage.removeItem('stop_loss');
+    sessionStorage.removeItem('stop_type');
+    sessionStorage.removeItem('stop_profit');
+    sessionStorage.removeItem('amount_per_point');
+    sessionStorage.removeItem('prediction');
+    sessionStorage.removeItem('amount');
+    sessionStorage.removeItem('amount_type');
+    sessionStorage.removeItem('currency');
+    sessionStorage.removeItem('duration_units');
+    sessionStorage.removeItem('diration_value');
+    sessionStorage.removeItem('date_start');
+
+    location.reload();
 }
 ;var Content = (function () {
     'use strict';
@@ -59657,7 +59702,14 @@ function updateWarmChart(){
             textSaleDate: text.localize('Sale Date'),
             textSalePrice: text.localize('Sale Price'),
             textProfitLoss: text.localize('Profit/Loss'),
-            textTotalProfitLoss: text.localize('Total Profit/Loss')
+            textTotalProfitLoss: text.localize('Total Profit/Loss'),
+            textBuyPrice: text.localize('Buy price'),
+            textFinalPrice: text.localize('Final price'),
+            textLoss: text.localize('Loss'),
+            textProfit: text.localize('Profit'),
+            textFormMatchesDiffers: text.localize('Matches/Differs'),
+            textFormEvenOdd: text.localize('Even/Odd'),
+            textFormOverUnder: text.localize('Over/Under')
         };
 
         var starTime = document.getElementById('start_time_label');
@@ -59944,8 +59996,14 @@ var Contract = (function () {
                     } else {
                         tradeContractForms['higherlower'] = Content.localize().textFormHigherLower;
                     }
-                } else {
+                } 
+                else {
                     tradeContractForms[contractCategory] = text.localize(currentObj['contract_category_display']);
+                    if (contractCategory === 'digits') {
+                        tradeContractForms['matchdiff'] = Content.localize().textFormMatchesDiffers;
+                        // tradeContractForms['evenodd'] = Content.localize().textFormEvenOdd;
+                        // tradeContractForms['overunder'] = Content.localize().textFormOverUnder;
+                    } 
                 }
             }
         });
@@ -60820,24 +60878,7 @@ var TradingEvents = (function () {
         var init_logo = document.getElementById('trading_init_progress');
         if(init_logo){
             init_logo.addEventListener('click', debounce( function (e) {
-                sessionStorage.removeItem('market');
-                sessionStorage.removeItem('formname');
-                sessionStorage.removeItem('underlying');
-
-                sessionStorage.removeItem('expiry_type');
-                sessionStorage.removeItem('stop_loss');
-                sessionStorage.removeItem('stop_type');
-                sessionStorage.removeItem('stop_profit');
-                sessionStorage.removeItem('amount_per_point');
-                sessionStorage.removeItem('prediction');
-                sessionStorage.removeItem('amount');
-                sessionStorage.removeItem('amount_type');
-                sessionStorage.removeItem('currency');
-                sessionStorage.removeItem('duration_units');
-                sessionStorage.removeItem('diration_value');
-                sessionStorage.removeItem('date_start');
-
-                location.reload();
+                reloadPage();
             }));
         }
 
@@ -60988,9 +61029,11 @@ var Price = (function () {
             var endTime2 = Durations.getTime();
             if(!endTime2){
                 var trading_times = Durations.trading_times();
-                if(trading_times.hasOwnProperty(endDate2))
-                endTime2 = trading_times[endDate2][underlying.value];
+                if(trading_times.hasOwnProperty(endDate2) && typeof trading_times[endDate2][underlying.value] === 'string'){
+                    endTime2 = trading_times[endDate2][underlying.value];
+                }
             }
+
             proposal['date_expiry'] = moment.utc(endDate2 + " " + endTime2).unix();
         }
 
@@ -61271,8 +61314,10 @@ function processContractForm() {
 
     StartDates.display();
 
-    if(sessionStorage.getItem('date_start') && moment(sessionStorage.getItem('date_start')*1000).isAfter(moment(),'minutes')){
+    var forward = 0;
+    if($('#date_start:visible') && sessionStorage.getItem('date_start') && moment(sessionStorage.getItem('date_start')*1000).isAfter(moment(),'minutes')){
         selectOption(sessionStorage.getItem('date_start'), document.getElementById('date_start'));
+        forward = 1;
     }
 
     displayPrediction();
@@ -61286,7 +61331,6 @@ function processContractForm() {
     if(sessionStorage.getItem('amount_type')){
         selectOption(sessionStorage.getItem('amount_type'), document.getElementById('amount_type'));
     }
-
     Durations.display();
     var no_price_request;
     if(sessionStorage.getItem('expiry_type')==='endtime'){
@@ -61317,7 +61361,7 @@ function processContractForm() {
 
 function displayPrediction() {
     var predictionElement = document.getElementById('prediction_row');
-    if(sessionStorage.getItem('formname') === 'digits'){
+    if(Contract.form() === 'digits' && sessionStorage.getItem('formname')!=='evenodd'){
         predictionElement.show();
         if(sessionStorage.getItem('prediction')){
             selectOption(sessionStorage.getItem('prediction'),document.getElementById('prediction'));
@@ -61395,8 +61439,21 @@ function processPriceRequest() {
     Price.incrFormId();
     processForgetProposals();
     showPriceOverlay();
-    for (var typeOfContract in Contract.contractType()[Contract.form()]) {
-        if(Contract.contractType()[Contract.form()].hasOwnProperty(typeOfContract)) {
+    var types = Contract.contractType()[Contract.form()];
+    if(Contract.form()==='digits'){
+        switch(sessionStorage.getItem('formname')) {
+            case 'matchdiff':
+                types = {'DIGITMATCH':1, 'DIGITDIFF':1};
+                break;
+            case 'evenodd':
+                types = {'DIGITEVEN':1, 'DIGITODD':1};
+                break;
+            case 'overunder':
+                types = {'DIGITOVER':1, 'DIGITUNDER':1};
+        }
+    }
+    for (var typeOfContract in types) {
+        if(types.hasOwnProperty(typeOfContract)) {
             BinarySocket.send(Price.proposal(typeOfContract));
         }
     }
@@ -61545,7 +61602,7 @@ var Purchase = (function () {
                 chart.hide();
             }
 
-            if(sessionStorage.formname === 'digits'){
+            if(Contract.form() === 'digits'){
                 spots.textContent = '';
                 spots.className = '';
                 spots.show();
@@ -61554,7 +61611,7 @@ var Purchase = (function () {
                 spots.hide();
             }
 
-            if(sessionStorage.formname !== 'digits' && !show_chart){
+            if(Contract.form() !== 'digits' && !show_chart){
                 button.textContent = Content.localize().textContractConfirmationButton;
                 button.setAttribute('contract_id', receipt['contract_id']);
                 button.show();
@@ -61620,17 +61677,24 @@ var Purchase = (function () {
             spots.scrollTop = spots.scrollHeight;
 
             if(d1 && purchase_data.echo_req.passthrough['duration']===1){
-                var contract_status;
+                var contract_status,
+                    final_price, 
+                    pnl;
 
-                if  (  purchase_data.echo_req.passthrough.contract_type==="DIGITMATCH" && d1==purchase_data.echo_req.passthrough.barrier || purchase_data.echo_req.passthrough.contract_type==="DIGITDIFF" && d1!=purchase_data.echo_req.passthrough.barrier){
+                if  (  purchase_data.echo_req.passthrough.contract_type==="DIGITMATCH" && d1==purchase_data.echo_req.passthrough.barrier || purchase_data.echo_req.passthrough.contract_type==="DIGITDIFF" && d1!=purchase_data.echo_req.passthrough.barrier || purchase_data.echo_req.passthrough.contract_type==="DIGITEVEN" && d1%2===0 || purchase_data.echo_req.passthrough.contract_type==="DIGITODD" && d1%2 || purchase_data.echo_req.passthrough.contract_type==="DIGITOVER" && d1>purchase_data.echo_req.passthrough.barrier || purchase_data.echo_req.passthrough.contract_type==="DIGITUNDER" && d1<purchase_data.echo_req.passthrough.barrier){
                     spots.className = 'won';
+                    final_price = $('#contract_purchase_payout p').text();
+                    pnl = $('#contract_purchase_cost p').text();
                     contract_status = Content.localize().textContractStatusWon;
                 }
                 else{
                     spots.className = 'lost';
+                    final_price = 0;
+                    pnl = -$('#contract_purchase_cost p').text();
                     contract_status = Content.localize().textContractStatusLost;
                 }
-                document.getElementById('contract_purchase_heading').textContent = contract_status;
+
+                updatePurchaseStatus(final_price, pnl, contract_status);
             }
 
             purchase_data.echo_req.passthrough['duration']--;
@@ -61925,8 +61989,9 @@ WSTickDisplay.plot = function(plot_from, plot_to){
 };
 WSTickDisplay.update_ui = function(final_price, pnl, contract_status) {
     var $self = this;
-    $('#contract_purchase_heading').text(text.localize(contract_status));
+    updatePurchaseStatus(final_price, pnl, contract_status);
 };
+
 WSTickDisplay.updateChart = function(data){
 
     var $self = this;
@@ -62572,7 +62637,7 @@ var Table = (function(){
 
     function clearTableBody(id){
         var tbody = document.querySelector("#" + id +">tbody");
-        while (tbody.firstElementChild){
+        while (tbody && tbody.firstElementChild){
             tbody.removeChild(tbody.firstElementChild);
         }
     }
@@ -62612,7 +62677,8 @@ var Table = (function(){
         clearTableBody: clearTableBody,
         appendTableBody: appendTableBody
     };
-}());;
+}());
+;
 
 pjax_config_page("profit_table", function(){
     return {
@@ -62840,7 +62906,9 @@ var ProfitTableUI = (function(){
         var data = [buyDate, ref, contract, buyPrice, sellDate, sellPrice, pl];
         var $row = Table.createFlexTableRow(data, cols, "data");
 
+        $row.children(".buy-date").addClass("pre");
         $row.children(".pl").addClass(plType);
+        $row.children(".sell-date").addClass("pre");
 
         //create view button and append
         var $viewButtonSpan = Button.createBinaryStyledButton();
@@ -62873,7 +62941,7 @@ var ProfitTableUI = (function(){
         initDatepicker: initDatepicker,
         cleanTableContent: clearTableContent
     };
-}());;pjax_config_page("statementws", function(){
+}());;pjax_config_page("statement", function(){
     return {
         onLoad: function() {
             if (!getCookieItem('login')) {
@@ -63083,6 +63151,7 @@ var ProfitTableUI = (function(){
 
         var $statementRow = Table.createFlexTableRow([date, ref, action, desc, amount, balance], columns, "data");
         $statementRow.children(".credit").addClass(creditDebitType);
+        $statementRow.children(".date").addClass("pre");
 
         //create view button and append
         if (action === "Sell" || action === "Buy") {

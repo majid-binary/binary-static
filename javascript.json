@@ -77,7 +77,6 @@
     "src/javascript/binary/pages/portfolio.js",
     "src/javascript/binary/pages/pricingtable.js",
     "src/javascript/binary/pages/selfexclusion.js",
-    "src/javascript/binary/pages/statement.js",
     "src/javascript/binary/pages/trade/analysis.js",
     "src/javascript/binary/pages/trade/barriers.js",
     "src/javascript/binary/pages/trade/common.js",

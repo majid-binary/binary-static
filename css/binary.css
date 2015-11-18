@@ -5272,7 +5272,8 @@ table .loss, table .lower {
 }
 #trading_socket_container #contract_form_name_nav > li .tm-ul-2 {
   top: 29px;
-  margin-top: 0;
+  margin-top: -1px;
+  border-top: 1px solid #DEDEDE;
 }
 
 #analysis_daily_prices_form {
@@ -5425,6 +5426,9 @@ table .loss, table .lower {
   text-align: left !important;
   padding-left: 10px;
   overflow: hidden;
+}
+.flex-table-container .pre {
+  white-space: pre;
 }
 @media (max-width: 600px) {
   .flex-table-container td {

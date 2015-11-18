@@ -142,7 +142,7 @@ pjax_config_page("user/change_password", function() {
                     var response = JSON.parse(msg.data);
                     if (response) {
                         var type = response.msg_type;
-                        if (type === 'change_password' || (type === 'error' && "change_password" in response.echo_req)){
+                        if (type === "change_password" || (type === "error" && "change_password" in response.echo_req)){
                             PasswordWS.apiResponse(response);
                         }
                     }

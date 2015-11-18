@@ -71,7 +71,14 @@ var Content = (function () {
             textSaleDate: text.localize('Sale Date'),
             textSalePrice: text.localize('Sale Price'),
             textProfitLoss: text.localize('Profit/Loss'),
-            textTotalProfitLoss: text.localize('Total Profit/Loss')
+            textTotalProfitLoss: text.localize('Total Profit/Loss'),
+            textBuyPrice: text.localize('Buy price'),
+            textFinalPrice: text.localize('Final price'),
+            textLoss: text.localize('Loss'),
+            textProfit: text.localize('Profit'),
+            textFormMatchesDiffers: text.localize('Matches/Differs'),
+            textFormEvenOdd: text.localize('Even/Odd'),
+            textFormOverUnder: text.localize('Over/Under')
         };
 
         var starTime = document.getElementById('start_time_label');

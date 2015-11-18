@@ -71,9 +71,11 @@ var Price = (function () {
             var endTime2 = Durations.getTime();
             if(!endTime2){
                 var trading_times = Durations.trading_times();
-                if(trading_times.hasOwnProperty(endDate2))
-                endTime2 = trading_times[endDate2][underlying.value];
+                if(trading_times.hasOwnProperty(endDate2) && typeof trading_times[endDate2][underlying.value] === 'string'){
+                    endTime2 = trading_times[endDate2][underlying.value];
+                }
             }
+
             proposal['date_expiry'] = moment.utc(endDate2 + " " + endTime2).unix();
         }
 
