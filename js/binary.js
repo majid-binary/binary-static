@@ -49866,7 +49866,9 @@ Page.prototype = {
         this.record_affiliate_exposure();
         this.contents.on_load();
         this.on_click_acc_transfer();
-        ViewBalance.init();
+        if(getCookieItem('login')){
+            ViewBalance.init();
+        }
         $('#current_width').val(get_container_width());//This should probably not be here.
     },
     on_unload: function() {
@@ -51886,8 +51888,8 @@ pjax_config_page('rise_fall_table', function() {
     };
 });
 
-pjax_config_page('portfolio|trade.cgi|statement|f_manager_statement|f_manager_history|' +
-    'f_profit_table|profit_table|trading|statementws|profit_tablews', function() {
+pjax_config_page('portfoliows|portfolio|trade.cgi|statement|f_manager_statement|f_manager_history|' +
+    'f_profit_table|profit_table|trading|legacy-statement|legacy-profittable', function() {
     return {
         onLoad: function() {
             BetSell.register();
@@ -58141,6 +58143,187 @@ $(function() {
       active: false
     });
 });
+;var PortfolioWS =  (function() {
+
+    'use strict';
+
+    var pageLanguage = page.language();
+    if(!pageLanguage) pageLanguage = "EN";
+
+    var rowTemplate;
+    var retry;
+
+    var init = function() {
+        // get the row template and then discard the node as it has served its purpose
+        rowTemplate = $("#portfolio-dynamic tr:first")[0].outerHTML;
+        $("#portfolio-dynamic tr:first").remove();
+        TradeSocket.init({"then_do":"updateBalance"});
+    };
+
+    
+    var updateBalance = function(data) {
+        $("span[data-id='balance']").text(fixCurrency(data.authorize.balance, data.authorize.currency));
+        if(parseFloat(data.authorize.balance, 10) > 0) {
+            $("#if-balance-zero").remove();
+        }
+    };
+
+    /**
+     * Updates portfolio table
+    **/
+    var updatePortfolio = function(data) {
+
+        /**
+         * Check for error
+        **/
+        if("error" in data) {
+            throw new Error("Trying to get portfolio data, we got this error", data.error);
+        }
+
+        /**
+         * no contracts
+        **/
+        if(0 === data.portfolio.contracts.length) {
+            $("#portfolio-table").remove();
+            $("#portfolio-no-contract").removeClass("dynamic");
+            return true;
+        }
+
+        /**
+         * User has at least one contract
+        **/
+
+        $("#portfolio-no-contract").remove();
+        var contracts = '';
+        var sumPurchase = 0.0;
+        var currency;
+        $.each(data.portfolio.contracts, function(ci, c) {
+            sumPurchase += parseFloat(c.buy_price, 10);
+            currency = c.currency;
+            contracts += rowTemplate
+            .split("!transaction_id!").join(c.transaction_id)
+            .split("!contract_id!").join(c.contract_id)
+            .split("!longcode!").join(c.longcode)
+            .split("!currency!").join(c.currency)
+            .split("!buy_price!").join(fixCurrency(c.buy_price));
+        });
+
+        // contracts is ready to be added to the dom
+        $("#portfolio-dynamic").replaceWith(trans(contracts));
+
+        // update footer area data
+        sumPurchase = sumPurchase.toFixed(2);
+        $("#cost-of-open-positions").text( fixCurrency(sumPurchase, currency));
+
+        // request "proposal_open_contract"
+        TradeSocket.send({"proposal_open_contract":1});
+
+        // ready to show portfolio table
+        $("#trading_init_progress").remove();
+        $("#portfolio-content").removeClass("dynamic");
+
+    };
+
+    var updateIndicative = function(data) {
+
+        if("error" in data) {
+            // if api returns a response like the one below. 
+            // we assume the indicative to be 0 if this happens
+            /*
+            {
+              "echo_req": {
+                "proposal_open_contract": 1
+              },
+              "error": {
+                "code": "ContractSellValidationError",
+                "message": "Resale of this contract is not offered."
+              },
+              "proposal_open_contract": {
+                "id": "c4f8b5176928a7823ff09f8f44a51528"
+              },
+              "msg_type": "proposal_open_contract"
+            }
+            */
+            return false;
+        }
+
+        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] strong.indicative_price").text(data.proposal_open_contract.ask_price);
+
+        var indicative_sum = 0, indicative_price = 0;
+        $("strong.indicative_price").each(function() {
+            indicative_price = $(this).text();
+            indicative_price = parseFloat(indicative_price, 2);
+            if(!isNaN(indicative_price)) {
+                indicative_sum += indicative_price;
+            }
+        });
+
+        indicative_sum = indicative_sum.toFixed(2);
+
+        $("#value-of-open-positions").text(fixCurrency(indicative_sum, "USD"));
+
+    };
+
+
+    /*** utility functions ***/
+
+    // Dynamic text
+    var dTexts = ["view", "indicative"];
+
+    /**
+     * In the dynamic parts we have strings to include
+     * For instance, in portfolio table, we have a 'View' button
+     * for each contract.
+    **/
+    var trans = function(str) {
+        var placeholder;
+        for(var i = 0, l = dTexts.length; i < l; i++) {
+            placeholder = ":"+dTexts[i]+":";
+            if(-1 === str.indexOf(placeholder)) continue;
+            str = str.split(placeholder).join(text.localize(dTexts[i]));
+        }
+        return str;
+    };
+
+    /**
+     * Amounts received from the API could be integer or decimal numbers.
+     * In case we have an integer, like 73, we want to display a decimal
+     * with two fractions, i.e. 73:00
+     * This function does that.
+     * Adapted from http://stackoverflow.com/a/14428340
+     * Kudos to: [VisioN](http://stackoverflow.com/users/1249581)
+    **/
+    var fixCurrency = function(n, c) {
+        var currency = ""; 
+        if("number" !== typeof n) n = parseFloat(n);
+        var snum = n + "", dec;
+        if(-1 === snum.indexOf(".")) {
+            dec = 2;
+        } else {
+            dec = snum.split(".")[1].length;
+        }
+        if("string" === typeof c) {
+            currency = c + " ";
+        }
+        return currency + " " + n.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    };
+ 
+    return {
+        init: init,
+        updateBalance: updateBalance,
+        updatePortfolio: updatePortfolio,
+        updateIndicative: updateIndicative
+    };
+
+})();
+
+pjax_config_page('portfoliows', function() {
+    return {
+        onLoad: function() {
+            PortfolioWS.init();
+        }
+    };
+});
 ;function currencyConvertorCalculator()
 {
     var currencyto = document.getElementById('currencyto');
@@ -58461,6 +58644,11 @@ onLoad.queue_for_url(function () {
     self_exclusion_date_picker();
     self_exclusion_validate_date();
 }, 'self_exclusion');
+;onLoad.queue_for_url(function() {
+    $('#statement-date').on('change', function() {
+        $('#submit-date').removeClass('invisible');
+    });
+}, 'legacy-statement');
 ;/*
  * This file contains the code related to loading of trading page bottom analysis
  * content. It will contain jquery so as to compatible with old code and less rewrite
@@ -60942,6 +61130,8 @@ var Message = (function () {
                 StatementWS.statementHandler(response);
             } else if (type === 'profit_table'){
                 ProfitTableWS.profitTableHandler(response);
+            } else if (type === 'portfolio') {
+                PortfolioWS.updatePortfolio(response);
             } else if (type === 'error') {
                 $(".error-msg").text(response.error.message);
             }
@@ -60955,8 +61145,7 @@ var Message = (function () {
         process: process
     };
 
-})();
-;/*
+})();;/*
  * Price object handles all the functions we need to display prices
  *
  * We create Price proposal that we need to send to server to get price,
@@ -61096,6 +61285,9 @@ var Price = (function () {
         }
         
         var container = document.getElementById('price_container_'+position);
+        if(!$(container).is(":visible")){
+            $(container).fadeIn(200);
+        }
 
         var h4 = container.getElementsByClassName('contract_heading')[0],
             amount = container.getElementsByClassName('contract_amount')[0],
@@ -61270,6 +61462,9 @@ function processMarketUnderlying() {
 function processContract(contracts) {
     'use strict';
 
+    document.getElementById('trading_socket_container').classList.add('show');
+    document.getElementById('trading_init_progress').style.display = 'none';
+
     Contract.setContracts(contracts);
 
     if(typeof contracts.contracts_for !== 'undefined'){
@@ -61426,7 +61621,7 @@ function processForgetProposals() {
     'use strict';
     showPriceOverlay();
     BinarySocket.send({forget_all: "proposal"});
-    Price.clearMapping();   
+    Price.clearMapping(); 
 }
 
 /*
@@ -61498,10 +61693,6 @@ function processProposal(response){
         hideOverlayContainer();
         Price.display(response, Contract.contractType()[Contract.form()]);
         hidePriceOverlay();
-        if(form_id===1){
-            document.getElementById('trading_socket_container').classList.add('show');
-            document.getElementById('trading_init_progress').style.display = 'none';
-        }
     }
 }
 
@@ -62342,11 +62533,22 @@ var BinarySocket = (function () {
         bufferedSends = [],
         manualClosed = false,
         events = {},
-        authorized = false;
+        authorized = false,
+        timeouts = {},
+        req_number = 0;
 
     if (page.language()) {
         socketUrl += '?l=' + page.language();
     }
+
+    var clearTimeouts = function(){
+        for(var k in timeouts){
+            if(timeouts.hasOwnProperty(k)){
+                clearInterval(timeouts[k]);
+                delete timeouts[k];
+            }
+        }
+    };
 
     var status = function () {
         return binarySocket && binarySocket.readyState;
@@ -62372,6 +62574,21 @@ var BinarySocket = (function () {
             bufferedSends.push(data);
             init(1);
         } else if (isReady() && (authorized || TradePage.is_trading_page())) {
+            if(!data.hasOwnProperty('passthrough')){
+                data.passthrough = {};
+            }
+            if(data.contracts_for || data.proposal){
+                data.passthrough.req_number = ++req_number;
+                timeouts[req_number] = setInterval(function(){
+                    if(typeof reloadPage === 'function'){
+                        var r = confirm("The server didn't respond to the request:\n\n"+JSON.stringify(data)+"\n\nReload page?");
+                        if (r === true) {
+                            reloadPage();
+                        } 
+                    }
+                }, 7*1000);
+            }
+            
             binarySocket.send(JSON.stringify(data));
         } else {
             bufferedSends.push(data);
@@ -62387,6 +62604,7 @@ var BinarySocket = (function () {
             bufferedSends = [];
             manualClosed = false;
             events = es;
+            clearTimeouts();
         }
 
         if(isClose()){
@@ -62412,6 +62630,10 @@ var BinarySocket = (function () {
 
             var response = JSON.parse(msg.data);
             if (response) {
+                if(response.hasOwnProperty('echo_req') && response.echo_req.hasOwnProperty('passthrough') && response.echo_req.passthrough.hasOwnProperty('req_number')){
+                    clearInterval(timeouts[response.echo_req.passthrough.req_number]);
+                    delete timeouts[response.echo_req.passthrough.req_number];
+                }
                 var type = response.msg_type;
                 if (type === 'authorize') {
                     authorized = true;
@@ -62434,6 +62656,7 @@ var BinarySocket = (function () {
         binarySocket.onclose = function (e) {
 
             authorized = false;
+            clearTimeouts();
 
             if(!manualClosed){
                 init(1);
@@ -62768,6 +62991,18 @@ var ProfitTableWS = (function () {
         if (!tableExist()) {
             ProfitTableUI.createEmptyTable().appendTo("#profit-table-ws-container");
             ProfitTableUI.updateProfitTable(getNextChunk());
+
+            // Show a message when the table is empty
+            if($('#profit-table tbody tr').length === 0) {
+                $('#profit-table tbody')
+                    .append($('<tr/>', {class: "flex-tr"})
+                        .append($('<td/>', {colspan: 7}) 
+                            .append($('<p/>', {class: "notice-msg center", text: text.localize("Your account has no trading activity.")})
+                            )
+                        )
+                    );
+            }
+
             Content.profitTableTranslation();
         }
     }
@@ -63024,6 +63259,18 @@ var ProfitTableUI = (function(){
         if (!tableExist()) {
             StatementUI.createEmptyStatementTable().appendTo("#statement-ws-container");
             StatementUI.updateStatementTable(getNextChunkStatement());
+
+            // Show a message when the table is empty
+            if($('#statement-table tbody tr').length === 0) {
+                $('#statement-table tbody')
+                    .append($('<tr/>', {class: "flex-tr"})
+                        .append($('<td/>', {colspan: 6})
+                            .append($('<p/>', {class: "notice-msg center", text: text.localize("Your account has no trading activity.")})
+                            )
+                        )
+                    );
+            }
+
             Content.statementTranslation();
         }
     }
@@ -63114,7 +63361,7 @@ var ProfitTableUI = (function(){
             Content.localize().textBalance
         ];
 
-        header[5] = header[5] + "(" + TUser.get().currency + ")";
+        header[5] = header[5] + (TUser.get().currency ? "(" + TUser.get().currency + ")" : "");
 
         var metadata = {
             id: tableID,

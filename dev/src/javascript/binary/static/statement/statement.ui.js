@@ -13,7 +13,7 @@ var StatementUI = (function(){
             Content.localize().textBalance
         ];
 
-        header[5] = header[5] + "(" + TUser.get().currency + ")";
+        header[5] = header[5] + (TUser.get().currency ? "(" + TUser.get().currency + ")" : "");
 
         var metadata = {
             id: tableID,

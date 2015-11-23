@@ -80,6 +80,9 @@ function processMarketUnderlying() {
 function processContract(contracts) {
     'use strict';
 
+    document.getElementById('trading_socket_container').classList.add('show');
+    document.getElementById('trading_init_progress').style.display = 'none';
+
     Contract.setContracts(contracts);
 
     if(typeof contracts.contracts_for !== 'undefined'){
@@ -236,7 +239,7 @@ function processForgetProposals() {
     'use strict';
     showPriceOverlay();
     BinarySocket.send({forget_all: "proposal"});
-    Price.clearMapping();   
+    Price.clearMapping(); 
 }
 
 /*
@@ -308,10 +311,6 @@ function processProposal(response){
         hideOverlayContainer();
         Price.display(response, Contract.contractType()[Contract.form()]);
         hidePriceOverlay();
-        if(form_id===1){
-            document.getElementById('trading_socket_container').classList.add('show');
-            document.getElementById('trading_init_progress').style.display = 'none';
-        }
     }
 }
 

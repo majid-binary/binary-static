@@ -33,6 +33,8 @@ var Message = (function () {
                 StatementWS.statementHandler(response);
             } else if (type === 'profit_table'){
                 ProfitTableWS.profitTableHandler(response);
+            } else if (type === 'portfolio') {
+                PortfolioWS.updatePortfolio(response);
             } else if (type === 'error') {
                 $(".error-msg").text(response.error.message);
             }

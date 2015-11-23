@@ -138,6 +138,9 @@ var Price = (function () {
         }
         
         var container = document.getElementById('price_container_'+position);
+        if(!$(container).is(":visible")){
+            $(container).fadeIn(200);
+        }
 
         var h4 = container.getElementsByClassName('contract_heading')[0],
             amount = container.getElementsByClassName('contract_amount')[0],
