@@ -4662,6 +4662,14 @@ a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
 #portfolio td.indicative, #portfolio td.purchase {
   white-space: nowrap;
 }
+#portfolio td.indicative.no_resale {
+  color: lightgray;
+}
+#portfolio td.indicative.no_resale span {
+  font-size: 8px;
+  display: block;
+  margin-top: -11px;
+}
 #portfolio th {
   padding: 10px 30px;
   text-align: left;

@@ -58230,14 +58230,29 @@ $(function() {
 
     var updateIndicative = function(data) {
 
+        var $td = $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative")
+            old_indicative = $td.find('strong').text();
+            new_indicative = parseFloat(data.proposal_open_contract.bid_price, 2);
+
+        old_indicative = parseFloat(old_indicative, 2);
+        if(isNaN(old_indicative)) old_indicative = 0.0;
+
+        if(isNaN(new_indicative)) new_indicative = 0.0;
+
         if(data.proposal_open_contract.is_valid_to_sell != 1) {
-            $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").text(text.localize('Resale not offered'));
+            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price price_moved_down">'+data.proposal_open_contract.bid_price+'</strong><span>'+text.localize('Resale not offered')+'</span>');
             return false;
         }
 
-        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong>');
+        if(old_indicative > new_indicative) {
+            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price price_moved_down">'+data.proposal_open_contract.bid_price+'</strong>');
+        } else if(old_indicative < new_indicative) {
+            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price price_moved_up">'+data.proposal_open_contract.bid_price+'</strong>');
+        } else {
+            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong>');
+        } 
 
-        var indicative_sum = 0, indicative_price = 0;
+        var indicative_sum = 0, indicative_price = 0, up_down;
         $("strong.indicative_price").each(function() {
             indicative_price = $(this).text();
             indicative_price = parseFloat(indicative_price, 2);
