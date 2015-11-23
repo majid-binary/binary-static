@@ -105,7 +105,7 @@ var PortfolioWS =  (function() {
         } else if(old_indicative < new_indicative) {
             $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price price_moved_up">'+data.proposal_open_contract.bid_price+'</strong>');
         } else {
-            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong>');
+            //$td.html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong>');
         } 
 
         var indicative_sum = 0, indicative_price = 0, up_down;
