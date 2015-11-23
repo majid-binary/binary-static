@@ -21,7 +21,7 @@ var PortfolioWS =  (function() {
     **/
     var updateBalance = function(data) {
         $("span[data-id='balance']").text(fixCurrency(data.balance.balance, data.balance.currency));
-        if(parseFloat(data.authorize.balance, 10) > 0) {
+        if(parseFloat(data.balance.balance, 10) > 0) {
             $("#if-balance-zero").remove();
         }
         BinarySocket.send({"portfolio":1});
