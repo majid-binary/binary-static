@@ -123,8 +123,8 @@ var BinarySocket = (function () {
                 if (type === 'authorize') {
                     authorized = true;
                     page.user.balance = {
-                        currency: response.balance.currency,
-                        amount: response.balance.balance
+                        currency: response.authorize.currency,
+                        amount: response.authorize.balance
                     };
                     TUser.set(response.authorize);
                     if(typeof events.onauth === 'function'){
