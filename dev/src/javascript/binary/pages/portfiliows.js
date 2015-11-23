@@ -85,13 +85,12 @@ var PortfolioWS =  (function() {
 
     var updateIndicative = function(data) {
 
-        var $td = $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative"),
-            old_indicative = $td.find('strong').text(),
-            new_indicative = parseFloat(data.proposal_open_contract.bid_price, 2);
-
+        var $td = $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative");
+        var old_indicative = $td.find('strong').text();
         old_indicative = parseFloat(old_indicative, 2);
         if(isNaN(old_indicative)) old_indicative = 0.0;
 
+        var new_indicative = parseFloat(data.proposal_open_contract.bid_price, 2);
         if(isNaN(new_indicative)) new_indicative = 0.0;
 
         if(data.proposal_open_contract.is_valid_to_sell != 1) {
