@@ -85,7 +85,7 @@ var PortfolioWS =  (function() {
 
     var updateIndicative = function(data) {
 
-        if(data.is_valid_to_sell != 1) {
+        if(data.proposal_open_contract.is_valid_to_sell != 1) {
             $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").text(text.localize('Resale not offered'));
             return false;
         }
