@@ -58230,8 +58230,8 @@ $(function() {
 
     var updateIndicative = function(data) {
 
-        var $td = $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative")
-            old_indicative = $td.find('strong').text();
+        var $td = $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative"),
+            old_indicative = $td.find('strong').text(),
             new_indicative = parseFloat(data.proposal_open_contract.bid_price, 2);
 
         old_indicative = parseFloat(old_indicative, 2);
