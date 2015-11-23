@@ -58157,10 +58157,20 @@ $(function() {
         // get the row template and then discard the node as it has served its purpose
         rowTemplate = $("#portfolio-dynamic tr:first")[0].outerHTML;
         $("#portfolio-dynamic tr:first").remove();
-        BinarySocket.init();
-        BinarySocket.send({"portfolio": 1});
+        BinarySocket.send({"balance":1});
     };
 
+
+    /**
+     * Show balance
+    **/
+    var updateBalance = function(data) {
+        $("span[data-id='balance']").text(fixCurrency(data.balance.balance, data.balance.currency));
+        if(parseFloat(data.authorize.balance, 10) > 0) {
+            $("#if-balance-zero").remove();
+        }
+        BinarySocket.send({"portfolio":1});
+    };
     
     /**
      * Updates portfolio table
@@ -58172,14 +58182,6 @@ $(function() {
         **/
         if("error" in data) {
             throw new Error("Trying to get portfolio data, we got this error", data.error);
-        }
-
-        /**
-         * Show balance
-        **/ 
-        $("span[data-id='balance']").text(fixCurrency(page.user.balance.amount, page.user.balance.currency));
-        if(parseFloat(data.authorize.balance, 10) > 0) {
-            $("#if-balance-zero").remove();
         }
 
         /**
@@ -58228,28 +58230,12 @@ $(function() {
 
     var updateIndicative = function(data) {
 
-        if("error" in data) {
-            // if api returns a response like the one below. 
-            // we assume the indicative to be 0 if this happens
-            /*
-            {
-              "echo_req": {
-                "proposal_open_contract": 1
-              },
-              "error": {
-                "code": "ContractSellValidationError",
-                "message": "Resale of this contract is not offered."
-              },
-              "proposal_open_contract": {
-                "id": "c4f8b5176928a7823ff09f8f44a51528"
-              },
-              "msg_type": "proposal_open_contract"
-            }
-            */
+        if(data.is_valid_to_sell != 1) {
+            $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").text(text.localize('Resale not offered'));
             return false;
         }
 
-        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] strong.indicative_price").text(data.proposal_open_contract.ask_price);
+        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.ask_price+'</strong>');
 
         var indicative_sum = 0, indicative_price = 0;
         $("strong.indicative_price").each(function() {
@@ -58312,15 +58298,56 @@ $(function() {
  
     return {
         init: init,
+        updateBalance: updateBalance,
         updatePortfolio: updatePortfolio,
         updateIndicative: updateIndicative
     };
 
 })();
 
-pjax_config_page('portfoliows', function() {
+pjax_config_page("user/portfoliows", function() {
     return {
         onLoad: function() {
+            if (!getCookieItem('login')) {
+                window.location.href = page.url.url_for('login');
+                return;
+            }
+            BinarySocket.init({
+
+                onmessage: function(msg){
+
+                    try {
+                        response  = JSON.parse(msg.data);
+                        if("object" !== typeof response || !("msg_type" in response)) {
+                            throw new Error("Response from WS API is not well formatted.");
+                        }
+                    } catch(e) {
+                        throw new Error("Response from WS API is not well formatted.");
+                    }
+
+                    var msg_type = response.msg_type;
+            
+                    switch(msg_type) {
+
+                        case "balance":
+                            PortfolioWS.updateBalance(response);
+                            break;
+
+                        case "portfolio":
+                            PortfolioWS.updatePortfolio(response);
+                            break;
+
+                        case "proposal_open_contract":
+                            PortfolioWS.updateIndicative(response);
+                            break;
+
+                        default:
+                            throw new Error("No method exits to handle api message of type '" + msg_type + "'.");
+
+                    }
+
+                }
+            });      
             PortfolioWS.init();
         }
     };
@@ -61131,8 +61158,6 @@ var Message = (function () {
                 StatementWS.statementHandler(response);
             } else if (type === 'profit_table'){
                 ProfitTableWS.profitTableHandler(response);
-            } else if (type === 'portfolio') {
-                PortfolioWS.updatePortfolio(response);
             } else if (type === 'error') {
                 $(".error-msg").text(response.error.message);
             }
@@ -62638,10 +62663,6 @@ var BinarySocket = (function () {
                 var type = response.msg_type;
                 if (type === 'authorize') {
                     authorized = true;
-                    page.user.balance = {
-                        currency: response.authorize.currency,
-                        amount: response.authorize.balance
-                    };
                     TUser.set(response.authorize);
                     if(typeof events.onauth === 'function'){
                         events.onauth();
