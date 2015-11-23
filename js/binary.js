@@ -58157,17 +58157,11 @@ $(function() {
         // get the row template and then discard the node as it has served its purpose
         rowTemplate = $("#portfolio-dynamic tr:first")[0].outerHTML;
         $("#portfolio-dynamic tr:first").remove();
-        TradeSocket.init({"then_do":"updateBalance"});
+        BinarySocket.init();
+        BinarySocket.send({"portfolio": 1});
     };
 
     
-    var updateBalance = function(data) {
-        $("span[data-id='balance']").text(fixCurrency(data.authorize.balance, data.authorize.currency));
-        if(parseFloat(data.authorize.balance, 10) > 0) {
-            $("#if-balance-zero").remove();
-        }
-    };
-
     /**
      * Updates portfolio table
     **/
@@ -58178,6 +58172,14 @@ $(function() {
         **/
         if("error" in data) {
             throw new Error("Trying to get portfolio data, we got this error", data.error);
+        }
+
+        /**
+         * Show balance
+        **/ 
+        $("span[data-id='balance']").text(fixCurrency(page.user.balance.amount, page.user.balance.currency));
+        if(parseFloat(data.authorize.balance, 10) > 0) {
+            $("#if-balance-zero").remove();
         }
 
         /**
@@ -58216,7 +58218,7 @@ $(function() {
         $("#cost-of-open-positions").text( fixCurrency(sumPurchase, currency));
 
         // request "proposal_open_contract"
-        TradeSocket.send({"proposal_open_contract":1});
+        BinarySocket.send({"proposal_open_contract":1});
 
         // ready to show portfolio table
         $("#trading_init_progress").remove();
@@ -58310,7 +58312,6 @@ $(function() {
  
     return {
         init: init,
-        updateBalance: updateBalance,
         updatePortfolio: updatePortfolio,
         updateIndicative: updateIndicative
     };
@@ -62637,6 +62638,10 @@ var BinarySocket = (function () {
                 var type = response.msg_type;
                 if (type === 'authorize') {
                     authorized = true;
+                    page.user.balance = {
+                        currency: response.balance.currency,
+                        amount: response.balance.balance
+                    };
                     TUser.set(response.authorize);
                     if(typeof events.onauth === 'function'){
                         events.onauth();
