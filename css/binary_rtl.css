@@ -4648,6 +4648,9 @@ a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
 #portfolio td {
   padding: 10px 30px;
 }
+#portfolio td.indicative, #portfolio td.purchase {
+  white-space: nowrap;
+}
 #portfolio th {
   padding: 10px 30px;
   text-align: left;
@@ -5384,6 +5387,16 @@ a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
 #profit-table-ws-container .contract {
   flex: 2 1 100px;
   padding-right: 20px;
+}
+
+#limits-ws-container .item.flex-tr-child img {
+  margin-left: 5px;
+}
+#limits-ws-container thead {
+  text-align: left;
+}
+#limits-ws-container td {
+  padding: 3px 8px;
 }
 
 /* Language based rules */

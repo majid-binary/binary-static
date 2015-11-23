@@ -59845,6 +59845,13 @@ function reloadPage(){
 
     location.reload();
 }
+
+function addComma(num){
+    if (num % 1 !== 0) {
+        num = num.toFixed(2);
+    }
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 ;var Content = (function () {
     'use strict';
 
@@ -59919,6 +59926,30 @@ function reloadPage(){
             textSalePrice: text.localize('Sale Price'),
             textProfitLoss: text.localize('Profit/Loss'),
             textTotalProfitLoss: text.localize('Total Profit/Loss'),
+            textLimits: text.localize('Trading and Withdrawal Limits'),
+            textItem: text.localize('Item'),
+            textLimit: text.localize('Limit'),
+            textMaxOpenPosition: text.localize('Maximum number of open positions'),
+            textMaxOpenPositionTooltip: text.localize('Represents the maximum number of outstanding contracts in your portfolio. Each line in your portfolio counts for one open position. Once the maximum is reached, you will not be able to open new positions without closing an existing position first.'),
+            textMaxAccBalance: text.localize('Maximum account cash balance'),
+            textMaxAccBalanceTooltip: text.localize('Represents the maximum amount of cash that you may hold in your account.  If the maximum is reached, you will be asked to withdraw funds.'),
+            textMaxDailyTurnover: text.localize('Maximum daily turnover'),
+            textMaxDailyTurnoverTooltip: text.localize('Represents the maximum volume of contracts that you may purchase in any given trading day.'),
+            textMaxAggregate: text.localize('Maximum aggregate payouts on open positions'),
+            textMaxAggregateTooltip: text.localize('Presents the maximum aggregate payouts on outstanding contracts in your portfolio. If the maximum is attained, you may not purchase additional contracts without first closing out existing positions.'),
+            textTradingLimits: text.localize('Trading Limits'),
+            textWithdrawalTitle: text.localize('Withdrawal Limits'),
+            textWithdrawalLimits: text.localize('Your withdrawal limit is EUR'),
+            textCurrencyEquivalent: text.localize('or equivalent in other currency'),
+            textWithrawalAmount: text.localize('You have already withdrawn the equivalent of EUR'),
+            textYour: text.localize('Your'),
+            textDayWithdrawalLimit: text.localize('day withdrawal limit is currently EUR'),
+            textAuthenticatedWithdrawal: text.localize('Your account is fully authenticated and your withdrawal limits have been lifted.'),
+            textAggregateOverLast: text.localize('in aggregate over the last'),
+            textWithdrawalForEntireDuration: text.localize('Your withdrawal limit for the entire duration of the account is currently: EUR'),
+            textInAggregateOverLifetime: text.localize('in aggregate over the lifetime of your account.'),
+            textNotAllowedToWithdraw: text.localize('Therefore you may not withdraw any additional funds.'),
+            textCurrentMaxWithdrawal: text.localize('Therefore your current immediate maximum withdrawal (subject to your account having sufficient funds) is EUR'),
             textBuyPrice: text.localize('Buy price'),
             textFinalPrice: text.localize('Final price'),
             textLoss: text.localize('Loss'),
@@ -60071,11 +60102,23 @@ function reloadPage(){
         titleElement.textContent = localize.textProfitTable;
     };
 
+    var limitsTranslation = function(){
+        var titleElement = document.getElementById("limits-title").firstElementChild;
+        titleElement.textContent = localize.textLimits;
+        
+        var tradingLimits = document.getElementById("trading-limits");
+        tradingLimits.textContent = TUser.get().loginid + " - " + localize.textTradingLimits;
+        
+        var withdrawalTitle = document.getElementById("withdrawal-title");
+        withdrawalTitle.textContent = TUser.get().loginid + " - " + localize.textWithdrawalTitle;
+    };
+
     return {
         localize: function () { return localize; },
         populate: populate,
         statementTranslation: statementTranslation,
-        profitTableTranslation: profitTableTranslation
+        profitTableTranslation: profitTableTranslation,
+        limitsTranslation: limitsTranslation
     };
 
 })();
@@ -62925,6 +62968,142 @@ var Table = (function(){
         overwriteTableBody: overwriteTableBody,
         clearTableBody: clearTableBody,
         appendTableBody: appendTableBody
+    };
+}());
+;pjax_config_page("limitws", function(){
+    return {
+        onLoad: function() {
+            BinarySocket.init({
+                onmessage: function(msg){
+                    var response = JSON.parse(msg.data);
+
+                    if (response) {
+                        var type = response.msg_type;
+                        if (type === 'get_limits'){
+                            LimitsWS.limitsHandler(response);
+                        }
+                    }
+                }
+            });
+            Content.populate();
+            LimitsWS.init();
+        },
+        onUnload: function(){
+            LimitsWS.clean();
+        }
+    };
+});
+;var LimitsData = (function(){
+    "use strict";
+
+    function getLimits(opts){
+        var req = {get_limits: 1};
+        if(opts){ 
+            $.extend(true, req, opts);    
+        }
+
+        BinarySocket.send(req);
+    }
+
+    return {
+        getLimits: getLimits
+    };
+}());
+;var LimitsWS = (function(){
+    "use strict";
+
+    function limitsHandler(response){
+        var limits = response.get_limits;
+        Content.limitsTranslation();
+        LimitsUI.fillLimitsTable(limits);
+
+        var equivalent = " (" + Content.localize().textCurrencyEquivalent + ").";
+
+        var withdrawal_limit = document.getElementById("withdrawal-limit");
+        var already_withdraw = document.getElementById("already-withdraw");
+        var withdrawal_limit_aggregate = document.getElementById("withdrawal-limit-aggregate");
+
+        if(limits['lifetime_limit'] === 99999999) {
+            withdrawal_limit.textContent = Content.localize().textAuthenticatedWithdrawal;
+        } else if(limits['num_of_days_limit'] === limits['lifetime_limit']) {
+            withdrawal_limit.textContent = Content.localize().textWithdrawalLimits + " " + addComma(limits['num_of_days_limit']) + equivalent;
+            already_withdraw.textContent = Content.localize().textWithrawalAmount + " " + addComma(limits["withdrawal_since_inception_monetary"]) + ".";
+        } else {
+            withdrawal_limit.textContent = Content.localize().textYour + " " + limits['num_of_days'] + " " + Content.localize().textDayWithdrawalLimit + " " + addComma(limits['num_of_days_limit']) + equivalent;
+            already_withdraw.textContent = Content.localize().textWithrawalAmount + " " + limits['withdrawal_for_x_days_monetary'] + " " + Content.localize().textAggregateOverLast + " " + limits['num_of_days'] + " " + Content.localize().textDurationDays;
+            if(limits["lifetime_limit"] < 99999999) {
+                withdrawal_limit_aggregate.textContent = Content.localize().textWithdrawalForEntireDuration + " " + addComma(limits["lifetime_limit"]) + equivalent;
+                document.getElementById("already-withdraw-aggregate").textContent = Content.localize().textWithrawalAmount + " " + addComma(limits["withdrawal_since_inception_monetary"]) + " " + Content.localize().textInAggregateOverLifetime;
+            }
+            if(limits['remainder'] === 0) {
+                withdrawal_limit_aggregate.textContent = Content.localize().textNotAllowedToWithdraw;
+            } else if (limits['remainder'] !== 0) {
+                withdrawal_limit_aggregate.textContent = Content.localize().textCurrentMaxWithdrawal + " " + addComma(limits['remainder']) + equivalent;
+            }
+
+        }
+    }
+
+    function initTable(){
+        $(".error-msg").text("");
+        LimitsUI.clearTableContent();
+    }
+
+    function initPage(){
+        LimitsData.getLimits();
+    }
+
+    return {
+        limitsHandler: limitsHandler,
+        clean: initTable,
+        init: initPage
+    };
+}());
+;var LimitsUI = (function(){
+    "use strict";
+
+    function fillLimitsTable(limits){
+        var open_positions = addComma(limits['open_positions']);
+        var account_balance = addComma(limits['account_balance']);
+        var daily_turnover = addComma(limits['daily_turnover']);
+        var payout = addComma(limits['payout']);
+
+        document.getElementById('item').textContent = Content.localize().textItem;
+        
+        var currency = TUser.get().currency;
+        var limit = document.getElementById('limit');
+        if (currency === "") {
+            limit.textContent = Content.localize().textLimit;
+        } else {
+            limit.textContent = Content.localize().textLimit + " (" + currency + ")";
+        }
+        $('#max-open-position').prepend(Content.localize().textMaxOpenPosition);
+        document.getElementById('max-open-position-tooltip').setAttribute('title', Content.localize().textMaxOpenPositionTooltip);
+        document.getElementById('open-positions').textContent = open_positions;
+        
+        $('#max-acc-balance').prepend(Content.localize().textMaxAccBalance);
+        document.getElementById('max-acc-balance-tooltip').setAttribute('title', Content.localize().textMaxAccBalanceTooltip);
+        document.getElementById('account-balance').textContent = account_balance;
+        
+        $('#max-daily-turnover').prepend(Content.localize().textMaxDailyTurnover);
+        document.getElementById('max-daily-turnover-tooltip').setAttribute('title', Content.localize().textMaxDailyTurnoverTooltip);
+        document.getElementById('daily-turnover').textContent = daily_turnover;
+        
+        $('#max-aggregate').prepend(Content.localize().textMaxAggregate);
+        document.getElementById('max-aggregate-tooltip').setAttribute('title', Content.localize().textMaxAggregateTooltip);
+        document.getElementById('payout').textContent = payout;
+    }
+
+    function clearTableContent(){
+        Table.clearTableBody(tableID);
+        $("#limits-title>tfoot").hide();
+    }
+
+    
+    
+    return {
+        clearTableContent: clearTableContent,
+        fillLimitsTable: fillLimitsTable
     };
 }());
 ;
