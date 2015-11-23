@@ -94,7 +94,7 @@ var PortfolioWS =  (function() {
         if(isNaN(new_indicative)) new_indicative = 0.0;
 
         if(data.proposal_open_contract.is_valid_to_sell != 1) {
-            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price price_moved_down">'+data.proposal_open_contract.bid_price+'</strong><span>'+text.localize('Resale not offered')+'</span>').addClass("no_resale");
+            $td.html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong><span>'+text.localize('Resale not offered')+'</span>').addClass("no_resale");
             return false;
         }
 
