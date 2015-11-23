@@ -58235,7 +58235,7 @@ $(function() {
             return false;
         }
 
-        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.ask_price+'</strong>');
+        $("tr[data-contract_id='"+data.proposal_open_contract.contract_id+"'] td.indicative").html(data.proposal_open_contract.currency+' <strong class="indicative_price">'+data.proposal_open_contract.bid_price+'</strong>');
 
         var indicative_sum = 0, indicative_price = 0;
         $("strong.indicative_price").each(function() {
