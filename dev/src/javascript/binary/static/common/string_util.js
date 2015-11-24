@@ -31,12 +31,34 @@ var StringUtil = (function(){
         return momentObj.toString();
     }
 
+    /**
+     * Format currency
+     * formatCurrency(20, "USD") -> "USD 20.00"
+     * formatCurrency("10000", "GBP") -> "GBP 10,000.00"
+     * formatCurrency(10.027, "EUR") -> "EUR 10.027"
+    **/
+    function formatCurrency(n, c) {
+        var currency = ""; 
+        if("number" !== typeof n) n = parseFloat(n);
+        var snum = n + "", dec;
+        if(-1 === snum.indexOf(".")) {
+            dec = 2;
+        } else {
+            dec = snum.split(".")[1].length;
+        }
+        if("string" === typeof c) {
+            currency = c + " ";
+        }
+        return currency + " " + n.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    }
+
     return {
         toTitleCase: toTitleCase,
         dateToStringWithoutTime: dateToStringWithoutTime,
         unixTimeToDateString: timeStampToDateString,
         unixTimeToTimeString: timeStampToTimeString,
-        unixTimeToDateTimeString: timeStampToDateTimeString
+        unixTimeToDateTimeString: timeStampToDateTimeString,
+        formatCurrency: formatCurrency
     };
 }());
 

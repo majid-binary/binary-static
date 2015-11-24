@@ -20,7 +20,7 @@ var PortfolioWS =  (function() {
      * Show balance
     **/
     var updateBalance = function(data) {
-        $("span[data-id='balance']").text(fixCurrency(data.balance.balance, data.balance.currency));
+        $("span[data-id='balance']").text(StringUtil.formatCurrency(data.balance.balance, data.balance.currency));
         if(parseFloat(data.balance.balance, 10) > 0) {
             $("#if-balance-zero").remove();
         }
@@ -64,7 +64,7 @@ var PortfolioWS =  (function() {
             .split("!contract_id!").join(c.contract_id)
             .split("!longcode!").join(c.longcode)
             .split("!currency!").join(c.currency)
-            .split("!buy_price!").join(fixCurrency(c.buy_price));
+            .split("!buy_price!").join(StringUtil.formatCurrency(c.buy_price));
         });
 
         // contracts is ready to be added to the dom
@@ -72,7 +72,7 @@ var PortfolioWS =  (function() {
 
         // update footer area data
         sumPurchase = sumPurchase.toFixed(2);
-        $("#cost-of-open-positions").text( fixCurrency(sumPurchase, currency));
+        $("#cost-of-open-positions").text( StringUtil.formatCurrency(sumPurchase, currency));
 
         // request "proposal_open_contract"
         BinarySocket.send({"proposal_open_contract":1});
@@ -116,7 +116,7 @@ var PortfolioWS =  (function() {
 
         indicative_sum = indicative_sum.toFixed(2);
 
-        $("#value-of-open-positions").text(fixCurrency(indicative_sum, "USD"));
+        $("#value-of-open-positions").text(StringUtil.formatCurrency(indicative_sum, "USD"));
 
     };
 
@@ -139,29 +139,6 @@ var PortfolioWS =  (function() {
             str = str.split(placeholder).join(text.localize(dTexts[i]));
         }
         return str;
-    };
-
-    /**
-     * Amounts received from the API could be integer or decimal numbers.
-     * In case we have an integer, like 73, we want to display a decimal
-     * with two fractions, i.e. 73:00
-     * This function does that.
-     * Adapted from http://stackoverflow.com/a/14428340
-     * Kudos to: [VisioN](http://stackoverflow.com/users/1249581)
-    **/
-    var fixCurrency = function(n, c) {
-        var currency = ""; 
-        if("number" !== typeof n) n = parseFloat(n);
-        var snum = n + "", dec;
-        if(-1 === snum.indexOf(".")) {
-            dec = 2;
-        } else {
-            dec = snum.split(".")[1].length;
-        }
-        if("string" === typeof c) {
-            currency = c + " ";
-        }
-        return currency + " " + n.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     };
  
     return {
