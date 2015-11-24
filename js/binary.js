@@ -57570,6 +57570,258 @@ ClientForm.prototype = {
         $('#Email').disableSelection();
     }
 };
+;var SettingsDetailsWS = (function() {
+    "use strict";
+
+    var formID = '#frmPersonalDetails';
+    var frmBtn = formID + ' button',
+        RealAccElements = '.RealAcc',
+        errorClass = 'errorfield';
+    var fieldIDs = {
+        address1 : '#Address1',
+        address2 : '#Address2',
+        city     : '#City',
+        state    : '#State',
+        postcode : '#Postcode',
+        phone    : '#Phone'
+    };
+    var isValid;
+
+
+    var init = function() {
+        BinarySocket.send({"get_settings": "1"});
+    };
+
+    var getDetails = function(response) {
+        var data = response.get_settings;
+
+        // Check if it is a real account or not
+        var isReal = !(/VRT/.test($.cookie('loginid')));
+
+        $('#lblCountry').text(data.country);
+        $('#lblEmail').text(data.email);
+
+        if(!isReal){ // Virtual Account
+            $(RealAccElements).remove();
+        } 
+        else { // Real Account
+            BinarySocket.send({"authorize": $.cookie('login')});
+            $('#lblBirthDate').text(moment.utc(new Date(data.date_of_birth * 1000)).format("YYYY-MM-DD"));
+            $(fieldIDs.address1).val(data.address_line_1);
+            $(fieldIDs.address2).val(data.address_line_2);
+            $(fieldIDs.city).val(data.address_city);
+
+            // Generate states list
+            var residence = $.cookie('residence');
+            BinarySocket.send({"states_list": residence, "passthrough": {"value": data.address_state}});
+            
+            $(fieldIDs.postcode).val(data.address_postcode);
+            $(fieldIDs.phone).val(data.phone);
+
+            $(RealAccElements).removeClass('hidden');
+
+            $(frmBtn).click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                return setDetails();
+            });
+        }
+
+        $(formID).removeClass('hidden');
+    };
+
+    var setFullName = function(response) {
+        $('#lblName').text(response.authorize.fullname);
+    };
+
+    var populateStates = function(response) {
+        $(fieldIDs.state).empty();
+        var defaultValue = response.echo_req.passthrough.value;
+        var states = response.states_list;
+        if(states.length > 0) {
+            for(var i = 0; i < states.length; i++){
+                $(fieldIDs.state).append($('<option/>', {value: states[i].value, text: states[i].text}));
+            }
+            // set Current value
+            $(fieldIDs.state).val(defaultValue);
+        }
+        else {
+            $(fieldIDs.state).replaceWith($('<input/>', {id: 'State', type: 'text', maxlength: '35', value: defaultValue}));
+        }
+    };
+
+    var formValidate = function() {
+        clearError();
+        isValid = true;
+
+        var address1 = $(fieldIDs.address1).val().trim(),
+            address2 = $(fieldIDs.address2).val().trim(),
+            city     = $(fieldIDs.city).val().trim(),
+            state    = $(fieldIDs.state).val().trim(),
+            postcode = $(fieldIDs.postcode).val().trim(),
+            phone    = $(fieldIDs.phone).val().trim();
+        
+        var letters = Content.localize().textLetters,
+            numbers = Content.localize().textNumbers,
+            space   = Content.localize().textSpace,
+            period  = Content.localize().textPeriod,
+            comma   = Content.localize().textComma;
+        
+        // address 1
+        if(!isRequiredError(fieldIDs.address1) && !(/^[a-zA-Z0-9\s\,\.\-\/\(\)#']+$/).test(address1)) {
+            showError(fieldIDs.address1, Content.errorMessage('reg', [letters, numbers, space, period, comma, '- / ( ) # \'']));
+        }
+
+        // address line 2
+        if(!(/^[a-zA-Z0-9\s\,\.\-\/\(\)#']*$/).test(address2)) {
+            showError(fieldIDs.address2, Content.errorMessage('reg', [letters, numbers, space, period, comma, '- / ( ) # \'']));
+        }
+
+        // town/city
+        if(!isRequiredError(fieldIDs.city) && !(/^[a-zA-Z\s\-']+$/).test(city)) {
+            showError(fieldIDs.city, Content.errorMessage('reg', [letters, space, '- \'']));
+        }
+
+        // state
+        if(!isRequiredError(fieldIDs.state) && !(/^[a-zA-Z\s\-']+$/).test(state)) {
+            showError(fieldIDs.state, Content.errorMessage('reg', [letters, space, '- \'']));
+        }
+
+        // postcode
+        if(!isRequiredError(fieldIDs.postcode) && !isCountError(fieldIDs.postcode, 4, 20) && !(/(^[a-zA-Z0-9\s\-\/]+$)/).test(postcode)) {
+            showError(fieldIDs.postcode, Content.errorMessage('reg', [letters, numbers, space, '- /']));
+        }
+
+        // telephone
+        if(!isCountError(fieldIDs.phone, 6, 20) && !(/^(|\+?[0-9\s\-]+)$/).test(phone)) {
+            showError(fieldIDs.phone, Content.errorMessage('reg', [numbers, space, '-']));
+        }
+
+        if(isValid) {
+            return {
+                address1 : address1,
+                address2 : address2,
+                city     : city,
+                state    : state,
+                postcode : postcode,
+                phone    : phone
+            };
+        }
+        else {
+            return false;
+        }
+    };
+
+    var isRequiredError = function(fieldID) {
+        if(!(/.+/).test($(fieldID).val().trim())){
+            showError(fieldID, Content.errorMessage('req'));
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    var isCountError = function(fieldID, min, max) {
+        var fieldValue = $(fieldID).val().trim();
+        if((fieldValue.length > 0 && fieldValue.length < min) || fieldValue.length > max) {
+            showError(fieldID, Content.errorMessage('range', '(' + min + '-' + max + ')'));
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    var showError = function(fieldID, errMsg) {
+        $(fieldID).after($('<p/>', {class: errorClass, text: errMsg}));
+        isValid = false;
+    };
+
+    var clearError = function(fieldID) {
+        $(fieldID ? fieldID : formID + ' .' + errorClass).remove();
+    };
+
+    var setDetails = function() {
+        var formData = formValidate();
+        if(!formData)
+            return false;
+
+        BinarySocket.send({
+            "set_settings"    : 1,
+            "address_line_1"  : formData.address1,
+            "address_line_2"  : formData.address2,
+            "address_city"    : formData.city,
+            "address_state"   : formData.state,
+            "address_postcode": formData.postcode,
+            "phone"           : formData.phone
+        });
+    };
+
+    var setDetailsResponse = function(response) {
+        var isError = response.set_settings !== 1;
+        $('#formMessage').css('display', '')
+            .attr('class', isError ? 'errorfield' : 'success-msg')
+            .html(text.localize(isError ? 'Sorry, an error occurred while processing your account.' : '<ul class="checked"><li>Your settings have been updated successfully.</li></ul>'))
+            .delay(3000)
+            .fadeOut(1000);
+    };
+   
+
+    return {
+        init: init,
+        getDetails: getDetails,
+        setDetails: setDetails,
+        setDetailsResponse: setDetailsResponse,
+        setFullName: setFullName,
+        populateStates: populateStates
+    };
+}());
+
+
+
+pjax_config_page("settings/detailsws", function() {
+    return {
+        onLoad: function() {
+            if (!$.cookie('login')) {
+                window.location.href = page.url.url_for('login');
+                return;
+            }
+
+            BinarySocket.init({
+                onmessage: function(msg) {
+                    var response = JSON.parse(msg.data);
+                    if (response) {
+                        var type = response.msg_type;
+                        switch(type){
+                            case "get_settings":
+                                SettingsDetailsWS.getDetails(response);
+                                break;
+                            case "set_settings":
+                                SettingsDetailsWS.setDetailsResponse(response);
+                                break;
+                            case "authorize":
+                                SettingsDetailsWS.setFullName(response);
+                                break;
+                            case "states_list":
+                                SettingsDetailsWS.populateStates(response);
+                                break;
+                            case "error":
+                                $('#formMessage').attr('class', 'errorfield').text(response.error.message);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else {
+                        console.log('some error occured');
+                    }
+                }
+            });
+
+            Content.populate();
+            SettingsDetailsWS.init();
+        }
+    };
+});
 ;var sidebar_scroll = function(elm_selector) {
     elm_selector.on('click', '#sidebar-nav li', function() {
         var clicked_li = $(this);
@@ -58165,7 +58417,7 @@ $(function() {
      * Show balance
     **/
     var updateBalance = function(data) {
-        $("span[data-id='balance']").text(StringUtil.formatCurrency(data.balance.balance, data.balance.currency));
+        $("span[data-id='balance']").text(data.balance.currency + ' ' + addComma(data.balance.balance));
         if(parseFloat(data.balance.balance, 10) > 0) {
             $("#if-balance-zero").remove();
         }
@@ -58209,7 +58461,7 @@ $(function() {
             .split("!contract_id!").join(c.contract_id)
             .split("!longcode!").join(c.longcode)
             .split("!currency!").join(c.currency)
-            .split("!buy_price!").join(StringUtil.formatCurrency(c.buy_price));
+            .split("!buy_price!").join(addComma(c.buy_price));
         });
 
         // contracts is ready to be added to the dom
@@ -58217,7 +58469,7 @@ $(function() {
 
         // update footer area data
         sumPurchase = sumPurchase.toFixed(2);
-        $("#cost-of-open-positions").text( StringUtil.formatCurrency(sumPurchase, currency));
+        $("#cost-of-open-positions").text(currency + ' ' + addComma(sumPurchase));
 
         // request "proposal_open_contract"
         BinarySocket.send({"proposal_open_contract":1});
@@ -58261,7 +58513,7 @@ $(function() {
 
         indicative_sum = indicative_sum.toFixed(2);
 
-        $("#value-of-open-positions").text(StringUtil.formatCurrency(indicative_sum, "USD"));
+        $("#value-of-open-positions").text(currency + ' ' + addComma(indicative_sum));
 
     };
 
@@ -59946,7 +60198,15 @@ function addComma(num){
             textProfit: text.localize('Profit'),
             textFormMatchesDiffers: text.localize('Matches/Differs'),
             textFormEvenOdd: text.localize('Even/Odd'),
-            textFormOverUnder: text.localize('Over/Under')
+            textFormOverUnder: text.localize('Over/Under'),
+            textMessageRequired: text.localize('This field is required.'),
+            textMessageCountLimit: text.localize('You should enter between %LIMIT% characters.'), // %LIMIT% should be replaced by a range. sample: (6-20)
+            textMessageJustAllowed: text.localize('Only %ALLOWED% are allowed.'), // %ALLOWED% should be replaced by values including: letters, numbers, space, period, ...
+            textLetters: text.localize('letters'),
+            textNumbers: text.localize('numbers'),
+            textSpace: text.localize('space'),
+            textPeriod: text.localize('period'),
+            textComma: text.localize('comma')
         };
 
         var starTime = document.getElementById('start_time_label');
@@ -60103,12 +60363,34 @@ function addComma(num){
         withdrawalTitle.textContent = TUser.get().loginid + " - " + localize.textWithdrawalTitle;
     };
 
+    var errorMessage = function(messageType, param){
+        var msg = "",
+            separator = ', ';
+        switch(messageType){
+            case 'req':
+                msg = localize.textMessageRequired;
+                break;
+            case 'reg':
+                if(param)
+                    msg = localize.textMessageJustAllowed.replace('%ALLOWED%', param.join(separator));
+                break;
+            case 'range':
+                if(param)
+                    msg = localize.textMessageCountLimit.replace('%LIMIT%', param);
+                break;
+            default:
+                break;
+        }
+        return msg;
+    };
+
     return {
         localize: function () { return localize; },
         populate: populate,
         statementTranslation: statementTranslation,
         profitTableTranslation: profitTableTranslation,
-        limitsTranslation: limitsTranslation
+        limitsTranslation: limitsTranslation,
+        errorMessage: errorMessage
     };
 
 })();
@@ -62816,34 +63098,12 @@ var StringUtil = (function(){
         return momentObj.toString();
     }
 
-    /**
-     * Format currency
-     * formatCurrency(20, "USD") -> "USD 20.00"
-     * formatCurrency("10000", "GBP") -> "GBP 10,000.00"
-     * formatCurrency(10.027, "EUR") -> "EUR 10.027"
-    **/
-    function formatCurrency(n, c) {
-        var currency = ""; 
-        if("number" !== typeof n) n = parseFloat(n);
-        var snum = n + "", dec;
-        if(-1 === snum.indexOf(".")) {
-            dec = 2;
-        } else {
-            dec = snum.split(".")[1].length;
-        }
-        if("string" === typeof c) {
-            currency = c + " ";
-        }
-        return currency + " " + n.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-    }
-
     return {
         toTitleCase: toTitleCase,
         dateToStringWithoutTime: dateToStringWithoutTime,
         unixTimeToDateString: timeStampToDateString,
         unixTimeToTimeString: timeStampToTimeString,
-        unixTimeToDateTimeString: timeStampToDateTimeString,
-        formatCurrency: formatCurrency
+        unixTimeToDateTimeString: timeStampToDateTimeString
     };
 }());
 
