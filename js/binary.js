@@ -58417,7 +58417,7 @@ $(function() {
      * Show balance
     **/
     var updateBalance = function(data) {
-        $("span[data-id='balance']").text(data.balance.currency + ' ' + addComma(data.balance.balance));
+        $("span[data-id='balance']").text(data.balance.currency + ' ' + addComma(parseFloat(data.balance.balance)));
         if(parseFloat(data.balance.balance, 10) > 0) {
             $("#if-balance-zero").remove();
         }
@@ -58461,7 +58461,7 @@ $(function() {
             .split("!contract_id!").join(c.contract_id)
             .split("!longcode!").join(c.longcode)
             .split("!currency!").join(c.currency)
-            .split("!buy_price!").join(addComma(c.buy_price));
+            .split("!buy_price!").join(addComma(parseFloat(c.buy_price)));
         });
 
         // contracts is ready to be added to the dom
@@ -58469,7 +58469,7 @@ $(function() {
 
         // update footer area data
         sumPurchase = sumPurchase.toFixed(2);
-        $("#cost-of-open-positions").text(currency + ' ' + addComma(sumPurchase));
+        $("#cost-of-open-positions").text(currency + ' ' + addComma(parseFloat(sumPurchase)));
 
         // request "proposal_open_contract"
         BinarySocket.send({"proposal_open_contract":1});
@@ -58513,7 +58513,7 @@ $(function() {
 
         indicative_sum = indicative_sum.toFixed(2);
 
-        $("#value-of-open-positions").text(currency + ' ' + addComma(indicative_sum));
+        $("#value-of-open-positions").text(currency + ' ' + addComma(parseFloat(indicative_sum)));
 
     };
 
