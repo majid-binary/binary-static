@@ -58584,7 +58584,7 @@ pjax_config_page("user/portfoliows", function() {
                             break;
 
                         default:
-                            throw new Error("No method exits to handle api message of type '" + msg_type + "'.");
+                            // msg_type is not what PortfolioWS handles, so ignore it.
 
                     }
 
@@ -60833,9 +60833,15 @@ var Durations = (function(){
             amountElement.datepicker({
                 minDate: tomorrow,
                 onSelect: function(value) {
-                    var date = new Date(value);
-                    var today = new Date();
-                    var dayDiff = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
+                    var dayDiff;
+                    if($('#duration_amount').val()){
+                        dayDiff = $('#duration_amount').val();
+                    }
+                    else{
+                        var date = new Date(value);
+                        var today = new Date();
+                        dayDiff = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
+                    }                    
                     amountElement.val(dayDiff);
                     amountElement.trigger('change');
                 }
@@ -60917,12 +60923,12 @@ var Durations = (function(){
 
     var selectEndDate = function(end_date){
         var expiry_time = document.getElementById('expiry_time');
+        $('#expiry_date').val(end_date);
         if(moment(end_date).isAfter(moment(),'day')){
             Durations.setTime('');
             StartDates.setNow();
             expiry_time.hide();
             var date_start = StartDates.node();
-
             processTradingTimesRequest(end_date);
         }
         else{
@@ -60930,6 +60936,7 @@ var Durations = (function(){
             expiry_time.show();
             processPriceRequest();
         }
+
         sessionStorage.setItem('end_date',end_date);
         Barriers.display();
     };
@@ -60938,7 +60945,7 @@ var Durations = (function(){
         display: displayDurations,
         displayEndTime: displayEndTime,
         populate: durationPopulate,
-        setTime: function(time){ expiry_time = time; },
+        setTime: function(time){ $('#expiry_time').val(time); expiry_time = time; },
         getTime: function(){ return expiry_time; },
         processTradingTimesAnswer: processTradingTimesAnswer,
         trading_times: function(){ return trading_times; },
@@ -60958,6 +60965,76 @@ var Durations = (function(){
  */
 var TradingEvents = (function () {
     'use strict';
+
+
+    var onStartDateChange = function(value){
+
+        if(!value || !$('#date_start').find('option[value='+value+']').length){
+            return 0;
+        }
+        $('#date_start').val(value);
+
+        var make_price_request = 1;
+        if (value === 'now') {
+            Durations.display('spot');
+            sessionStorage.removeItem('date_start');
+        } else {
+            make_price_request = -1;
+            var end_time = moment(value*1000).utc().add(15,'minutes');
+            Durations.setTime(end_time.format("hh:mm"));
+            Durations.selectEndDate(end_time.format("YYYY-MM-DD"));
+
+            Durations.display('forward');
+            sessionStorage.setItem('date_start', value);
+        }
+
+        return make_price_request;
+    };
+
+    var onExpiryTypeChange = function(value){
+        
+        if(!value || !$('#expiry_type').find('option[value='+value+']').length){
+            value = 'duration';
+        }
+
+        $('#expiry_type').val(value);
+
+        sessionStorage.setItem('expiry_type',value);
+        var make_price_request = 0;
+        if(value === 'endtime'){
+            Durations.displayEndTime();
+            if(sessionStorage.getItem('end_date')){
+                Durations.selectEndDate(sessionStorage.getItem('end_date'));
+                make_price_request = -1;
+            }
+        }
+        else{
+            Durations.display();
+            if(sessionStorage.getItem('duration_units')){
+                TradingEvents.onDurationUnitChange(sessionStorage.getItem('duration_units'));
+            }
+            if(sessionStorage.getItem('duration_amount') && sessionStorage.getItem('duration_amount') > $('#duration_minimum').text()){
+                $('#duration_amount').val(sessionStorage.getItem('duration_amount'));
+            }
+            make_price_request = 1;
+        }
+
+        return make_price_request;
+    };
+
+    var onDurationUnitChange = function(value){
+
+        if(!value || !$('#duration_units').find('option[value='+value+']').length){
+            return 0;
+        }
+        $('#duration_units').val(value);
+
+        sessionStorage.setItem('duration_units',value);
+        Durations.select_unit(value);
+        Durations.populate();
+
+        return 1;
+    };
 
     var initiate = function () {
         /*
@@ -61066,8 +61143,7 @@ var TradingEvents = (function () {
         var expiryTypeElement = document.getElementById('expiry_type');
         if (expiryTypeElement) {
             expiryTypeElement.addEventListener('change', function(e) {
-                sessionStorage.setItem('expiry_type',e.target.value);
-                Durations.displayEndTime();
+                onExpiryTypeChange(e.target.value);
                 processPriceRequest();
             });
         }
@@ -61078,11 +61154,8 @@ var TradingEvents = (function () {
         var durationUnitElement = document.getElementById('duration_units');
         if (durationUnitElement) {
             durationUnitElement.addEventListener('change', function (e) {
-                sessionStorage.setItem('duration_units',e.target.value);
-                Durations.select_unit(e.target.value);
-                Durations.populate();
+                onDurationUnitChange(e.target.value);
                 processPriceRequest();
-                sessionStorage.setItem('duration_amount',document.getElementById('duration_amount').value);
             });
         }
 
@@ -61129,13 +61202,10 @@ var TradingEvents = (function () {
         var dateStartElement = StartDates.node();
         if (dateStartElement) {
             dateStartElement.addEventListener('change', function (e) {
-                if (e.target && e.target.value === 'now') {
-                    Durations.display('spot');
-                } else {
-                    Durations.display('forward');
-                    sessionStorage.setItem('date_start', e.target.value);
+                var r = onStartDateChange(e.target.value);
+                if(r>=0){
+                    processPriceRequest();
                 }
-                processPriceRequest();
             });
         }
 
@@ -61434,7 +61504,10 @@ var TradingEvents = (function () {
     };
 
     return {
-        init: initiate
+        init: initiate,
+        onStartDateChange: onStartDateChange,
+        onExpiryTypeChange: onExpiryTypeChange,
+        onDurationUnitChange: onDurationUnitChange
     };
 })();
 
@@ -61559,7 +61632,7 @@ var Price = (function () {
             var endTime2 = Durations.getTime();
             if(!endTime2){
                 var trading_times = Durations.trading_times();
-                if(trading_times.hasOwnProperty(endDate2) && typeof trading_times[endDate2][underlying.value] === 'string'){
+                if(trading_times.hasOwnProperty(endDate2) && typeof trading_times[endDate2][underlying.value] === 'object' && trading_times[endDate2][underlying.value].length  && trading_times[endDate2][underlying.value][0]!=='--'){
                     endTime2 = trading_times[endDate2][underlying.value];
                 }
             }
@@ -61791,6 +61864,8 @@ function processMarketUnderlying() {
     Tick.clean();
     
     updateWarmChart();
+
+    BinarySocket.clearTimeouts();
     
     Contract.getContracts(underlying);
 
@@ -61846,51 +61921,32 @@ function processContract(contracts) {
 }
 
 function processContractForm() {
+    
     Contract.details(sessionStorage.getItem('formname'));
 
     StartDates.display();
 
-    var forward = 0;
-    if($('#date_start:visible') && sessionStorage.getItem('date_start') && moment(sessionStorage.getItem('date_start')*1000).isAfter(moment(),'minutes')){
-        selectOption(sessionStorage.getItem('date_start'), document.getElementById('date_start'));
-        forward = 1;
-    }
-
     displayPrediction();
 
-    displaySpreads();  
- 
-    if(sessionStorage.getItem('amount')){
-        document.getElementById('amount').value = sessionStorage.getItem('amount');       
-    }
+    displaySpreads(); 
 
-    if(sessionStorage.getItem('amount_type')){
-        selectOption(sessionStorage.getItem('amount_type'), document.getElementById('amount_type'));
+    var r1;
+    if(StartDates.displayed() && sessionStorage.getItem('date_start')){
+        r1 = TradingEvents.onStartDateChange(sessionStorage.getItem('date_start'));
+        if(!r1) Durations.display();
     }
-    Durations.display();
-    var no_price_request;
-    if(sessionStorage.getItem('expiry_type')==='endtime'){
-        var is_selected = selectOption('endtime', document.getElementById('expiry_type'));
-        if(is_selected){
-            Durations.displayEndTime();
-            if(sessionStorage.getItem('end_date') && moment(sessionStorage.getItem('end_date')).isAfter(moment())){
-                $( "#expiry_date" ).datepicker( "setDate", sessionStorage.getItem('end_date') );
-                Durations.selectEndDate(sessionStorage.getItem('end_date'));
-                no_price_request = 1;
-            }
-        }
-    }
-    if(!no_price_request){
-        if(sessionStorage.getItem('duration_units')){
-            selectOption(sessionStorage.getItem('duration_units'), document.getElementById('duration_units'));
-        }
-        Durations.populate();
-        if(sessionStorage.getItem('duration_amount')){
-            document.getElementById('duration_amount').value = sessionStorage.getItem('duration_amount');       
-        }
-    }
+    else{
+        Durations.display();
+    } 
 
-    if(!no_price_request){
+    var expiry_type = sessionStorage.getItem('expiry_type') ? sessionStorage.getItem('expiry_type') : 'duration';
+    var make_price_request = TradingEvents.onExpiryTypeChange(expiry_type);
+
+    if(sessionStorage.getItem('amount')) $('#amount').val(sessionStorage.getItem('amount'));
+    if(sessionStorage.getItem('amount_type')) selectOption(sessionStorage.getItem('amount_type'),document.getElementById('amount_type'));
+    if(sessionStorage.getItem('currency')) selectOption(sessionStorage.getItem('currency'),document.getElementById('currency'));
+
+    if(make_price_request >= 0){
         processPriceRequest();
     }
 }
@@ -62049,8 +62105,8 @@ function processTradingTimesRequest(date){
 }
 
 function processTradingTimes(response){
-    var trading_times = Durations.trading_times();
     Durations.processTradingTimesAnswer(response);
+
     processPriceRequest();
 }
 ;/*
@@ -62251,6 +62307,7 @@ var StartDates = (function(){
     'use strict';
 
     var hasNow = 0;
+    var displayed = 0;
 
     var compareStartDate = function(a,b) {
         if (a.date < b.date)
@@ -62299,7 +62356,7 @@ var StartDates = (function(){
                 var b = moment.unix(start_date.close).utc();
 
                 var ROUNDING = 5 * 60 * 1000;
-                var start = moment();
+                var start = moment.utc();
 
                 if(moment(start).isAfter(moment(a))){
                     a = start;
@@ -62308,16 +62365,20 @@ var StartDates = (function(){
                 a = moment(Math.ceil((+a) / ROUNDING) * ROUNDING).utc();
 
                 while(a.isBefore(b)) {
-                    option = document.createElement('option');
-                    option.setAttribute('value', a.utc().unix());
-                    content = document.createTextNode(a.format('HH:mm ddd'));
-                    option.appendChild(content);
-                    fragment.appendChild(option);
+                    if(a.unix()-start.unix()>5*60){
+                        option = document.createElement('option');
+                        option.setAttribute('value', a.utc().unix());
+                        content = document.createTextNode(a.format('HH:mm ddd'));
+                        option.appendChild(content);
+                        fragment.appendChild(option);
+                    } 
                     a.add(5, 'minutes');
                 }
             });
             target.appendChild(fragment);
+            displayed = 1;
         } else {
+            displayed = 0;
             document.getElementById('date_start_row').style.display = 'none';
         }
     };
@@ -62332,7 +62393,8 @@ var StartDates = (function(){
     return {
         display: displayStartDates,
         node: getElement,
-        setNow: setNow
+        setNow: setNow,
+        displayed: function(){ return displayed; }
     };
 
 })();
@@ -62885,7 +62947,7 @@ var BinarySocket = (function () {
     var clearTimeouts = function(){
         for(var k in timeouts){
             if(timeouts.hasOwnProperty(k)){
-                clearInterval(timeouts[k]);
+                clearTimeout(timeouts[k]);
                 delete timeouts[k];
             }
         }
@@ -62918,14 +62980,16 @@ var BinarySocket = (function () {
             if(!data.hasOwnProperty('passthrough')){
                 data.passthrough = {};
             }
+            // temporary check
             if(data.contracts_for || data.proposal){
                 data.passthrough.req_number = ++req_number;
-                timeouts[req_number] = setInterval(function(){
-                    if(typeof reloadPage === 'function'){
-                        var r = confirm("The server didn't respond to the request:\n\n"+JSON.stringify(data)+"\n\nReload page?");
-                        if (r === true) {
-                            reloadPage();
-                        } 
+                timeouts[req_number] = setTimeout(function(){
+                    if(typeof reloadPage === 'function' && data.contracts_for){
+                        alert("The server didn't respond to the request:\n\n"+JSON.stringify(data)+"\n\n");
+                        reloadPage();
+                    }
+                    else{
+                        $('.price_container').hide();
                     }
                 }, 7*1000);
             }
@@ -63032,7 +63096,8 @@ var BinarySocket = (function () {
         send: send,
         close: close,
         socket: function () { return binarySocket; },
-        clear: clear
+        clear: clear,
+        clearTimeouts: clearTimeouts
     };
 
 })();
