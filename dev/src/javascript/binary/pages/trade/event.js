@@ -19,17 +19,16 @@ var TradingEvents = (function () {
 
         var make_price_request = 1;
         if (value === 'now') {
-            Durations.display('spot');
             sessionStorage.removeItem('date_start');
         } else {
             make_price_request = -1;
             var end_time = moment(value*1000).utc().add(15,'minutes');
             Durations.setTime(end_time.format("hh:mm"));
             Durations.selectEndDate(end_time.format("YYYY-MM-DD"));
-
-            Durations.display('forward');
             sessionStorage.setItem('date_start', value);
         }
+
+        Durations.display();
 
         return make_price_request;
     };

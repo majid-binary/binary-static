@@ -16,7 +16,16 @@ var Durations = (function(){
     var expiry_time = '';
     var has_end_date = 0;
 
-    var displayDurations = function(startType) {
+    var displayDurations = function() {
+
+        var startType;
+        if(sessionStorage.getItem('date_start') && StartDates.displayed() && moment(sessionStorage.getItem('date_start')*1000).isAfter(moment()) ){
+            startType = 'forward';
+        }
+        else {
+            startType = 'spot';
+        }
+
         var durations = Contract.durations();
         if (durations === false) {
             document.getElementById('expiry_row').style.display = 'none';

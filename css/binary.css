@@ -4678,6 +4678,26 @@ a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
   width: 45%;
 }
 
+#trading-times th.flex-tr-child {
+  line-height: 30px;
+}
+#trading-times th.submarket-name {
+  border-bottom: 1px solid #44484C !important;
+  text-align: center !important;
+}
+#trading-times th.asset {
+  width: 24%;
+}
+#trading-times th.opens, #trading-times th.closes, #trading-times th.settles {
+  width: 12%;
+}
+#trading-times th.upcomingevents {
+  width: 40%;
+}
+#trading-times td.asset {
+  font-weight: 700;
+}
+
 /* static pages */
 @keyframes spinning {
   from {
@@ -5034,7 +5054,7 @@ a.dynamic, span.dynamic, div.dynamic, p.dynamic, button.dynamic, table.dynamic {
   background-size: 40%;
 }
 #trading_socket_container #contract_prices_container .contract_heading.SPREADD {
-  background: url("../images/pages/trade/spreads.svg") no-repeat top center;
+  background: url("../images/pages/trade/spreads_1.svg") no-repeat top center;
   background-size: 40%;
 }
 #trading_socket_container #contract_prices_container .contract_amount, #trading_socket_container #contract_prices_container .contract_description {

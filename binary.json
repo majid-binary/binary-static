@@ -78,6 +78,7 @@
     "src/javascript/binary/pages/portfiliows.js",
     "src/javascript/binary/pages/portfolio.js",
     "src/javascript/binary/pages/pricingtable.js",
+    "src/javascript/binary/pages/resources/trading_timesws.js",
     "src/javascript/binary/pages/selfexclusion.js",
     "src/javascript/binary/pages/statement.js",
     "src/javascript/binary/pages/trade/analysis.js",
