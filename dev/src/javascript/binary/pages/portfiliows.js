@@ -32,6 +32,8 @@ var PortfolioWS =  (function() {
     **/
     var updatePortfolio = function(data) {
 
+        console.log(data);
+
         /**
          * Check for error
         **/
@@ -43,6 +45,7 @@ var PortfolioWS =  (function() {
          * no contracts
         **/
         if(0 === data.portfolio.contracts.length) {
+            console.log('No open contract');
             $("#trading_init_progress").hide();
             $("#portfolio-content").removeClass("dynamic");
             //$("#portfolio-table").remove();
