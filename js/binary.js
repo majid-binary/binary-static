@@ -58437,8 +58437,6 @@ $(function() {
     **/
     var updatePortfolio = function(data) {
 
-        console.log(data);
-
         /**
          * Check for error
         **/
@@ -58447,14 +58445,12 @@ $(function() {
         }
 
         /**
-         * no contracts
+         * no open contracts
         **/
         if(0 === data.portfolio.contracts.length) {
-            console.log('No open contract');
-            $("#trading_init_progress").hide();
+            $("#portfolio-table").addClass("dynamic");
             $("#portfolio-content").removeClass("dynamic");
-            //$("#portfolio-table").remove();
-            //$("#portfolio-no-contract").removeClass("dynamic");
+            $("#trading_init_progress").hide();
             return true;
         }
 
