@@ -93,6 +93,7 @@ msgstr "%1クライアントガイド"
 #. (request.website.display_name)
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_transfer.html.tt:31
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:30
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:84
 msgid "%1 does not charge any transfer fees."
 msgstr "当社はご入金、及びご出金時に手数料を課しません。"
 
@@ -295,10 +296,6 @@ msgstr "「<strong>ロング</strong>」 インデックスが上昇すると条
 msgid "'<strong>Short</strong>' contracts generate losses when the index rises and profits when it falls."
 msgstr "「<strong>ショート</strong>」 インデックスが下落すると条件を満たし、上昇すると条件が満たされません。"
 
-#: /home/git/translations/binary-static/src/templates/haml/static/group_history.html.haml:1
-msgid "'EGR Operator Award for Financial Betting Operator'"
-msgstr ""
-
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:58
 msgid "(Bejing/CST -8 hours)"
 msgstr "(北京/CST -8時間)"
@@ -419,11 +416,11 @@ msgstr "3.トレード方法を選択"
 msgid "30-50 million JPY"
 msgstr "3,000〜5,000万円"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1891
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1889
 msgid "30-day limit on losses"
 msgstr "30日間の損失制限"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1856
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1854
 msgid "30-day turnover limit"
 msgstr "30日間ターンオーバー制限"
 
@@ -451,8 +448,8 @@ msgstr "5,000万円〜1億円"
 msgid "5d"
 msgstr "５日間"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2937
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:452
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2935
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:450
 msgid "6 - 25 characters."
 msgstr "6~25文字でご入力ください。"
 
@@ -469,20 +466,20 @@ msgid "6h"
 msgstr "６時間"
 
 #. ($client->currency, $self_exclusion->max_7day_losses)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:69
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:68
 msgid "7-Day limit on losses is currently set to <strong>%1 %2</strong>"
 msgstr "7日間の損失制限は、現在 <strong>%1 %2</strong>に設定されています。"
 
 #. ($client->currency, $self_exclusion->max_7day_turnover)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:64
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:63
 msgid "7-Day turnover limit is currently set to <strong>%1 %2</strong>"
 msgstr "7日間のターンオーバー制限は、現在<strong>%1 %2</strong>に設定されています。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1821
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1819
 msgid "7-day limit on losses"
 msgstr "7日間の損失制限"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1786
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1784
 msgid "7-day turnover limit"
 msgstr "7日間のターンオーバー制限"
 
@@ -668,6 +665,7 @@ msgstr "<strong>ラダー高/ラダー低</strong>：バリア設定をした価
 
 #. (request.website.display_name)
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:37
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:91
 msgid "<strong>IMPORTANT DISCLAIMER</strong> - %1 is not affiliated with any of the Payment Agents listed above. Each Payment Agent operates as an independent service provider and is not endorsed, guaranteed or otherwise approved by %1. CUSTOMERS DEAL WITH PAYMENT AGENTS AT THEIR SOLE RISK AND PERIL. Customers are advised to check the credentials of Payment Agents before sending them any money. %1 shall not in any circumstance be held responsible for transactions made between customers and Payment Agents."
 msgstr "<strong>重要な免責事項</strong> -%1は、上記の決済サービスとは提携していません。各決済サービスは、独立したサービスプロバイダーとして動作し、%1による承認、保証またはその他の許可がなされていません。お客様は危険を承知で自信の責任をもって決済サービスに処断します。送金をされる前に、決済サービスの資格情報を確認されることをお勧めいたします。%1はいかなる状況下においても、お客様と決済サービスの間で生じた処理への責任は負いません。"
 
@@ -969,7 +967,7 @@ msgstr "APIトークン"
 msgid "API token for third party applications."
 msgstr "第三者開発アプリケーションのAPIトークン"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1559
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1557
 msgid "AUTHORISED PAYMENT AGENT? (this field visible from office only)"
 msgstr "許可された決済サービスエージェントですか？ (このフィールドはオフィスIPまたはVPNからのみご覧いただけます)"
 
@@ -1109,10 +1107,10 @@ msgstr "ラインを加える"
 msgid "Add Overlay"
 msgstr "オーバーレイを加える"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:385
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:93
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:383
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:91
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1256
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:371
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:437
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:56
 msgid "Address"
 msgstr "ご住所"
@@ -1184,10 +1182,12 @@ msgstr "クライアントへ%1では直接利用できないEウォレットの
 msgid "Although the Company has and retains all rights to refuse or to close a Client’s account, the Company does warrant that all contractual obligations already made, shall be honoured."
 msgstr "当社は一部のお客様のアカウントの拒否、または閉鎖する全ての権利を保持していますが、既に行われた契約上の義務は守らせていただきます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2390
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2549
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2388
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2547
 #: /home/git/translations/binary-static/src/templates/haml/cashier/account_transfer.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:8
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:22
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:45
 msgid "Amount"
 msgstr "金額"
 
@@ -1217,7 +1217,7 @@ msgstr "ポイントごとの金額"
 msgid "An Ends Between trade pays out if the market exit price is strictly higher than the low price target AND strictly lower than the high price target. An Ends Outside binary pays out if the market exit price is EITHER strictly higher than the high price target OR strictly lower than the low price target."
 msgstr "「レンジ内」のトレードタイプでは、トレード終値が最小値として設定したバリアよりも高値、”かつ”、最高値として設定したバリアよりも安値であれば条件が満たされたことになります。同値は満たさないと判定され、終値のみが評価対象になります。「レンジ外」のトレードタイプでは、トレードの終値が最高値として設定したバリアよりも高値、”または”、最小値として設定したバリアよりも安値であれば条件が満たされます。同値は満たされないと判定され、終値のみが評価対象になります。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:500
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:498
 msgid "An additional password can be used to restrict access to the cashier."
 msgstr "キャッシャーへのアクセスを制限するために、追加パスワードを使用することができます。"
 
@@ -1270,7 +1270,7 @@ msgstr "年間所得"
 msgid "Another major award. This time we’re nominated by the online readers of Global Banking and Finance Review and judged by a panel of industry experts and analysts who recognise our 13 years of platform reliability, range of trades, pricing, customer service and extensive knowledge."
 msgstr "これも主要な受賞です。”Global Banking”、及び”Finance Review”の読者からノミネートされ、業界の専門家、及びアナリストによって当社の１３年以上に及ぶシステムの信頼性、トレードの幅、価格決定システム、カスタマーサービス、そして専門知識が評価されました。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3466
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3464
 msgid "Answer to secret question"
 msgstr "秘密のご質問の回答"
 
@@ -1329,8 +1329,8 @@ msgid "Appropriateness Test"
 msgstr "適正テスト"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:81
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3147
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:989
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3145
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:987
 msgid "Apr"
 msgstr "４月"
 
@@ -1403,8 +1403,8 @@ msgstr "取引対象"
 
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Menu.pm:155
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Resources.pm:126
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2610
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2657
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2640
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2687
 #: /home/git/translations/binary-static/src/templates/haml/layouts/default/footer.html.haml:1
 #: /home/git/translations/binary-static/src/templates/haml/resources/index.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/global/footer.html.tt:85
@@ -1413,8 +1413,8 @@ msgid "Asset Index"
 msgstr "取引期間データ"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:85
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1005
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3163
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1003
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3161
 msgid "Aug"
 msgstr "８月"
 
@@ -1423,7 +1423,7 @@ msgid "August"
 msgstr "８月"
 
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Menu.pm:120
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1263
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1261
 msgid "Authenticate"
 msgstr "ご口座アップグレード"
 
@@ -1504,6 +1504,7 @@ msgstr "チャート・ワークスペース"
 
 #: /home/git/translations/binary-static/src/templates/haml/get_started/benefits_of_trading_binaries.html.haml:1
 #: /home/git/translations/binary-static/src/templates/haml/get_started/how_to_trade_binaries.html.haml:1
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:24
 msgid "Back"
 msgstr "戻る"
 
@@ -1866,7 +1867,7 @@ msgid "Binary.com supports the <a target=\"_blank\" href=\"http://www.responsibl
 msgstr "Binary.comは、ギャンブルに関連する害を最小限にすることを約束している英国の大手慈善団体<a target=\"_blank\" href=\"http://www.responsiblegamblingtrust.org.uk/\">「責任ある賭博基金」(RGT, Responsible Gambling Trust)</a> をサポートしています。RGT資金教育、予防と治療のサービスや手数料の調査は、ギャンブルに関する害についてより理解するのに役立ちます。また、機密なアドバイスや感情的なサポートをしている全国ギャンブルヘルプラインも提供しています。"
 
 #: /home/git/translations/binary-static/src/templates/haml/static/group_history.html.haml:1
-msgid "Binary.com took home first prize in the Financial Betting Operator category at the prestigious 2015 EGR Operator Awards ceremony, hosted in London. This distinction – which attracts the world's leading online gaming firms – was bestowed based on an evaluation of our growth, innovation, and overall product offering during the past 12 months."
+msgid "Binary.com took home first prize in the Financial Betting Operator category at the prestigious 2015 EGR Operator Awards ceremony, hosted in London."
 msgstr ""
 
 #: /home/git/translations/binary-static/src/templates/haml/home/index.html.haml:1
@@ -1930,7 +1931,7 @@ msgstr "上記の両方"
 msgid "Both the deposit and the bonus amounts are clearly displayed when this type of promotion is available. E.g. Get $25 when you deposit $100. By way of example, if you choose to participate in a \"Get $25 when you deposit $100\" promotion, we will add an additional $25 to your account when you deposit $100 AND when you have purchased at least $125 worth of trades ($25 * 5= $125). The bonus will only be credited to your account when both of these conditions are met."
 msgstr "このタイプのボーナスの申請が可能な場合、必要なご入金金額、及びボーナスの付与金額は明確に表示されます。例）１００ドル入金で２５ドル分のボーナスが付与されるという条件の場合、”１００ドル入金で２５ドル分のボーナスが付与”というキャンペーンに応募することで、１００ドルの入金が達成され、かつ１２５ドル分のトレードを購入された場合（ボーナス金額の５倍）、２５ドルがご口座に付与されます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3442
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3440
 msgid "Brand of first car"
 msgstr "初めて購入した車のブランド名"
 
@@ -1938,7 +1939,7 @@ msgstr "初めて購入した車のブランド名"
 msgid "Browse"
 msgstr "閲覧"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1236
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1234
 msgid "Building Number"
 msgstr "ビル（マンション）の番号、号室"
 
@@ -2020,12 +2021,12 @@ msgstr "キャンセル"
 msgid "Candlestick Chart"
 msgstr "ローソク足チャート"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:368
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/PortfolioManagement.pm:33
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:372
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/PortfolioManagement.pm:28
 msgid "Cannot create contract"
 msgstr "トレードを作成できません"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:386
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:390
 msgid "Cannot validate contract"
 msgstr "トレードを確認することができません。"
 
@@ -2052,8 +2053,8 @@ msgstr "配当金"
 msgid "Cashier"
 msgstr "キャッシャー"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:433
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:558
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:431
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:556
 msgid "Cashier password"
 msgstr "キャッシャーパスワード"
 
@@ -2084,8 +2085,8 @@ msgstr "変化値"
 msgid "Change = Close - Open, for the day"
 msgstr "変化値とは、該当日の終値から始値を引いた値のことです"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:763
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:905
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:761
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:903
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1820
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:303
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:3
@@ -2094,7 +2095,7 @@ msgid "Change Password"
 msgstr "パスワードのご変更"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1281
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:396
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:462
 msgid "Change in account settings"
 msgstr "ご口座の設定内容の変更"
 
@@ -2342,15 +2343,15 @@ msgid "Closes early (at %1)"
 msgstr "早めに閉場（%1）"
 
 #. (2000)
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1519
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1517
 msgid "Comment must not exceed %1 characters. Please resubmit."
 msgstr "コメントは%1文字以内で送信して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1463
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1461
 msgid "Commission (%) you want to take on deposits"
 msgstr "手数料 (%) 入金の際の差し引きをご希望"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1480
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1478
 msgid "Commission (%) you want to take on withdrawals"
 msgstr "手数料 (%) 出金の際の差し引きをご希望"
 
@@ -2424,12 +2425,13 @@ msgstr "金融市場を推測するコンピュータシステムとその方法
 msgid "Computer trading system for offering custom financial market speculations"
 msgstr "金融市場を推測するカスタムを提供するコンピュータ取引システム"
 
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:25
 #: /home/git/translations/binary-static/src/templates/toolkit/container/confirm_box_popup.html.tt:1
 #: /home/git/translations/binary-static/src/templates/toolkit/container/confirm_box_popup.html.tt:5
 msgid "Confirm"
 msgstr "決定"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2961
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2959
 msgid "Confirm Your Email"
 msgstr "メールアドレスをご確認ください。"
 
@@ -2483,8 +2485,8 @@ msgstr "決済サービスへの送金方法の詳細は直接代行会社へご
 msgid "Contact us"
 msgstr "お問い合わせ"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1106
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1152
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1104
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1150
 msgid "Continue"
 msgstr "続ける"
 
@@ -2529,7 +2531,7 @@ msgid "Contract barrier must be positive."
 msgstr "バリアは正の値を指定して下さい。"
 
 #. ($end_of_bo->date)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2737
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2767
 msgid "Contract can not expire during the end-of-year holiday period. Select an expiry date after %1."
 msgstr "トレードは年末の祭日に終了することはできませんので、%1より後の日付を選択して下さい。"
 
@@ -2541,7 +2543,7 @@ msgstr "現在トレードを売ることができません。"
 msgid "Contract expired"
 msgstr "取引終了"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2459
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2489
 msgid "Contract has already expired."
 msgstr "トレードは既に終了しました。"
 
@@ -2550,16 +2552,16 @@ msgid "Contract market price is too close to final payout."
 msgstr "取引の市場価格が最終払い戻し価格に近すぎます。"
 
 #. ($eod_blackout_expiry->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2500
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2530
 msgid "Contract may not expire within the last %1 of trading."
 msgstr "トレード終了時間%1以内にトレードを終了させることはできません。"
 
 #. ($minimum_hold->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2334
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2340
 msgid "Contract must be held for %1 before resale is offered."
 msgstr "転売が提供される前に、契約は1％を保持しなければいけません。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2468
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2498
 msgid "Contract must expire during trading hours."
 msgstr "トレードはトレード可能時間内に終了する必要があります。"
 
@@ -2600,12 +2602,12 @@ msgid "Contracts on %1 which both start and end between %2 and %3 on the same da
 msgstr "同一日の%2と%3の期間内で開始・終了する条件で%1をトレードすることはできません。"
 
 #. ($underlying->translated_display_name()
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2516
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2546
 msgid "Contracts on %1 with duration more than 24 hours must expire at the end of a trading day."
 msgstr "取引期間が24時間を超える％1の契約は、取引日の終わりに期限が切れます。"
 
 #. ($underlying->translated_display_name()
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2486
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2516
 msgid "Contracts on %1 with durations under 24 hours must expire on the same trading day."
 msgstr "取引期間を２４時間以下と指定した%1でのトレードは、購入日と同日に終了します。"
 
@@ -2659,10 +2661,10 @@ msgstr "参加費用"
 msgid "Costs and Charges"
 msgstr "コストと料金"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3241
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3533
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3239
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3531
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1254
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:369
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:435
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:34
 msgid "Country of Residence"
 msgstr "居住国"
@@ -2726,11 +2728,11 @@ msgstr "現在のレベル"
 msgid "Current Spot"
 msgstr "現在のスポット価格"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2284
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2286
 msgid "Current market price is 0."
 msgstr "現在の市場価格は０です。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:657
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:655
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:12
 msgid "Current password"
 msgstr "現在のパスワード"
@@ -2778,21 +2780,21 @@ msgstr "日毎価格データ"
 msgid "Daily Report"
 msgstr "デイリーレポート"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2301
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2299
 msgid "Daily limit on losses"
 msgstr "損失の値幅制限"
 
 #. ($client->currency, $self_exclusion->max_losses)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:59
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:58
 msgid "Daily limit on losses is currently set to <strong>%1 %2</strong>"
 msgstr "損失の値幅制限は、現在<strong>%1 %2</strong>に設定されています。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1746
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1744
 msgid "Daily turnover limit"
 msgstr "１日の売買高制限"
 
 #. ($client->currency, $self_exclusion->max_turnover)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:54
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:53
 msgid "Daily turnover limit is currently set to <strong>%1 %2</strong>"
 msgstr "１日の売買高制限は、現在<strong>%1 %2</strong>に設定されています。"
 
@@ -2815,9 +2817,9 @@ msgstr "閉場後にデータが確定"
 msgid "Date"
 msgstr "日付"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1036
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:183
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3193
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1034
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:181
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3191
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:23
 msgid "Date of birth"
 msgstr "生年月日"
@@ -2845,14 +2847,14 @@ msgstr "様"
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1512
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1820
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1245
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:360
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:427
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Cashier.pm:304
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Cashier.pm:524
 msgid "Dear %1 %2 %3,"
 msgstr "%1 %2 %3様"
 
 #. ($client_name, $ce_broker_name, $support_email)
-#: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Client/IDAuthentication.pm:156
+#: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Client/IDAuthentication.pm:198
 msgid ""
 "Dear %1,\n"
 "\n"
@@ -2991,8 +2993,8 @@ msgid "Debt-free"
 msgstr "デッドフリー"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:89
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1021
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3179
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1019
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3177
 msgid "Dec"
 msgstr "１２月"
 
@@ -3214,7 +3216,7 @@ msgstr "利益の確定ができます。"
 msgid "Do you want to see Binary.com in other languages, or can you suggest improvements to our current translations?"
 msgstr "Binary.comを他の言語での展開、及び既存の翻訳の改善を提案をされたい場合もお問い合わせください。"
 
-#: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Client/IDAuthentication.pm:155
+#: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Client/IDAuthentication.pm:197
 msgid "Documents are required to verify your identity"
 msgstr "ご本人様確認のために書類の送付が必要です"
 
@@ -3266,7 +3268,7 @@ msgid "Duration"
 msgstr "取引期間"
 
 #. ($shortest->as_string, $longest->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2621
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2651
 msgid "Duration must be between %1 and %2."
 msgstr "有効な取引期間は、%1から%2の間です。"
 
@@ -3285,6 +3287,10 @@ msgstr "このご利用規約の下では、当社のビジネス、オペレー
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/payment_methods.html.tt:221
 msgid "E-cash"
 msgstr "eキャッシュ"
+
+#: /home/git/translations/binary-static/src/templates/haml/static/group_history.html.haml:1
+msgid "EGR Operator Award "
+msgstr ""
 
 #. (stash->{website_name})
 #: /home/git/translations/binary-static/src/templates/haml/get_started/binary_options_basics.html.haml:1
@@ -3368,10 +3374,10 @@ msgstr "メール"
 msgid "Email Verification"
 msgstr "Eメール認証"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2866
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3548
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2864
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3546
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1253
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:368
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:434
 #: /home/git/translations/binary-static/src/templates/haml/user/lost_password.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:45
 msgid "Email address"
@@ -3473,22 +3479,22 @@ msgstr "投資製品のお取引をご希望のイギリスを除く欧州連合
 msgid "Example:"
 msgstr "例："
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2000
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1998
 msgid "Exclude me from the website until"
 msgstr "サイトへのアクセスを右記日時まで希望しません。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2279
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:504
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2277
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:570
 msgid "Exclude time cannot be for more than five years."
 msgstr "6年以上の除外期間は設定することはできません。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2274
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:499
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2272
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:565
 msgid "Exclude time cannot be less than 6 months."
 msgstr "5ヶ月以下の除外時間を設定することはできません。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2269
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:494
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2267
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:560
 msgid "Exclude time must be after today."
 msgstr "制限時間は明日以降として設定して下さい。"
 
@@ -3546,7 +3552,7 @@ msgstr "終了時間"
 msgid "Expiry price"
 msgstr "終値"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2346
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2352
 msgid "Expiry time cannot be in the past."
 msgstr "終了時間を過去の時間に設定することはできません。"
 
@@ -3586,7 +3592,7 @@ msgstr "ロー・還元率"
 msgid "Fall Contract Return (%)"
 msgstr "ロー・還元率 (%)"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3092
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3090
 msgid "Family Name"
 msgstr "姓"
 
@@ -3594,17 +3600,17 @@ msgstr "姓"
 msgid "Fast Stochastic"
 msgstr "ファスト・ストキャスティクス"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3442
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3440
 msgid "Favourite artist"
 msgstr "好きなアーティスト名"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3442
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3440
 msgid "Favourite dish"
 msgstr "好きな食べ物"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:79
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3139
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:981
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3137
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:979
 msgid "Feb"
 msgstr "２月"
 
@@ -3674,12 +3680,12 @@ msgstr "様々な特典"
 msgid "Find the right trade for every market condition."
 msgstr "いかなる市場状況にも対応できる取引を体感ください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3062
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3060
 msgid "First Name"
 msgstr "名"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:197
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3278
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:195
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3276
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:60
 msgid "First line of home address"
 msgstr "番地情報"
@@ -3852,7 +3858,8 @@ msgstr "開始："
 msgid "Front-End (Javascript) Development"
 msgstr "フロントエンド（Javascript）開発"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2584
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2582
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:55
 msgid "Further Instructions"
 msgstr "詳細説明"
 
@@ -3862,7 +3869,7 @@ msgstr "詳細情報"
 
 #. (300)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1660
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2607
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2605
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Cashier.pm:411
 msgid "Further instructions must not exceed %1 characters."
 msgstr "詳細説明は%1文字以内でご入力下さい。"
@@ -4209,7 +4216,7 @@ msgid "I forgot my password, what should I do?"
 msgstr "パスワードを忘れてしまいました。再発行の方法について教えて下さい。"
 
 #. (request()
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3498
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3496
 msgid "I have read and agree to the <a target=\"_blank\" href=\"%1\">terms and conditions</a> of the site."
 msgstr "このウェブサイトの<a target=\"_blank\" href=\"%1\">ご利用規約</a>に同意いたします。"
 
@@ -4518,6 +4525,7 @@ msgid "In such an event, the Company may at its sole discretion (with or without
 msgstr "このような状況下では当社は事前通達の有無に関わらず、お客様のオープン中のトレードをその時点で公平かつ合理的と判断できる価格にて終了させ、当社に対する異議は受け付けられない可能性があります。"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:31
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:85
 msgid "In the 'Further Instructions' field please specify the payment method and account number to which the Agent will send the funds to."
 msgstr "詳細説明欄ではエージェントの決済方法、振込先の口座番号を記入して下さい。"
 
@@ -4530,7 +4538,9 @@ msgid "In the case of single stock and stock index prices, the final closing pri
 msgstr "個別株式、及び株価指数の終値は、公式な取引所の終了価格によって決定されますが、該当取引の終了後30分〜90分後に発表される場合があり、かつ終了時間に発生した最終のTick価格と異なる場合があります。"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/legal/terms_and_conditions.html.tt:145
-msgid "In the case that any financial contracts are acquired or sold at prices that do not reflect fair market prices or that are acquired or sold at an abnormally low level of risk due to an undetected programming error, bug or glitch in our website software, the Company reserves the right to cancel or reverse such transactions upon notification to the Client of the nature of the computer error that led to the mispricing. Clients have a duty to report to the Company any problems or suspected system inadequacies that they may experience and may not abuse of system problems for profit. The Company will endeavour to resolve any such difficulties in the shortest time possible. Persons with insider knowledge of any financial market or instrument are prohibited from trading at this website."
+#, fuzzy
+#| msgid "In the case that any financial contracts are acquired or sold at prices that do not reflect fair market prices or that are acquired or sold at an abnormally low level of risk due to an undetected programming error, bug or glitch in our website software, the Company reserves the right to cancel or reverse such transactions upon notification to the Client of the nature of the computer error that led to the mispricing. Clients have a duty to report to the Company any problems or suspected system inadequacies that they may experience and may not abuse of system problems for profit. The Company will endeavour to resolve any such difficulties in the shortest time possible. Persons with insider knowledge of any financial market or instrument are prohibited from trading at this website."
+msgid "In the case that any financial contracts are acquired or sold at prices that do not reflect fair market prices or that are acquired or sold at an abnormally low level of risk due to an undetected programming error, bug or glitch in our website software, the Company reserves the right to cancel or reverse such transactions upon notification to the Client of the nature of the computer error that led to the mispricing. Clients have a duty to report to the Company any problems or suspected system inadequacies that they may experience and may not abuse of system problems for profit. The Company will endeavour to resolve any such difficulties in the shortest time possible. Persons with insider knowledge of any financial market or instrument are prohibited from trading at this website. In case of errors or inconsistency of data feeds, we reserve the right to cancel any or all affected contracts."
 msgstr "公平な市場価格を反映しない価格、若しくは未検出のプログラミングエラーによって著しく低レベルのリスクでのトレードが提供された場合、若しくはバグや当社サイト・ソフトウェアの故障という状況下での売買は全て、事情を説明した事前通達と共に無効にする権利を弊社は有します。お客様はもし、トレーディングシステムに疑わしい不適切な点や問題を発見したら弊社への報告義務があり、かつシステム上の問題を利用して利益を得ることは禁止します。当社はそのような事態が発生した場合は、早急に解決に努めます。またマーケットや金融商品に関する、いかなるインサイダー情報を用いて当社のサイトと取引をすることを禁止します。"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/legal/biel_terms.html.tt:54
@@ -4541,7 +4551,7 @@ msgstr "サービスを提供させていただく過程で、当社意見とお
 msgid "In the unlikely event of BIEL suffering an investment default and not being able to meet its obligations, BIEL is a member of the Malta Investor Compensation Scheme which covers the first €20,000 of any claim. Whether you are able to claim depends on the type of business and your personal circumstances."
 msgstr "万一BIELが投資デフォルトを被ったり、その義務を果たせない場合、BIELはマルタ投資家補償機構（the Malta Investor Compensation Scheme）のメンバーになるので初期クレームの€20,000 をカバーします。クレームをできるかどうかはビジネスタイプや個人の状況に準じます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1330
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1328
 msgid "In what country do you want to offer your service"
 msgstr "サービス提供を計画している国名"
 
@@ -4694,7 +4704,7 @@ msgstr "インターネット取引のリスク"
 msgid "Interpretation"
 msgstr "通訳"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2049
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2051
 msgid "Intraday contracts may not cross market open."
 msgstr "１日以内の取引はマーケット開始をまたぐことはできません。"
 
@@ -4706,7 +4716,7 @@ msgstr "本日の価格データ"
 msgid "Introduction"
 msgstr "はじめに"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1252
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1250
 msgid "Invalid Building No./Name"
 msgstr "ビル名または番号が無効です"
 
@@ -4714,10 +4724,10 @@ msgstr "ビル名または番号が無効です"
 msgid "Invalid Input"
 msgstr "入力値が不適切です"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2412
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2418
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2571
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2577
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2410
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2416
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2569
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2575
 msgid "Invalid amount"
 msgstr "数値が不適切です"
 
@@ -4732,7 +4742,7 @@ msgstr "無効な値です。最小量は0.10で小数点以下２桁までで�
 msgid "Invalid amount. minimum is 10, maximum is 2000."
 msgstr "無効な値です。最小は10、最大は2000です。"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:212
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:213
 msgid "Invalid candles request"
 msgstr "無効なローソク足チャートリクエストです"
 
@@ -4754,7 +4764,7 @@ msgstr "無効なEメールアドレス"
 msgid "Invalid email and password combination."
 msgstr "Eメールアドレスとパスワードの組み合わせが無効です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2210
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2212
 msgid "Invalid payout currency."
 msgstr "払戻し通貨の種類が無効です。"
 
@@ -4767,25 +4777,25 @@ msgstr "期間の指定が不適切です。期間は0と#1の間でご指定下
 msgid "Invalid request"
 msgstr "無効なリクエストです"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2264
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2266
 msgid "Invalid stake"
 msgstr "無効な購入価格です"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1423
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:342
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3428
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1421
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:340
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3426
 msgid "Invalid telephone number (too long)."
 msgstr "入力されたお電話番号は長過ぎるので無効です。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1416
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:337
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3423
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1414
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:335
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3421
 msgid "Invalid telephone number (too short)."
 msgstr "入力されたお電話番号は短か過ぎるので無効です。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1428
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3433
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:347
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1426
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3431
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:345
 msgid "Invalid telephone number."
 msgstr "入力されたお電話番号は無効です。"
 
@@ -4896,8 +4906,8 @@ msgid "J. Welles Wilder has developed the Average Directional Index - ADX to def
 msgstr "J. Welles Wilder氏によってAverage Directional Index (ADX)は考案されました。トレンドの強さを測るための指標であり、トレンドが強まるか弱まるかを測ります。この指標によって市場のトレンド分析、及び外国為替市場での意思決定が可能になります。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:78
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3135
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:977
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3133
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:975
 msgid "Jan"
 msgstr "１月"
 
@@ -5522,8 +5532,8 @@ msgid "Joshua Cavallaro <span> Markets And You Trader.</span>"
 msgstr "Joshua Cavallaro氏<span> （Markets And You Trader）</span>"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:84
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1001
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3159
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3157
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:999
 msgid "Jul"
 msgstr "７月"
 
@@ -5541,8 +5551,8 @@ msgid "Jump to"
 msgstr "参照先"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:83
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3155
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:997
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3153
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:995
 msgid "Jun"
 msgstr "６月"
 
@@ -5725,7 +5735,7 @@ msgid "Links"
 msgstr "サイト内のリンクについて"
 
 #. (BOM::Platform::Runtime->instance->countries->localized_code2country($client->residence, request()
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2513
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2511
 msgid "Listing only Payment Agents in %1."
 msgstr "%1での唯一の決済サービスリスト"
 
@@ -5748,7 +5758,7 @@ msgstr "ライブ・チャート"
 msgid "Live chat:"
 msgstr "ライブチャット："
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:499
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:497
 msgid "Lock Cashier"
 msgstr "ロックキャッシャー"
 
@@ -5935,8 +5945,8 @@ msgid "Manage your account access and security settings."
 msgstr "アカウントのアクセス・セキュリティ設定を管理する。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:80
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3143
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:985
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3141
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:983
 msgid "Mar"
 msgstr "５月"
 
@@ -5971,7 +5981,7 @@ msgid "Market exit price"
 msgstr "市場出口価格"
 
 #. ($safer_expiry->date)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2685
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2715
 msgid "Market holiday during the contract period. Select an expiry date after %1."
 msgstr "トレードの取引期間に市場の休日が存在します。トレード終了日を%1以降に設定して下さい。"
 
@@ -6004,11 +6014,12 @@ msgstr "マスインデックス"
 msgid "Matched Contract Bonus"
 msgstr "合致するトレードボーナス"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2545
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2543
 msgid "Max"
 msgstr "最大値"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1743
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:661
 msgid "Max 30 tokens are allowed."
 msgstr "最大30トークンが可能"
 
@@ -6017,37 +6028,37 @@ msgid "Maximum"
 msgstr "最大値"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:224
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1711
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1709
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/betting_limits.html.tt:15
 msgid "Maximum account cash balance"
 msgstr "ご口座上限金額"
 
 #. ($client->currency, $self_exclusion->max_balance)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:49
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:48
 msgid "Maximum account cash balance is currently set to <strong>%1 %2</strong>"
 msgstr "現在のご口座上限金額は、<strong>%1 %2</strong>です。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1877
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1875
 msgid "Maximum aggregate contract purchases over a 30-day period."
 msgstr "30日間最大契約購入数"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1807
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1805
 msgid "Maximum aggregate contract purchases over a 7-day period."
 msgstr "7日間の最大契約購入数"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1767
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1765
 msgid "Maximum aggregate contract purchases per day."
 msgstr "一日あたりで購入可能なトレードの最高総額"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1912
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1910
 msgid "Maximum aggregate loss over a 30-day period."
 msgstr "30日間最大損失"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1842
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1840
 msgid "Maximum aggregate loss over a 7-day period."
 msgstr "7日間の最大損失"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2322
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2320
 msgid "Maximum aggregate loss per day."
 msgstr "1日あたりの最大損失"
 
@@ -6067,13 +6078,13 @@ msgid "Maximum number of attempts exceeded. Please try again after 10 minutes."
 msgstr "最大試行回数を超えまた。10分後にもう一度お試しください。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:222
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1926
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1924
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/betting_limits.html.tt:11
 msgid "Maximum number of open positions"
 msgstr "保有可能なオープンポジションの総数"
 
 #. ($self_exclusion->max_open_bets)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:74
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:73
 msgid "Maximum number of open positions is currently set to <strong>%1</strong>"
 msgstr "現在、保有可能なオープン中ポジションの総数は<strong>%1</strong>件です。"
 
@@ -6083,16 +6094,16 @@ msgstr "他の全ての方法での出金最大金額："
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:82
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:94
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3151
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:993
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3149
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:991
 msgid "May"
 msgstr "５月"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3442
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3440
 msgid "Memorable date"
 msgstr "思い出のある日時"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3441
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3439
 msgid "Memorable town/city"
 msgstr "思い出のある都市／街の名前"
 
@@ -6109,7 +6120,7 @@ msgstr "決済方法"
 msgid "Mid"
 msgstr "Mid"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2545
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2543
 msgid "Min"
 msgstr "分"
 
@@ -6122,8 +6133,14 @@ msgid "Min-Max Withdrawal"
 msgstr "最低ー最高　ご出金額"
 
 #. ($min_amount, $max_amount)
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2386
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2384
 msgid "Min: %1 Max: %2"
+msgstr "最小: %1 最大: %2"
+
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:49
+#, fuzzy
+#| msgid "Min: %1 Max: %2"
+msgid "Min: 10 Max: 2000"
 msgstr "最小: %1 最大: %2"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/charting/daily_ohlc.html.tt:64
@@ -6138,9 +6155,9 @@ msgstr "Miss"
 msgid "Missing market data for contract duration"
 msgstr "トレード期間のマーケットデータが不明です"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2005
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2064
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2568
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2007
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2066
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2598
 msgid "Missing market data for contract period."
 msgstr "取引機関でのマーケットデータが不明です。"
 
@@ -6148,8 +6165,8 @@ msgstr "取引機関でのマーケットデータが不明です。"
 msgid "Missing market data for entry spot."
 msgstr "エントリー価格のマーケットデータが不明です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2022
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2036
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2024
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2038
 msgid "Missing market data for exit spot."
 msgstr "終値が不明です。"
 
@@ -6218,7 +6235,7 @@ msgstr "福利厚生について"
 msgid "More specifically, when we enter into a Binary Option trade with you (each, a \"Contract\"), we have a duty to provide you with ‘best execution’. Best execution means that we must take reasonable steps to obtain the best possible result for you when executing an order with you. This document provides a summary of our best execution policy."
 msgstr "すなわち、お客様とバイナリーオプション取引に入る際（各\"契約\"）、当社にはお客様に「最良執行」を提供させていただく義務があります。最良執行とは、お客様への可能な限り最良の結果を得られるよう適切な措置を取らせていただく必要があることを言います。この文書では当社の最良執行ポリシーの概要をご覧いただけます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3441
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3439
 msgid "Mother's maiden name"
 msgstr "お母様の旧姓"
 
@@ -6264,17 +6281,17 @@ msgstr "多言語、及び複数の通貨によるサポート"
 msgid "My Account"
 msgstr "口座情報"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:175
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:173
 #: /home/git/translations/binary-static/src/templates/haml/user/api_token.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:12
 msgid "Name"
 msgstr "お名前"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3441
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3439
 msgid "Name of first love"
 msgstr "初恋の人のお名前"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3441
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3439
 msgid "Name of your pet"
 msgstr "ペットのお名前"
 
@@ -6316,8 +6333,8 @@ msgstr "使用されることはありません。"
 msgid "New"
 msgstr "進む"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:704
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:838
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:702
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:836
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:25
 msgid "New Password"
 msgstr "新しいパスワード"
@@ -6329,7 +6346,7 @@ msgstr "新しいパスワードの申請"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:334
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v2/Accounts.pm:191
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:256
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:228
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:32
 msgid "New password is same as old password."
 msgstr "新しいパスワードが旧パスワードと同じです。"
@@ -6350,7 +6367,7 @@ msgid "Next Day"
 msgstr "翌日"
 
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Charting.pm:416
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2789
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2787
 msgid "No"
 msgstr "いいえ"
 
@@ -6464,6 +6481,7 @@ msgstr "注意：付与されたボーナス（%1%2）は、%1%3以上のトレ�
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_application.html.tt:18
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_transfer.html.tt:29
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:28
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:82
 #: /home/git/translations/binary-static/src/templates/toolkit/resources/pricing_table.html.tt:69
 msgid "Notes:"
 msgstr "ご注意："
@@ -6473,8 +6491,8 @@ msgid "Notification of Changes"
 msgstr "ポリシー変更に関する通知について"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:88
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1017
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3175
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1015
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3173
 msgid "Nov"
 msgstr "１１月"
 
@@ -6498,7 +6516,7 @@ msgid "Number of ticks"
 msgstr "Tickの総数"
 
 #. ($min_tick, $max_tick)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2554
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2584
 msgid "Number of ticks must be between %1 and %2"
 msgstr "有効なTickは、%1から%2の間です"
 
@@ -6523,8 +6541,8 @@ msgid "Occupation"
 msgstr "職業"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:87
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1013
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3171
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1011
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3169
 msgid "Oct"
 msgstr "１０月"
 
@@ -6542,7 +6560,7 @@ msgstr "Ok"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:332
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v2/Accounts.pm:193
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:258
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:230
 msgid "Old password is wrong."
 msgstr "旧パスワードの値が不正です。"
 
@@ -6571,7 +6589,7 @@ msgstr "このタイプのボーナスが一旦付与されると、ボーナス
 msgid "Once the white-label is live, you will earn standard affiliate commissions on clients trading via the white-label."
 msgstr "ホワイトレーベルの公開後、そのホワイトレーベル経由でトレードが行われた場合にアフィリエイト収入を得られるようになります。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1732
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1730
 msgid "Once this limit is reached, you may no longer deposit."
 msgstr "上限額に達した際はご入金して頂くことが不可能になります。"
 
@@ -6584,6 +6602,7 @@ msgid "Once you are satisfied with the design of your white label, your IT devel
 msgstr "納得のいくホワイトレーベルのデザインが完成した後、開発者はフォークのプルリクエストを送信する必要があります。"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:32
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:86
 msgid "Once you click the 'Submit' button the funds will be withdrawn from your account and will be sent to the Payment Agent you have chosen."
 msgstr "一旦「送信」ボタンをクリックされますと、資金がお客様の口座から出金され、ご選択された決済サービスに送金されます。"
 
@@ -6634,7 +6653,7 @@ msgstr "確実にアフィリエイトリンクから得られた獲得会員の
 msgid "Open"
 msgstr "Open"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2818
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2816
 msgid "Open Account"
 msgstr "ご口座の開設"
 
@@ -6878,7 +6897,7 @@ msgid "Partners"
 msgstr "パートナー協定"
 
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Menu.pm:94
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2921
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2919
 #: /home/git/translations/binary-static/src/templates/haml/home/login.html.haml:1
 #: /home/git/translations/binary-static/src/templates/haml/layouts/default/header.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/global/header.html.tt:78
@@ -6922,7 +6941,9 @@ msgid "Payment Agent Deposit"
 msgstr "決済サービスでのご入金"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1552
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1985
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:2
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:2
 msgid "Payment Agent Withdrawal"
 msgstr "決済サービスへのご出金"
 
@@ -6994,7 +7015,7 @@ msgstr "払い戻し通貨"
 msgid "Payout has moved in your favour from %1 to %2."
 msgstr "払い戻し価格が%1から%2に変化しました。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2237
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2239
 msgid "Payout may not have more than two decimal places."
 msgstr "払い戻し価格に3つ以上の少数を持たせることは不可能です。"
 
@@ -7024,9 +7045,9 @@ msgstr "期間"
 msgid "Perl modules"
 msgstr "Perl モジュール"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:243
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:315
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:447
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:215
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:383
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:513
 msgid "Permission denied."
 msgstr "権限がありません"
 
@@ -7079,6 +7100,7 @@ msgstr "続行する前に、お客様の取引明細書をご確認ください
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_transfer.html.tt:6
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:6
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:20
 msgid "Please confirm the transaction details in order to complete the transfer:"
 msgstr "送金を完了するために、取引明細をご確認ください。"
 
@@ -7101,34 +7123,34 @@ msgstr "現在から最低６ヶ月先の日付を入力して下さい。"
 #. ($limit_session_duration)
 #. ($limit_daily_losses)
 #. ($self_exclusion->{$field})
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1739
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1774
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1814
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1849
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1884
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1919
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1951
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1993
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2139
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2143
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2153
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2157
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2167
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2171
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2181
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2185
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2195
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2199
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2209
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2213
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2223
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2227
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2237
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2241
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2251
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2255
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2329
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:476
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1737
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1772
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1812
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1847
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1882
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1917
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1949
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1991
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2137
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2141
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2151
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2155
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2165
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2169
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2179
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2183
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2193
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2197
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2207
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2211
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2221
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2225
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2235
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2239
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2249
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2253
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2327
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:542
 msgid "Please enter a number between 0 and %1."
 msgstr "0から%1の数字を入力してください。"
 
@@ -7137,26 +7159,26 @@ msgstr "0から%1の数字を入力してください。"
 msgid "Please enter a number greater than 0"
 msgstr "0より大きい数字を入力してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2841
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2898
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:631
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:678
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:810
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2839
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2896
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:629
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:676
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:808
 msgid "Please enter a password."
 msgstr "パスワードをご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:232
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3333
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:230
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3331
 msgid "Please enter a town or city."
 msgstr "都市または街の名前をご入力して下さい。"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1409
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2406
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2565
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2404
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2563
 msgid "Please enter a valid amount."
 msgstr "有効な値をご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1313
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1311
 msgid "Please enter a valid name."
 msgstr "有効なお名前をご入力して下さい。"
 
@@ -7164,33 +7186,33 @@ msgstr "有効なお名前をご入力して下さい。"
 msgid "Please enter amount."
 msgstr "金額を入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1723
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1758
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1798
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1833
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1868
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1903
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1938
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1970
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2313
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1721
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1756
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1796
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1831
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1866
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1901
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1936
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1968
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2311
 msgid "Please enter an integer value."
 msgstr "半角で数値をご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2012
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2021
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2010
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2019
 msgid "Please enter date in the format YYYY-MM-DD."
 msgstr "日付を年-月-年（YYYY-MM-DD）の順で半角で入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2357
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2355
 msgid "Please enter the Login ID to transfer funds."
 msgstr "資金を送金するには、ログインIDを入力してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1345
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1343
 msgid "Please enter the country where you want to offer your service"
 msgstr "サービスを展開される予定の国名をご入力して下さい"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:192
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3272
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:190
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3270
 msgid "Please enter the first line of your home address."
 msgstr "ご住所情報の１行目をご入力して下さい。"
 
@@ -7198,17 +7220,17 @@ msgstr "ご住所情報の１行目をご入力して下さい。"
 msgid "Please enter your current password."
 msgstr "現在のパスワードを入力してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1385
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2882
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1383
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2880
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:752
 msgid "Please enter your email address."
 msgstr "メールアドレスをご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3078
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3076
 msgid "Please enter your first name."
 msgstr "名をご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3113
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3111
 msgid "Please enter your last name."
 msgstr "姓をご入力して下さい。"
 
@@ -7216,14 +7238,14 @@ msgstr "姓をご入力して下さい。"
 msgid "Please fill in the Login ID and Amount you wish to transfer to your Client in the form below:"
 msgstr "下記フォームにログインIDとご希望の送金額をご入力ださい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1049
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1055
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1061
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3206
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3212
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3218
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3224
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3229
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1047
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1053
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1059
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3204
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3210
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3216
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3222
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3227
 msgid "Please input a valid date."
 msgstr "有効な日付をご入力して下さい。"
 
@@ -7232,6 +7254,7 @@ msgid "Please log in."
 msgstr "ログインをしてください"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:31
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:85
 msgid "Please make sure that you first agree with the Agent on the terms of payment before submitting your request."
 msgstr "リクエストを送信される前に、お支払い条件に関してエージェントに同意をいただく必要があります。"
 
@@ -7259,7 +7282,7 @@ msgid "Please note that you may update your personal information at any time by 
 msgstr "お客様の個人情報はいつでも各種設定ページから変更して頂くことが可能です。お客様の個人情報を適切、かつ継続的に%1に更新して頂くことはお客様の義務になります。"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1248
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:363
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:429
 msgid "Please note that your settings have been updated as follows:"
 msgstr "下記の内容で設定内容の更新を承りました。"
 
@@ -7267,17 +7290,18 @@ msgstr "下記の内容で設定内容の更新を承りました。"
 msgid "Please post the documents to:"
 msgstr "以下の住所へ書類をご郵送して下さい。："
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2050
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2287
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:566
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2048
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2285
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:632
 msgid "Please provide at least one self-exclusion setting."
 msgstr "ご希望される自己制限の対象を少なくとも１点選択して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1497
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1495
 msgid "Please provide some information about yourself and your proposed services"
 msgstr "自己紹介、及び提案されるサービスに関する情報をお知らせ下さい"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:22
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:29
 msgid "Please provide us with the following information:"
 msgstr "下記の情報をご提供下さい。"
 
@@ -7294,7 +7318,7 @@ msgid "Please remember at all times that trading binary options can be an exciti
 msgstr "バイナリーオプションのお取引は常に刺激的なものに成り得ますが、当社ではお客様に対してリスクを認識して頂くモラル的義務があります。オプション取引は依存を引き起こすことがあり、日常生活に支障を来す可能性があります。当社では、お客様ご自身で注意深くご自身の行動を分析して頂き、ご自身のリスクを確認して頂きますようご協力をお願いしております。前述のような依存を避けて頂くために、以下の原則、及びガイドラインに従って頂くことは重要です。"
 
 #: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Locale.pm:135
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2781
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2779
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/japan.pm:241
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/maltainvest.pm:596
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/maltainvest.pm:614
@@ -7310,11 +7334,11 @@ msgstr "選択して下さい"
 msgid "Please select \"Payout\" or \"Stake\" option."
 msgstr "払い戻し価格、又は購入価格オプションを選択して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2499
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2497
 msgid "Please select a payment agent"
 msgstr "決済サービスを選択してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2526
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2524
 msgid "Please select a valid payment agent."
 msgstr "有効な決済サービスを選択してください。"
 
@@ -7343,11 +7367,11 @@ msgstr "有効な決済サービスを選択してください。"
 msgid "Please select a value."
 msgstr "値を選択してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3002
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3000
 msgid "Please select your country of residence"
 msgstr "居住国を選択して下さい"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3257
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3255
 msgid "Please specify your country."
 msgstr "居住国をご指定下さい。"
 
@@ -7381,12 +7405,12 @@ msgstr "再びお試し下さい。"
 msgid "Please type your chosen password twice into the fields below:"
 msgstr "下記の記入欄にパスワードを二度ご入力して下さい："
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:270
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:268
 msgid "Please use only alphanumeric characters or spaces."
 msgstr "半角英数字、またはスペースのみご入力して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3083
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3108
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3081
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3106
 msgid "Please use only letters, spaces, hyphens, full-stops or apostrophes."
 msgstr "文字、スペース、句読点のみでご入力下さい。"
 
@@ -7411,23 +7435,23 @@ msgstr "ポリシーと免責事項"
 msgid "Portfolio"
 msgstr "資産情報"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:276
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3377
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:274
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3375
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:96
 msgid "Postal Code / ZIP"
 msgstr "郵便番号"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:260
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:265
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:258
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:263
 msgid "Postcode is invalid."
 msgstr "郵便番号の値が不正です。半角数字でご入力下さい。"
 
 #: /home/git/regentmarkets/bom-platform/lib/BOM/Platform/Locale.pm:152
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3398
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3396
 msgid "Postcode is required for UK residents."
 msgstr "イギリスに居住している方は郵便番号のご入力が必須となります。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3393
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3391
 msgid "Postcode must be less than 20 characters long and may not contain \"+\"."
 msgstr "パスワードは20文字未満の半角英数字で+を含めずにご指定下さい。"
 
@@ -7466,7 +7490,7 @@ msgid "Prevailing market price cannot be determined at this time."
 msgstr "現在、このトレードの優勢価格を決定することができません。"
 
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1272
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2765
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2795
 msgid "Prevailing market price cannot be determined."
 msgstr "優勢価格を定めることができません。"
 
@@ -7532,8 +7556,8 @@ msgstr "個人情報の取り扱いについて"
 msgid "Privacy Policy"
 msgstr "プライバシーポリシー"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2970
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3017
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2968
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3015
 #: /home/git/translations/binary-static/src/templates/haml/user/email_verified.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/ukgc_funds_protection_message.html.tt:19
 msgid "Proceed"
@@ -7745,7 +7769,7 @@ msgstr "ランダム・陽"
 msgid "Rate of Change"
 msgstr "Rate Of Change：ROC"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:466
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:464
 #: /home/git/translations/binary-static/src/templates/haml/home/index.html.haml:1
 msgid "Re-enter your password"
 msgstr "パスワードを再度入力して下さい。"
@@ -7791,12 +7815,12 @@ msgstr "リアリティチェック間隔："
 msgid "Realtime data is not available for this underlying"
 msgstr "この取引対象でのリアルタイムデータのご入手は不可能です"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:219
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:220
 msgid "Realtime quotes not available"
 msgstr "リアルタイムクオートはご利用いただけません。"
 
 #. ($symbol)
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:161
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:162
 msgid "Realtime quotes not available for %1"
 msgstr "%1でリアルタイムクオートはご利用いただけません。"
 
@@ -7909,27 +7933,27 @@ msgstr "未決済分のトレード総数を示し、各行を１件分の未決
 msgid "Represents the maximum volume of contracts that you may purchase in any given trading day."
 msgstr "購入可能な１日あたりのトレードの総額を示します。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2736
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2766
 msgid "Resale of this contract is not offered due to end-of-year market holidays."
 msgstr "年末年始の市場スケージュルの都合上、このトレードを売ることは不可能です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2684
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2714
 msgid "Resale of this contract is not offered due to market holiday during contract period."
 msgstr "市場の休場スケジュールの都合につき、このトレードの取引期間中にトレードを売ることは不可能です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2705
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2735
 msgid "Resale of this contract is not offered due to market holidays during contract period."
 msgstr "市場の休場スケジュールの都合につき、このトレードの取引期間中にトレードを売ることは不可能です。"
 
 #. ($shortest->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2606
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2636
 msgid "Resale of this contract is not offered with less than %1 remaining."
 msgstr "残りの取引期間が%1未満のトレードを売ることはできません。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2173
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2600
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2655
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2881
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2175
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2630
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2685
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2911
 msgid "Resale of this contract is not offered."
 msgstr "このトレードを売ることは不可能です。"
 
@@ -7950,7 +7974,7 @@ msgstr "パスワードをリセットする"
 msgid "Resources"
 msgstr "取引参考情報"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/Websocket_v3.pm:112
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/Websocket_v3.pm:110
 msgid "Response too large."
 msgstr "レスポンスが大きすぎます"
 
@@ -8114,8 +8138,8 @@ msgstr "SVGへ保存"
 msgid "Seasoned traders can use the %1 platform for the full advantage of the wide range of trading and analysis tools we have on offer."
 msgstr "ベテランのトレーダーは取引の範囲を広げたり、当社が提供する分析ツールなどの%1プラットフォーム全特典をご利用いただけます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:217
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3298
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:215
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3296
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:69
 msgid "Second line of home address"
 msgstr "マンション（建物）名と号室"
@@ -8124,11 +8148,11 @@ msgstr "マンション（建物）名と号室"
 msgid "Secondary"
 msgstr "セカンダリー"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3449
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3447
 msgid "Secret question"
 msgstr "秘密のご質問"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:111
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:109
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1448
 #: /home/git/translations/binary-static/src/templates/haml/static/why_us.html.haml:1
 #: /home/git/translations/binary-static/src/templates/haml/user/settings.html.haml:1
@@ -8174,7 +8198,7 @@ msgstr "お取引制限"
 msgid "Self-Employed"
 msgstr "自営業"
 
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:23
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:22
 #: /home/git/translations/binary-static/src/templates/toolkit/account/self_exclusion.html.tt:1
 msgid "Self-Exclusion Facilities"
 msgstr "お取引上限のご設定"
@@ -8227,8 +8251,8 @@ msgid "Send your funds to the payment agent. The deposited funds, less the agent
 msgstr "決済サービスに資金を送金してください。ご入金された資金から代行手数料が差し引かれた額が、お客様の口座に表示されます。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:86
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1009
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3167
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1007
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3165
 msgid "Sep"
 msgstr "９月"
 
@@ -8236,18 +8260,18 @@ msgstr "９月"
 msgid "September"
 msgstr "９月"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1977
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2127
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:482
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1975
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2125
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:548
 msgid "Session duration limit cannot be more than 6 weeks."
 msgstr "セッション期間制限は7週間以上に設定できません。"
 
 #. ($self_exclusion->session_duration_limit)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:78
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:77
 msgid "Session duration limit is currently set to <strong>%1 minutes.</strong>"
 msgstr "セッション期間として現在、<strong>%1分</strong>が指定されています。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1958
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1956
 msgid "Session duration limit, in minutes"
 msgstr "最高サイト滞在時間（分単位でご登録して下さい。）"
 
@@ -8282,7 +8306,7 @@ msgstr "優れた価格設定"
 msgid "Short"
 msgstr "ショート"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1351
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1349
 msgid "Short summary of your Payment Agent service"
 msgstr "お客様の決済サービス概要"
 
@@ -8440,7 +8464,9 @@ msgstr "申し訳ございませんが、フォーム読み込み中にエラー
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1213
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1365
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1422
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:351
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:289
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:335
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:419
 msgid "Sorry, an error occurred while processing your account."
 msgstr "申し訳ございませんが、処理中にエラーが発生しました。"
 
@@ -8465,7 +8491,7 @@ msgstr "申し訳ございませんが、イギリスに居住のお客様に限
 msgid "Sorry, only USD is allowed."
 msgstr "申し訳ございませんが、米ドルのみ承ります。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2854
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2852
 msgid "Sorry, our service is not available for your country of residence"
 msgstr "申し訳ございませんが、当社はお客様の居住国へサービスを提供しておりません。"
 
@@ -8474,7 +8500,7 @@ msgid "Sorry, our service is not available for your country of residence."
 msgstr "申し訳ございません。当社はお客様の居住国へサービスを提供しておりません。"
 
 #. ($transfer_form->get_field_value('transfer_to')
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2479
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2477
 msgid "Sorry, the Login ID (%1) does not exist."
 msgstr "申し訳ございませんが、ご入力頂いたログインID (%1) は存在しません。"
 
@@ -8565,13 +8591,14 @@ msgstr "申し訳ございませんが、ご出金いただくことができま
 msgid "Sorry, you have already had too many unsuccessful attempts. Please try again in 5 minutes."
 msgstr "所定回数以上、不正なデータを入力されてしまいました。５分後に改めてお手続きを行って下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:614
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:612
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:330
 msgid "Sorry, you have entered an incorrect cashier password"
 msgstr "申し訳ございませんが、ご入力頂いたキャッシャー・パスワードに誤りがあります"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1390
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2835
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2887
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1388
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2833
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2885
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:756
 msgid "Sorry, you have entered an incorrect email address."
 msgstr "申し訳ございませんが、入力されたメールアドレスに誤りがあります。"
@@ -8710,22 +8737,22 @@ msgstr "学習をはじめる"
 msgid "Start time"
 msgstr "開始時間"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2366
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2372
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Transaction.pm:421
 msgid "Start time is in the past"
 msgstr "開始時間が過去に値になっています"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2356
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2362
 msgid "Start time is invalid."
 msgstr "開始時間が正しくありません。"
 
 #. ($forward_starting_blackout->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2394
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2400
 msgid "Start time on forward-starting contracts must be more than %1 from now."
 msgstr "予約指定トレードは現在時間より%1後にスタートしなければなりません。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:301
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3349
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:299
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3347
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:87
 msgid "State/Province"
 msgstr "都道府県"
@@ -8876,7 +8903,7 @@ msgid "Study our live charts"
 msgstr "ライブ・チャートについて"
 
 #. ($style)
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:215
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:216
 msgid "Style %1 invalid"
 msgstr "スタイル %1 が無効です"
 
@@ -8893,9 +8920,10 @@ msgstr "クライアントの注文が実行される際に、お客様によっ
 msgid "Subject to your complying with the Company's instructions, with regards to tracking Clients accessing %1 via the Links on your Site or by quoting your affiliate IDs during signup, the Company shall use all reasonable endeavours to ensure that whenever a Client links to %1 through these Links or affiliate IDs and they subsequently place a contract or otherwise transact with the Company, the relevant Client is identified as originating from you or your Site. However, the Company shall not be liable to you in any way if the Company is unable to identify a Client as originating from you or your Site."
 msgstr "プロモーションサイトに掲載したアフィリエイトリンクから%1へ誘導した獲得会員に関する当社の取り決めに従って頂くことを条件とし、当社はアフィリエイトリンクやアフィリエイトIDから%1にリンクすることができトレードを始めた獲得会員に対し、最善のサポートを提供します。しかしながらアフィリエイト会員のプロモーションサイトから獲得会員と承認出来ない場合は、サポートの提供はいたしかねます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1591
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2429
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2618
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1589
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2427
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2616
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:73
 msgid "Submit"
 msgstr "送信"
 
@@ -8923,11 +8951,11 @@ msgstr "日曜日"
 msgid "Supplementary Terms and Conditions for Financial Products offered by Binary Investments (Europe) Ltd."
 msgstr "Binary Investments (Europe) Ltdが提供する金融商品の補助規約"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1530
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1528
 msgid "Supported banks (this field visible from office only) **"
 msgstr "サポートされている銀行（このフィールドはオフィスIP・VPNからのみご覧いただけます）**"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1546
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1544
 msgid "Supported banks list is invalid"
 msgstr "サポートされている銀行のリストは無効です。"
 
@@ -8941,9 +8969,9 @@ msgstr "通常モードに切り替える"
 
 #. ($symbol)
 #. ($args->{symbol})
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:156
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:185
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:323
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:157
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:186
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:327
 msgid "Symbol %1 invalid"
 msgstr "シンボル %1 が無効です"
 
@@ -8987,10 +9015,10 @@ msgstr "アルーンアップからアルーンダウンの値を差し引いた
 msgid "Tel"
 msgstr "お電話"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:319
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3407
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:317
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3405
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1264
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:379
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:445
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:105
 msgid "Telephone"
 msgstr "お電話番号"
@@ -9094,7 +9122,7 @@ msgstr "%1は日中アクティブなマーケット（ただし夜には揮発�
 #. ($r->website->display_name)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1831
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1276
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:391
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:457
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Cashier.pm:535
 msgid "The %1 team."
 msgstr "%1チーム"
@@ -9146,6 +9174,7 @@ msgid "The Affiliate Program has been delivering payments on time and, every tim
 msgstr "アフィリエイトプログラムは２００４年３月にサービスを提供して以来、常に期日通りにアフィリエイト報酬をお支払いしております。アフィリエイト報酬は、月末日から１５日以内にBinary Ltd.からお客様のアフィリエイト口座に振り込まれます。"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:33
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:87
 msgid "The Agent will send you the withdrawal amount (minus the commission) via your preferred payment method."
 msgstr "決済代行会社がお客様の選択いただいたお支払い方法で出金額（マイナス手数料）を送金いたします。"
 
@@ -9153,7 +9182,7 @@ msgstr "決済代行会社がお客様の選択いただいたお支払い方法
 msgid "The Ask price represents the price at which the contract may be purchased at the present time."
 msgstr "Ask価格とは、最新時刻におけるトレードを購入可能な価格を示します。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1218
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1216
 msgid "The Authentication process verifies the information you have provided us during account registration. It will increase your trading limits and enable you to register more than one credit card.<br/><br/>In order to facilitate the process, please confirm your building no./name before clicking \"Authenticate\".<br/>"
 msgstr "認証プロセスは口座登録間にお客様から当社に提供いただいた情報を確認するものです。承認されますと、お取引制限が緩和され、2つ以上のクレジットカードをご登録いただけるようになります。<br/><br/>プロセスを容易にするために、認証をクリックされる前にご住所をご確認ください。<br/>"
 
@@ -9440,7 +9469,8 @@ msgstr ""
 "(1)　当社の故意または重過失によらない、お客さま・当社および当社のカバー先を結ぶ通信回線およびシステム関連機器等の瑕疵または障害。\n"
 "(2)　天変地異等やむを得ない事由による、お客さま・当社および当社のカバー先を結ぶ通信回線およびシステム関連機器等の瑕疵または障害。"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/Websocket_v3.pm:105
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/Websocket_v3.pm:103
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:269
 msgid "The application sent an invalid request."
 msgstr "アプリケーションが無効リクエストを送信しました。"
 
@@ -9545,7 +9575,7 @@ msgid "The contract has expired"
 msgstr "このトレードは終了しました"
 
 #. ($ny_1600->time_hhmm)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2882
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2912
 msgid "The contract is not available after %1 GMT."
 msgstr "このトレードは%1 GMT以降、お取り扱いがありません。"
 
@@ -9657,7 +9687,7 @@ msgstr "USD306の損失は、判定レベルとエントリーレベルを1ポ�
 msgid "The market exit price is the price in effect at the end of the contract period."
 msgstr "市場出口価格とは、トレードの終了期間に影響を及ぼす価格のことです。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2372
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2378
 msgid "The market must be open at the start time."
 msgstr "市場はトレード開始時に開場していなければなりません。"
 
@@ -9678,6 +9708,7 @@ msgstr ""
 "5.  本取引における取引価格が、誤った銀行間取引市場の為替レートを元に算出された場合もしくは何らかの理由で算出に使用されるべき本来の計算式、価格変動要因が使われずに算出され提供された場合は異常価格とみなし、これによって成立した取引は全て無効とさせていただきます。また、同一回号、同一通貨ペアにおいて権利行使条件が同一となっているコールオプションとプットオプションの取引価格の合計額がペイアウト額と極端に乖離していると当社が判断した場合も異常価格とみなします。"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1736
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:654
 msgid "The name is taken."
 msgstr "名前が取得されました。"
 
@@ -9690,7 +9721,7 @@ msgstr "ページの期限が切れてしましました。原因としては、
 #. ($client->email,                    $ip)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:359
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v2/Accounts.pm:216
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:280
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:252
 msgid "The password for your account %1 has been changed. This request originated from IP address %2. If this request was not performed by you, please immediately contact Customer Support."
 msgstr "お客様の口座のパスワード%1 は変更されました。このリクエストはIPアドレス%2から発信されています。このリクエストにお心当たりがない場合は、即座にカスタマーサポートまでご連絡ください。"
 
@@ -9812,12 +9843,12 @@ msgstr ""
 "4.  前項の申し出があった場合において、当社による調査の結果、当社にシステム障害等、取引注文の内容、約定内容に疑義が生じうる特段の事情がなかった場合にはその旨をお客さまに報告し、これをもってその取引注文の内容、約定内容に疑義がなかったものとします。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:143
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:461
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:530
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:732
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:794
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:866
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:934
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:459
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:528
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:730
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:792
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:864
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:932
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:51
 msgid "The two passwords that you entered do not match."
 msgstr "ご入力頂いた各パスワードが合致しません。"
@@ -9994,7 +10025,7 @@ msgid "This Payment Agent cashier section is locked."
 msgstr "この決済サービスのキャッシャーセクションはロックされました。"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Cashier.pm:1071
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1452
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1450
 msgid "This URL is invalid."
 msgstr "このURLは無効です。"
 
@@ -10059,7 +10090,7 @@ msgstr "当口座では当トレードは無効です。"
 msgid "This contract lost"
 msgstr "このトレードは負け判定"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2284
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2286
 msgid "This contract offers no return."
 msgstr "このトレード条件での払い戻しは不可能です。"
 
@@ -10091,13 +10122,18 @@ msgstr "こちらはデモ口座です。リアル口座へ切り替えて入金
 
 #. ($client->loginid,                                        $r->client_ip)
 #. ($client->loginid,                                    $r->client_ip)
+#. ($client->loginid,                            $ip)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1376
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1433
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:300
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:346
 msgid "This is an automated message to alert you that a change was made to your cashier settings section of your account %1 from IP address %2. If you did not perform this update please login to your account and update settings."
 msgstr "これはIPアドレス%2からお客様の口座%1のキャッシャー設定セクションで変更がありましたことを警告する自動メッセージです。この変更にお心当たりのない場合は、口座にログインしていただき、設定を変更してください。"
 
 #. ($client->loginid,                                    $r->client_ip)
+#. ($client->loginid,                            $ip)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1399
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:325
 msgid "This is an automated message to alert you to the fact that there was a failed attempt to unlock the Cashier/Settings section of your account %1 from IP address %2"
 msgstr "警告！お客様のご口座%1に対しIPアドレス%2から、キャッシャーの設定ページを解除しようとした事象が検出されました。"
 
@@ -10138,7 +10174,7 @@ msgstr "こちらは十分に時間がとれないクライアントや、専門
 msgid "This market closes early today at"
 msgstr "この市場は本日早めに閉場します。閉場時間："
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2372
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2378
 msgid "This market is presently closed."
 msgstr "この市場は現在閉場しております。"
 
@@ -10172,7 +10208,7 @@ msgstr "このページはご利用いただけません。"
 msgid "This promotion is only available to new Clients. Existing or former Clients do not qualify. It is only available once to each Client."
 msgstr "このプロモーションは、新たなお客様に限り有効です。すでにご口座をお持ちのお客様には適用されません。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2174
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2176
 msgid "This trade is not offered."
 msgstr "このトレードの提供は不可能です。"
 
@@ -10239,7 +10275,7 @@ msgstr "時代のニーズを汲み、払い戻し価格を増大させること
 msgid "Tip:"
 msgstr "補足："
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3044
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3042
 msgid "Title"
 msgstr "敬称"
 
@@ -10269,7 +10305,7 @@ msgstr "バイナリーオプション取引を始めるには、はじめに構
 msgid "To change your name, date of birth, country of residence, or email, please contact <a href=\"%1\">Customer Support</a>."
 msgstr "お客様情報の変更をご希望される場合は<a href=\"%1\">カスタマーサポート</a>までご連絡下さい。また、変更が生じた際は速やかにご連絡いただきますようお願いします。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:420
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:418
 msgid "To change your name, date of birth, country of residence, or email, please contact Customer Support."
 msgstr "お客さま情報の変更をご希望される場合はカスタマーサポートまでご連絡下さい。また、変更が生じた際は速やかにご連絡願います。"
 
@@ -10315,7 +10351,7 @@ msgid "Token"
 msgstr "トークン"
 
 #. ($safer_expiry->date)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2706
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2736
 msgid "Too many market holidays during the contract period. Select an expiry date after %1."
 msgstr "このトレードの取引期間中に多くの祭日が存在しますので、トレード終了日を%1以降に設定して下さい。"
 
@@ -10360,8 +10396,8 @@ msgstr "ご利用方法"
 msgid "Tourism"
 msgstr "ご利用方法"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:238
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3317
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:236
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3315
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:78
 msgid "Town/City"
 msgstr "市町村名"
@@ -10426,6 +10462,11 @@ msgstr "銀行振込による入出金が取引が可能。お客様からお預
 msgid "Trade your way"
 msgstr "自由にトレード"
 
+#. ($display_time)
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2432
+msgid "Trades on Forex with duration less than 2 minutes are temporarily disabled until %1"
+msgstr ""
+
 #: /home/git/translations/binary-static/src/templates/haml/layouts/default/footer.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/global/footer.html.tt:71
 msgid "Trading"
@@ -10460,11 +10501,11 @@ msgstr "取引ルール"
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Menu.pm:162
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Resources.pm:488
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Resources.pm:658
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2147
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2420
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2435
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2149
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2451
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2675
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2465
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2481
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2705
 #: /home/git/translations/binary-static/src/templates/haml/resources/index.html.haml:1
 #: /home/git/translations/binary-static/src/templates/toolkit/legal/datafeed.html.tt:29
 msgid "Trading Times"
@@ -10498,16 +10539,16 @@ msgid "Trading is Suspended"
 msgstr "トレードの提供を停止中"
 
 #. ($blackout_time)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2384
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2390
 msgid "Trading is available after the first %1 of the session."
 msgstr "トレード・セッション開始後%1にてトレードが可能です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2656
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2686
 msgid "Trading is not offered for this duration."
 msgstr "この取引期間のトレードは不可能です。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2097
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2166
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2099
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2168
 msgid "Trading is suspended at the moment."
 msgstr "現在、トレードの提供を一時的に停止しております。"
 
@@ -10523,9 +10564,9 @@ msgstr "%1でのこのタイプのトレードはできません。"
 #. ($underlying->translated_display_name()
 #. ($translated_name)
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Trade.pm:416
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2105
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2114
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2145
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2107
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2116
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2147
 msgid "Trading on %1 is suspended at the moment."
 msgstr "現在、%1でのトレード提供を一時的に停止しております。"
 
@@ -10535,9 +10576,9 @@ msgstr "現在、%1でのトレード提供を一時的に停止しておりま�
 #. ($bet->underlying->translated_display_name()
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1354
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:144
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2125
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2135
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2771
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2127
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2137
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2801
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract/Spread.pm:200
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract/Spread.pm:241
 #: /home/git/regentmarkets/bom/lib/BOM/Product/Contract/Spread.pm:434
@@ -10545,12 +10586,12 @@ msgstr "現在、%1でのトレード提供を一時的に停止しておりま�
 msgid "Trading on %1 is suspended due to missing market data."
 msgstr "市場価格の入手が不可能なため、%1でのトレード提供を一時的に停止しております。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2433
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2463
 msgid "Trading on this contract type is suspended for the last one hour of the session."
 msgstr "セッション最後の１時間以内では、この種類のトレードのお取り扱いを中止しております。"
 
 #. ($localized_eod_blackout_start->as_string)
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2418
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2449
 msgid "Trading suspended for the last %1 of the session."
 msgstr "セッション最後の%1でのトレードのお取り扱いを中止しております。"
 
@@ -10564,7 +10605,7 @@ msgstr "金融マーケットでのお取引は、中毒的になる場合があ
 msgid "TradingView"
 msgstr "TradingView"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1135
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1133
 msgid "Transact in"
 msgstr "選択通貨"
 
@@ -10578,14 +10619,16 @@ msgid "Transfer between your gaming and financial accounts."
 msgstr "お客様のゲーム口座と金融口座間での送金"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:8
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:22
 msgid "Transfer to"
 msgstr "Transfer to"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2341
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2339
 msgid "Transfer to Login ID"
 msgstr "Transfer to Login ID"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2503
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2501
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:36
 msgid "Transfer to Payment Agent"
 msgstr "決済サービスに送金"
 
@@ -10615,8 +10658,8 @@ msgstr "信頼性の証"
 msgid "Try it now"
 msgstr "今すぐ試す"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2377
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2385
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2383
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2391
 msgid "Try out the Random Indices which are always open."
 msgstr "いつでもお取引いただけるランダムインデックスをお試しください。"
 
@@ -10692,11 +10735,11 @@ msgstr "残念ながら上記の質問にお答えいただいた結果、今回
 msgid "Unfortunately, no – funds initially deposited through one payment method must be withdrawn through the same system; funds cannot be transferred to an alternate system for withdrawal. We do offer a wide variety of payment methods, to suit your specific needs and preferences."
 msgstr "残念ながらできません。- 初めにあるお支払い方法で入金されたご資金は、同じ支払方法で出金される必要があります。そのため、入金にご使用された決済方法以外でのご出金はできません。当社ではお客様の特定のニーズやご希望に合わせて幅広い決済方法を提供しています。"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/PortfolioManagement.pm:27
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Wrapper/PortfolioManagement.pm:40
 msgid "Unknown contract proposal"
 msgstr "不明なトレードの提案です"
 
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/PortfolioManagement.pm:87
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/PortfolioManagement.pm:85
 msgid "Unknown contract sell proposal"
 msgstr "不明なトレードの売却です"
 
@@ -10713,8 +10756,8 @@ msgstr "不明のランディング会社（口座登録先）です"
 msgid "Unless otherwise advised, we shall treat you as a Retail Client. You may also request, in writing, us to change the category in which you have been classified and this may have an effect on the level of protection afforded to you. We reserve the right to accept or refuse any such request for change in classification."
 msgstr "他にお勧されない場合に限り、個人顧客として扱わせていただきます。当社宛に書面で分類されるカテゴリの変更のリクエスができます。これはお客様へ与えられる保護レベルに影響します。当社は種類の変更に関して承諾または拒否する権利を留保します。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:584
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:600
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:582
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:598
 msgid "Unlock Cashier"
 msgstr "キャッシャーロック解除"
 
@@ -10738,13 +10781,13 @@ msgstr "ラダー トレード"
 msgid "Upcoming Events"
 msgstr "祝祭日"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3562
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3560
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1702
 #: /home/git/translations/binary-static/src/templates/toolkit/account/settings_detailsws.html.tt:124
 msgid "Update"
 msgstr "更新"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2060
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2058
 msgid "Update Settings"
 msgstr "設定内容を更新"
 
@@ -10807,8 +10850,8 @@ msgstr "認証成功"
 msgid "Verification of identity"
 msgstr "身分証明書の認証"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:737
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:871
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:735
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:869
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:45
 msgid "Verify new password"
 msgstr "新パスワードを認証する"
@@ -10828,7 +10871,9 @@ msgid "Verify your withdrawal request - %1"
 msgstr "出金リクエストを確認する。- %1"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/legal/terms_and_conditions.html.tt:4
-msgid "Version 38. Last modified 2015-09-10."
+#, fuzzy
+#| msgid "Version 38. Last modified 2015-09-10."
+msgid "Version 39. Last modified 2015-12-04."
 msgstr "バージョン38　最終更新日： 2015-06-10"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/resources/pricing_table_form.html.tt:87
@@ -10842,7 +10887,7 @@ msgstr "縦軸"
 msgid "View"
 msgstr "表示"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2888
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:2918
 msgid "View Asset Index"
 msgstr "取引期間データを確認する"
 
@@ -10909,6 +10954,7 @@ msgstr "個人情報を確認する"
 
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_transfer.html.tt:17
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdraw.html.tt:17
+#: /home/git/translations/binary-static/src/templates/toolkit/cashier/paymentagent_withdrawws.html.tt:14
 msgid "View your statement"
 msgstr "取引履歴を表示"
 
@@ -10991,7 +11037,7 @@ msgid "We are not able to stream live prices at the moment. To enjoy live stream
 msgstr "現在、価格情報を更新することはできません。価格情報を更新したい場合は、このページを更新して下さい。状況が改善されない場合は、他のブラウザをお試しください。"
 
 #: /home/git/regentmarkets/bom-app/bin/GenerateStaticData.pm:60
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3262
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3260
 msgid "We are not accepting accounts from residents of this country at the present time."
 msgstr "現在当社ではこの国の居住者からの口座開設を承ることができません。"
 
@@ -11178,7 +11224,7 @@ msgstr "お客様のリクエスト（%1）を承りました。"
 msgid "We'll then send you an e-mail asking you to verify your identity."
 msgstr "その際に、身元確認のメールを送信させていただきます。"
 
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:24
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:23
 msgid "We're sorry but the Self Exclusion facility is not available for Virtual Accounts."
 msgstr "デモ口座ではお取引制限の機能を提供しておりません。"
 
@@ -11196,7 +11242,7 @@ msgid "Website"
 msgstr "ウェブサイト"
 
 #. ($self_exclusion->exclude_until)
-#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:82
+#: /home/git/regentmarkets/bom-backoffice/f_setting_selfexclusion.cgi:81
 msgid "Website exclusion is currently set to <strong>%1.</strong>"
 msgstr "トレードの自己制限として、<strong>%1</strong>まで当社サイトへのアクセスができない設定が施されています。"
 
@@ -11615,7 +11661,7 @@ msgid "Year"
 msgstr "年"
 
 #: /home/git/regentmarkets/bom-app/lib/BOM/View/Charting.pm:478
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2785
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2783
 msgid "Yes"
 msgstr "はい"
 
@@ -11642,8 +11688,8 @@ msgid "You are advised that the Binary Options offered by %1 are not traded unde
 msgstr "%1によって提供されたバイナリーオプションは、認識、指定、統制された為替のルールの下で取引をされないことをお勧めいたします。結果として、バイナリーオプションをはじめることは取引されている投資よりも実質的に大きなリスクを課せられる可能性があります。"
 
 #. ($symbol)
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:169
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:224
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:170
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/MarketDiscovery.pm:225
 msgid "You are already subscribed to %1"
 msgstr "既に%1にご登録されています。"
 
@@ -11762,7 +11808,7 @@ msgstr "累計%1ユーロと同等な金額を既に出金されました。"
 msgid "You have bought contracts with a combined purchase price of five times the bonus amount."
 msgstr "ボーナス該当金額の５倍以上の額に相当するトレードをご購入されました。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2367
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2365
 msgid "You have entered an invalid login ID"
 msgstr "無効なログインIDがご入力されました"
 
@@ -11895,7 +11941,7 @@ msgstr "最良執行を提供させていただくことへの義務は、基本
 msgid "You should read these ST&Cs carefully as well as the Summary Order Execution Policy and Summary Conflicts Policy, the applicable Contract Details together with the Risk Disclosure Notice and any other documents that we have supplied or in the future do supply to you."
 msgstr "リスク開示通知と当社が提供する、または将来お客様に適用させていただくその他文書と共に適用される、契約の詳細にあたるオーダー実行ポリシーの概要と利益相反ポリシーの概要同様にこれらST&Cs（特別条件と事業条件）も熟読ください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1986
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1984
 msgid "You will be automatically logged out after such time."
 msgstr "設定時間を過ぎると自動的にログオフされます。"
 
@@ -11970,7 +12016,7 @@ msgstr "お客様のIDはクッキーに保存され、お客様のアフィリ�
 msgid "Your Login ID"
 msgstr "お客様のログインID"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2362
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2360
 msgid "Your Login ID should not contain spaces."
 msgstr "ログインIDにはスペースを含めないで下さい。"
 
@@ -12077,7 +12123,7 @@ msgstr "リクエストによりキャッシャーがロックされました。
 msgid "Your cashier is locked as per your request - to unlock it, please <a href=\"%1\">click here</a>."
 msgstr "お客様のキャッシャーはリクエストによりロックしました。 - 解除するには<a href=\"%1\">こちらをクリック</a>してください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:601
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:599
 msgid "Your cashier is locked as per your request - to unlock it, please enter the password."
 msgstr "お客様のキャッシャーはリクエストにより、ロックされました。 - 解除するにはパスワードをご入力ください。"
 
@@ -12093,6 +12139,18 @@ msgstr "キャッシャーはロックされています。"
 #: /home/git/translations/binary-static/src/templates/toolkit/cashier/session_expired.html.tt:7
 msgid "Your cashier session has expired"
 msgstr "キャッシャー処理の期限が切れました"
+
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:284
+#, fuzzy
+#| msgid "Your cashier is locked"
+msgid "Your cashier was locked."
+msgstr "キャッシャーはロックされています"
+
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:309
+#, fuzzy
+#| msgid "Your cashier is locked"
+msgid "Your cashier was not locked."
+msgstr "キャッシャーはロックされています"
 
 #. (broker_name)
 #: /home/git/translations/binary-static/src/templates/toolkit/affiliates/faq.html.tt:23
@@ -12115,7 +12173,7 @@ msgstr "ログイン情報"
 msgid "Your details have been updated."
 msgstr "お客様の詳細が更新されました。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1369
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1367
 msgid "Your email address"
 msgstr "お客様のメールアドレス"
 
@@ -12147,8 +12205,8 @@ msgstr "資金は安全に管理されます"
 msgid "Your identity documents have passed their expiration date. Kindly send a scan of a valid ID to <a href=\"mailto:%1\">%1</a> to unlock your cashier."
 msgstr "ご提出頂いた身分証明書の有効期限が切れてしまいましたので、キャッシャーは現在ロックされています。新たな身分証明書を<a href=\"mailto:%1\">%1</a>までご送付して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3508
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:63
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3506
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:61
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/japan.pm:60
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/maltainvest.pm:60
 msgid "Your information is incomplete or incorrect. Please correct the fields highlighted above."
@@ -12163,7 +12221,7 @@ msgstr "当社はお客さまからお預かりした預託金を万全の体制
 msgid "Your name, email address and contact number"
 msgstr "氏名、メールアドレス、電話番号"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1294
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1292
 msgid "Your name/company"
 msgstr "お名前／会社名"
 
@@ -12185,10 +12243,10 @@ msgstr "お客様のパスワードとログインIDは唯一無二な値であ�
 msgid "Your password cannot be the same as your email"
 msgstr "パスワードはEメールと同じものにはできません。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2843
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2903
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:636
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:683
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2841
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2901
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:634
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:681
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:38
 msgid "Your password contains invalid characters."
 msgstr "パスワードに無効な文字が含まれています。"
@@ -12196,7 +12254,7 @@ msgstr "パスワードに無効な文字が含まれています。"
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:353
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:366
 #: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v2/Accounts.pm:210
-#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:274
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:246
 #: /home/git/translations/binary-static/src/templates/toolkit/account/change_passwordws.html.tt:72
 msgid "Your password has been changed."
 msgstr "パスワードの変更を承りました。"
@@ -12210,26 +12268,26 @@ msgstr "お客様のパスワードは無事リセットされました。新し
 msgid "Your password recovery token has expired. Please click <a href=\"%1\"><strong>here</strong></a> to restart the password recovery process. Your account is important to us. If you require further assistance, please contact our <a href=\"%2\"><strong>Customer Support</strong></a>"
 msgstr "パスワード再発行のリンクの期限が切れましたので、<a href=\"%1\"><strong>こちらから</strong></a>改めてパスワードの再発行手続きを申請して下さい。お客様のご口座の安全確保は当社の最優先事項です。もし、ご不明な点がございましたら<a href=\"%2\"><strong>カスタマーサポート</strong></a>までご連絡下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:643
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:641
 msgid "Your password should be at least 5 characters."
 msgstr "パスワードは５文字以上でご指定して下さい。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2845
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2908
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:690
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:822
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2843
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2906
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:688
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:820
 msgid "Your password should be at least 6 characters."
 msgstr "パスワードは6文字以上でご入力ください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:815
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:813
 msgid "Your password should contain only characters and digits."
 msgstr "パスワードには半角英数字のみ、ご指定頂けます。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2847
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2913
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:650
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:697
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:829
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2845
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2911
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:648
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:695
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:827
 msgid "Your password should not be more then 25 characters."
 msgstr "パスワードは２５文字以下でご指定して下さい。"
 
@@ -12237,7 +12295,7 @@ msgstr "パスワードは２５文字以下でご指定して下さい。"
 msgid "Your personal information is used primarily as a way of authenticating you as the proper owner of your account and as the person to whom withdrawal payments may be made, and to process trades. We collect personal data relating to you directly from you when you fill in the account opening form. In the event of any doubt as to the authenticity of your account details or of any withdrawal request, the company reserves the right to request further authentication information as may be deemed appropriate under the circumstances."
 msgstr "お客様の個人情報の利用の第一義は、当社サービスの口座保持者として適切かどうか認証させて頂くこと、及びご出金時と取引過程の身分確証にあります。当社はご口座開設時に個人情報をご入力して頂くことで、お客様の個人情報をお客様個人から直接入手します。尚、ご口座に関する詳細情報の認証時、またはご出金リクエスト時に、より詳細な個人情報のご提出を求める権利を当社は有しております。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1397
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1395
 msgid "Your phone number"
 msgstr "お客様のお電話番号"
 
@@ -12260,7 +12318,7 @@ msgstr "お客様のご口座%3から決済サービス%4口座へ%1 %2の出金
 msgid "Your risks are known"
 msgstr "リスクが明確"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3483
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3481
 msgid "Your secret answer is too short.  Please enter at least 4 characters."
 msgstr "秘密の質問の答えは４文字以上でご指定して下さい。"
 
@@ -12296,7 +12354,7 @@ msgstr "決済の参照番号は%1です"
 msgid "Your verification link has expired. Please click below to re-send a verification email."
 msgstr "お客様の認証リンクは期限が切れています。下の認証メール再送信をクリックしてください。"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1436
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:1434
 msgid "Your website URL"
 msgstr "ウェブサイトURL"
 
@@ -12347,6 +12405,7 @@ msgid "a limit on the losses you may incur within a specified period of time;"
 msgstr "特定の期間内での損失の範囲"
 
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/User.pm:1739
+#: /home/git/regentmarkets/bom-websocket-api/lib/BOM/WebSocketAPI/v3/Accounts.pm:657
 msgid "alphanumeric with space and dash, 2-32 characters"
 msgstr "スペースやダッシュ（―）を含む英数字2-32文字"
 
@@ -12385,7 +12444,7 @@ msgstr ""
 "（取引銘柄）\n"
 "第10条　本取引に係る取引銘柄は、当社が別途定めるものとし、当社が本取引の注文の受諾を停止することが必要であると判断した場合、その銘柄は取引ができなくなるものとします。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1954
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1956
 msgid "barrier"
 msgstr "バリア"
 
@@ -12426,8 +12485,8 @@ msgstr "1日の出金限度額は現在EURです。"
 msgid "days"
 msgstr "日"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3525
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:75
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:3523
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:73
 #: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form/japan.pm:72
 msgid "details"
 msgstr "詳細"
@@ -12480,7 +12539,7 @@ msgstr "金融口座(%1)からゲーム口座(%2)へ"
 msgid "from gaming account (%1) to financial account (%2)"
 msgstr "ゲーム口座(%1)から金融口座(%2)へ"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1954
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1956
 msgid "high barrier"
 msgstr "上限バリア"
 
@@ -12527,12 +12586,12 @@ msgstr "最高水準のバイナリーオプション取引プラットフォー
 msgid "loading..."
 msgstr "読み込み中"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1954
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1956
 msgid "low barrier"
 msgstr "下限バリア"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2418
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2577
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2416
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2575
 msgid "maximum is"
 msgstr "最高値は"
 
@@ -12549,12 +12608,12 @@ msgstr "最小値"
 msgid "minimum available duration"
 msgstr "最小取引期間"
 
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2412
-#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2571
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2410
+#: /home/git/regentmarkets/bom-web/lib/BOM/Web/Form.pm:2569
 msgid "minimum is"
 msgstr "最小値は"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1951
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1953
 msgid "minus"
 msgstr "マイナス"
 
@@ -12606,7 +12665,7 @@ msgstr "または下記のサイトマップをご確認下さい"
 msgid "page for the exact time of settlement for all contracts. Other websites may adopt a different convention (for example some websites choose 4 o'clock NY time, or 5 o'clock London time). As a result, the open, high, low and closing prices displayed on our website may differ to those on other websites, due to the market-closing time convention."
 msgstr "から、全てのトレードに関する正確な終値の適用時間をご確認下さい。他のウェブサイトでは、異なるデータを採用している可能性があります。（例：ニューヨーク時間・午前４時、ロンドン時間・午前５時など）ゆえに、当社が公表している始値、最高値、最安値、及び市場閉場価格は、他のウェブサイトで公表している価格と異なる可能性があります。"
 
-#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1951
+#: /home/git/regentmarkets/bom/lib/BOM/Product/Contract.pm:1953
 msgid "plus"
 msgstr "プラス"
 

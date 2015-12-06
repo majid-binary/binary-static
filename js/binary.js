@@ -55605,6 +55605,103 @@ BetForm.Time.EndTime.prototype = {
                 }
             }
         },
+        update_time: function(epoch_time){
+            var that = this;
+
+            var date = that.get_date_from_seconds(epoch_time);
+            var mom = moment.utc(date).format('YYYY-MM-DD HH:mm:ss');
+            
+            var con = this._container;
+            var selector = con.find('#trade_details_now_date');
+
+            selector.attr('epoch_time', epoch_time);
+            selector.html(mom);
+        },
+        update_timer: function (con, container_id, duration) {
+            var that = this;
+            var container = con.find('#'+container_id);
+
+            if(container.length>0){
+                var text_year = text.localize('year');
+                var text_years = text.localize('years');
+                var text_month = text.localize('month');
+                var text_months = text.localize('months');
+                var text_day = text.localize('day');
+                var text_days = text.localize('days');
+                var text_hour = text.localize('hour');
+                var text_hours = text.localize('hours');
+                var text_minute = text.localize('minute');
+                var text_minutes = text.localize('minutes');
+                var text_second = text.localize('second');
+                var text_seconds = text.localize('seconds');
+
+                var duration_m = moment.duration(duration*1000); 
+                var text_arr = [];
+
+                var months = duration_m.months();
+                var days = duration_m.days();
+                var hours = duration_m.hours();
+                var minutes = duration_m.minutes();
+                var seconds = duration_m.seconds();
+
+                if(months > 0){
+                    text_arr.push(months);
+                    if(months > 1){
+                        text_arr.push(text_months);
+                    }
+                    else{
+                        text_arr.push(text_month);
+                    }
+                }
+
+                if(days > 0){
+                    text_arr.push(days);
+                    if(days > 1){
+                        text_arr.push(text_days);
+                    }
+                    else{
+                        text_arr.push(text_day);
+                    }
+                }
+
+                if(hours > 0){
+                    text_arr.push(hours);
+                    if(hours > 1){
+                        text_arr.push(text_hours);
+                    }
+                    else{
+                        text_arr.push(text_hour);
+                    }
+                }
+
+                if(minutes > 0){
+                    text_arr.push(minutes);
+                    if(minutes > 1){
+                        text_arr.push(text_minutes);
+                    }
+                    else{
+                        text_arr.push(text_minute);
+                    }
+                }
+
+                if(seconds > 0){
+                    text_arr.push(seconds);
+                    if(seconds > 1){
+                        text_arr.push(text_seconds);
+                    }
+                    else{
+                        text_arr.push(text_second);
+                    }
+                }
+
+                var final = [text_arr[0]];
+                if(typeof text_arr[1] !== 'undefined'){
+                    final.push(text_arr[1]);
+                }
+
+                container.text(final.join(' '));
+            }
+        },
         update_barriers: function (barriers) {
             var that = this;
             var con = $('#live_barriers');
@@ -55752,18 +55849,18 @@ BetForm.Time.EndTime.prototype = {
             if (now_time_con.length > 0 ) {
                 var stream_url = server_data.stream_url + '/' + server_data.sell_channel;
                 that.streaming.start(stream_url);
-                that.start_now_timer(con, 'now_time_container', 'trade_date_now'); // now timer
-                that.create_date_timer(con.find('#trade_details_now_date'));
+                // that.start_now_timer(con, 'now_time_container', 'trade_date_now'); // now timer
+                // that.create_date_timer(con.find('#trade_details_now_date'));
 
-                var duration = now_time_con.attr('duration'); // need now duration to subtract from end duration
-                if(parseInt(duration) > 0) { // if now duration is positive then start the timer for end date
-                    if(con.find('#end_time_container').attr('duration') !== '') {
-                        duration = parseInt(con.find('#end_time_container').attr('duration')) - parseInt(duration);
-                        if (duration > 0) {
-                            that.start_end_timer(con, 'end_time_container', 'now_time_container', 'trade_date_end', duration); // end timer
-                        }
-                    }
-                }
+                // var duration = now_time_con.attr('duration'); // need now duration to subtract from end duration
+                // if(parseInt(duration) > 0) { // if now duration is positive then start the timer for end date
+                //     if(con.find('#end_time_container').attr('duration') !== '') {
+                //         duration = parseInt(con.find('#end_time_container').attr('duration')) - parseInt(duration);
+                //         if (duration > 0) {
+                //             that.start_end_timer(con, 'end_time_container', 'now_time_container', 'trade_date_end', duration); // end timer
+                //         }
+                //     }
+                // }
             }
             if (con.find($('#sell_price_container')).length > 0) {
                 that.sparkline.init(55);
@@ -56029,6 +56126,7 @@ BetForm.Time.EndTime.prototype = {
             var _stream = null;
             var _update_from_stream = false;
             var _url = null;
+            var timer;
             return {
                 start: function(url) {
                     BetSell.sparkline.clear();
@@ -56069,25 +56167,46 @@ BetForm.Time.EndTime.prototype = {
                         this.update_price(bet);
                     }
                 }, // process_message
+
                 update_price: function(bet) {
                     var prices = bet.prices;
                     var spot = bet.spot;
-                    for (var i = 0; i < prices.length; i++) {
-                        if (!prices[i] || prices[i].id != 'sell') {
-                            continue;
+                    var epoch = bet.epoch;
+
+                    var con = BetSell.container();
+                    var start_epoch_el =  con.find('#trade_details_start_date');
+                    var end_epoch_el = con.find('#trade_details_end_date');
+
+                    if(start_epoch_el.length && end_epoch_el.length && start_epoch_el.attr('epoch_time') && end_epoch_el.attr('epoch_time')){
+                        var start_epoch = start_epoch_el.attr('epoch_time');
+                        var end_epoch = end_epoch_el.attr('epoch_time');
+
+                        if(epoch > end_epoch){
+                            epoch = end_epoch; 
+                            this.stop();
                         }
-                        if (prices[i].err) {
-                            BetSell.show_warning(prices[i].err, true);
-                            BetSell.disable_sell_button('#sell_at_market', true);
-                            no_error = false;
-                        } else {
-                            BetSell.clear_warnings();
-                            BetSell.enable_sell_button();
+                        else{
+                            BetSell.update_spot(spot);
+                            for (var i = 0; i < prices.length; i++) {
+                                if (!prices[i] || prices[i].id != 'sell') {
+                                    continue;
+                                }
+                                if (prices[i].err) {
+                                    BetSell.show_warning(prices[i].err, true);
+                                    BetSell.disable_sell_button('#sell_at_market', true);
+                                    no_error = false;
+                                } else {
+                                    BetSell.clear_warnings();
+                                    BetSell.enable_sell_button();
+                                }
+                                BetSell.update_price(prices[i]);
+                                BetSell.update_barriers(bet.barriers);
+                            } // for    
                         }
-                        BetSell.update_price(prices[i]);
-                        BetSell.update_barriers(bet.barriers);
-                    } // for
-                    BetSell.update_spot(spot);
+                        BetSell.update_time(epoch);
+                        BetSell.update_timer(con,'trade_date_now', epoch-start_epoch);
+                        BetSell.update_timer(con,'trade_date_end', end_epoch-epoch);                 
+                    }
                 },
                 url: function(val) {
                     if (val !== undefined) {
@@ -58403,6 +58522,159 @@ $(function() {
       active: false
     });
 });
+;function currencyConvertorCalculator()
+{
+    var currencyto = document.getElementById('currencyto');
+    if (currencyto.options.length > 0)
+    {
+        currencyto.options.length = 0;
+    }
+
+    var i=0;
+    $('#currencyfrom').find('option').each(function(){
+        if (this.selected !== true)
+        {
+            currencyto.options[i] = new Option(this.value, this.text);
+            i++;
+        }
+    });
+
+    return true;
+}
+
+function checkCurrencyAmountFormat(input_value)
+{
+    var amount = $(input_value).val();
+    var amountEXP = '^\\d+(\\.)?(\\d)?(\\d)?$';
+    var amountRex = new RegExp(amountEXP);
+    var displayerror = $('#currencyconverterror');
+    var currencysubmit = $('#currencysubmit');
+
+    if (amount === '')
+    {
+        displayerror.addClass('invisible button-disabled');
+        currencysubmit.attr('disabled', 'disabled').addClass('button-disabled').parents('.button').addClass('button-disabled');
+        return 1;
+    }
+
+    if (!amountRex.test(amount) && displayerror)
+    {
+        displayerror.removeClass('invisible');
+        currencysubmit.attr('disabled', 'disabled').addClass('button-disabled').parents('.button').addClass('button-disabled');
+    }
+    else
+    {
+        displayerror.addClass('invisible');
+        currencysubmit.removeAttr('disabled').removeClass('button-disabled').parents('.button').removeClass('button-disabled');
+    }
+
+    return false;
+}
+
+var Portfolio = function () {
+    var _price_request = null;
+    var elements = $('button.open_contract_details');
+    return {
+        update_indicative_prices: function() {
+            if(!page.client.is_logged_in) {
+                window.location.href = page.url.url_for('login');
+                return;
+            }
+
+            this.cancel_price_request();
+            var that = this;
+            if ($.isEmptyObject(elements)) return; // There are no open positions we will be able to update.
+            _price_request = $.ajax(ajax_loggedin({
+                url     : '/d/trade.cgi',
+                type    : 'POST',
+                async   : true,
+                data    : 'controller_action=open_position_values',
+                timeout : 60000,
+                success : that.on_price_request_success,
+                error   : that.on_price_request_error,
+            }));
+        },
+        cancel_price_request: function() {
+            if (_price_request) {
+                _price_request.abort();
+            }
+        },
+        on_price_request_success: function(resp, resp_status, jqXHR) {
+            var data = {};
+            var prices = {};
+            if (typeof resp == 'object') {
+               data = resp;
+            } else {
+                data = (JSON && JSON.parse(resp)) || $.parseJSON(resp) || {};
+            }
+            if (data.redirect) {
+                window.location.href = data.redirect;
+                return;
+            } else if (data.error) {
+                return;         // Something went wrong, just leave the cached version in place, it says indicative.
+            } else if (data.prices) {
+                prices = data.prices;
+            } else {
+                console.log(data);
+                var exception = new Error("Invalid server response: " + data);
+                Portfolio.on_price_request_error(jqXHR, resp_status, exception);
+            }
+            Portfolio.set_contract_prices(prices);
+        },
+        on_price_request_error: function(jqXHR, resp_status, exp) {
+            return;         // Something went wrong, just leave the cached version in place, it says indicative.
+        },
+        set_contract_prices: function(prices) {
+            var that = this;
+            var default_price = ((prices && prices['*']) ? prices['*'] : null);
+            var _update_element_price = function() {
+                var el = $(this);
+                var price;
+                data = element_data_attrs(el);
+                var shortcode = data.shortcode;
+                var currency = data.currency;
+                if (!prices[currency]) {
+                    if (default_price !== null) {
+                        prices[currency] = {};
+                    } else {
+                        return;
+                    }
+                }
+                if (default_price !== null && prices[currency][shortcode] === undefined) {
+                    prices[currency][shortcode] = default_price;
+                }
+                price = prices[currency][shortcode];
+                if (price !== undefined) {
+                    if (isNaN(price)) {
+                        /* price is not a number, could be an error report. do not use currency nor update
+                         * the price attr of the button. just update portfolio table value shown to user
+                         */
+                        $('p', el.parents('div').children('div')[2]).text(price);
+                    } else {
+                        el.attr('price', price);
+                        price = stylized_price(price);
+                        price = price.units + price.cents;
+                        $('p', el.parents('div').children('div')[2]).text(currency + ' ' + price);
+                    }
+                }
+            };
+            elements.each(_update_element_price);
+        }
+    };
+}();
+
+pjax_config_page('portfolio', function() {
+    return {
+        onLoad: function() {
+            $('#portfolio-table .hourglass').hide();
+            $('#currencyfrom').change(function(event) { currencyConvertorCalculator(event.target); });
+            $('#currencyfrom').keyup(function(event) { currencyConvertorCalculator(event.target); });
+            $('#currencyfromvalue').change(function(event) { checkCurrencyAmountFormat(event.target); });
+            $('#currencyfromvalue').keyup(function(event) { checkCurrencyAmountFormat(event.target); });
+            Portfolio.update_indicative_prices();
+        }
+    };
+});
 ;var PortfolioWS =  (function() {
 
     'use strict';
@@ -58603,159 +58875,6 @@ pjax_config_page("user/portfoliows", function() {
         }
     };
 });
-;function currencyConvertorCalculator()
-{
-    var currencyto = document.getElementById('currencyto');
-    if (currencyto.options.length > 0)
-    {
-        currencyto.options.length = 0;
-    }
-
-    var i=0;
-    $('#currencyfrom').find('option').each(function(){
-        if (this.selected !== true)
-        {
-            currencyto.options[i] = new Option(this.value, this.text);
-            i++;
-        }
-    });
-
-    return true;
-}
-
-function checkCurrencyAmountFormat(input_value)
-{
-    var amount = $(input_value).val();
-    var amountEXP = '^\\d+(\\.)?(\\d)?(\\d)?$';
-    var amountRex = new RegExp(amountEXP);
-    var displayerror = $('#currencyconverterror');
-    var currencysubmit = $('#currencysubmit');
-
-    if (amount === '')
-    {
-        displayerror.addClass('invisible button-disabled');
-        currencysubmit.attr('disabled', 'disabled').addClass('button-disabled').parents('.button').addClass('button-disabled');
-        return 1;
-    }
-
-    if (!amountRex.test(amount) && displayerror)
-    {
-        displayerror.removeClass('invisible');
-        currencysubmit.attr('disabled', 'disabled').addClass('button-disabled').parents('.button').addClass('button-disabled');
-    }
-    else
-    {
-        displayerror.addClass('invisible');
-        currencysubmit.removeAttr('disabled').removeClass('button-disabled').parents('.button').removeClass('button-disabled');
-    }
-
-    return false;
-}
-
-var Portfolio = function () {
-    var _price_request = null;
-    var elements = $('button.open_contract_details');
-    return {
-        update_indicative_prices: function() {
-            if(!page.client.is_logged_in) {
-                window.location.href = page.url.url_for('login');
-                return;
-            }
-
-            this.cancel_price_request();
-            var that = this;
-            if ($.isEmptyObject(elements)) return; // There are no open positions we will be able to update.
-            _price_request = $.ajax(ajax_loggedin({
-                url     : '/d/trade.cgi',
-                type    : 'POST',
-                async   : true,
-                data    : 'controller_action=open_position_values',
-                timeout : 60000,
-                success : that.on_price_request_success,
-                error   : that.on_price_request_error,
-            }));
-        },
-        cancel_price_request: function() {
-            if (_price_request) {
-                _price_request.abort();
-            }
-        },
-        on_price_request_success: function(resp, resp_status, jqXHR) {
-            var data = {};
-            var prices = {};
-            if (typeof resp == 'object') {
-               data = resp;
-            } else {
-                data = (JSON && JSON.parse(resp)) || $.parseJSON(resp) || {};
-            }
-            if (data.redirect) {
-                window.location.href = data.redirect;
-                return;
-            } else if (data.error) {
-                return;         // Something went wrong, just leave the cached version in place, it says indicative.
-            } else if (data.prices) {
-                prices = data.prices;
-            } else {
-                console.log(data);
-                var exception = new Error("Invalid server response: " + data);
-                Portfolio.on_price_request_error(jqXHR, resp_status, exception);
-            }
-            Portfolio.set_contract_prices(prices);
-        },
-        on_price_request_error: function(jqXHR, resp_status, exp) {
-            return;         // Something went wrong, just leave the cached version in place, it says indicative.
-        },
-        set_contract_prices: function(prices) {
-            var that = this;
-            var default_price = ((prices && prices['*']) ? prices['*'] : null);
-            var _update_element_price = function() {
-                var el = $(this);
-                var price;
-                data = element_data_attrs(el);
-                var shortcode = data.shortcode;
-                var currency = data.currency;
-                if (!prices[currency]) {
-                    if (default_price !== null) {
-                        prices[currency] = {};
-                    } else {
-                        return;
-                    }
-                }
-                if (default_price !== null && prices[currency][shortcode] === undefined) {
-                    prices[currency][shortcode] = default_price;
-                }
-                price = prices[currency][shortcode];
-                if (price !== undefined) {
-                    if (isNaN(price)) {
-                        /* price is not a number, could be an error report. do not use currency nor update
-                         * the price attr of the button. just update portfolio table value shown to user
-                         */
-                        $('p', el.parents('div').children('div')[2]).text(price);
-                    } else {
-                        el.attr('price', price);
-                        price = stylized_price(price);
-                        price = price.units + price.cents;
-                        $('p', el.parents('div').children('div')[2]).text(currency + ' ' + price);
-                    }
-                }
-            };
-            elements.each(_update_element_price);
-        }
-    };
-}();
-
-pjax_config_page('portfolio', function() {
-    return {
-        onLoad: function() {
-            $('#portfolio-table .hourglass').hide();
-            $('#currencyfrom').change(function(event) { currencyConvertorCalculator(event.target); });
-            $('#currencyfrom').keyup(function(event) { currencyConvertorCalculator(event.target); });
-            $('#currencyfromvalue').change(function(event) { checkCurrencyAmountFormat(event.target); });
-            $('#currencyfromvalue').keyup(function(event) { checkCurrencyAmountFormat(event.target); });
-            Portfolio.update_indicative_prices();
-        }
-    };
-});
 ;var calculate_button_event = function() {
     $('#pricingtable_calculate').on('click', function(e) {
         e.preventDefault();
@@ -58887,6 +59006,7 @@ function initialize_pricing_table() {
     select_underlying_change();
     select_strike_type();
     expiry_date_picker();
+    $("#from_expiry").keydown(false);
 }
 
 onLoad.queue_for_url(initialize_pricing_table, 'pricing_table');
@@ -63289,6 +63409,277 @@ var BinarySocket = (function () {
     };
 
 })();
+;var PaymentAgentWithdrawWS = (function() {
+    "use strict";
+
+    var containerID = '#paymentagent_withdrawal';
+    var $views      = $(containerID + ' .viewItem');
+    var errorClass = 'errorfield';
+    var viewIDs = {
+        error   : '#viewError',
+        success : '#viewSuccess',
+        confirm : '#viewConfirm',
+        form    : '#viewForm'
+    };
+    var fieldIDs = {
+        ddlAgents : '#ddlAgents',
+        txtAmount : '#txtAmount',
+        txtDesc   : '#txtDescription'
+    };
+    var formData, isValid;
+    var withdrawCurrency = 'USD',
+        minAmount = 10,
+        maxAmount = 2000;
+
+
+    var init = function() {
+        $views.addClass('hidden');
+
+        if((/VRT/).test($.cookie('loginid'))) { // Virtual Account
+            showPageError(text.localize('You are not authorized for withdrawal via payment agent.'));
+            return false;
+        }
+
+        var residence = $.cookie('residence');
+        BinarySocket.send({"paymentagent_list": residence});
+
+        $(viewIDs.form + ' button').click(function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            formData = formValidate();
+            if(!formData) {
+                return false;
+            }
+            else {
+                withdrawRequest(true);
+            }
+        });
+    };
+
+    // -----------------------
+    // ----- Agents List -----
+    // -----------------------
+    var populateAgentsList = function(response) {
+        var $ddlAgents = $(fieldIDs.ddlAgents);
+        $ddlAgents.empty();
+        var paList = response.paymentagent_list.list;
+        if(paList.length > 0) {
+            insertListOption($ddlAgents, text.localize('Please select a payment agent'), '');
+            for(var i = 0; i < paList.length; i++){
+                insertListOption($ddlAgents, paList[i].name, paList[i].paymentagent_loginid);
+            }
+            setActiveView(viewIDs.form);
+        }
+        else {
+            showPageError(text.localize('The Payment Agent facility is currently not available in your country.'));
+        }
+    };
+
+    var insertListOption = function($ddlObject, itemText, itemValue) {
+        $ddlObject.append($('<option/>', {value: itemValue, text: itemText}));
+    };
+
+    // ----------------------------
+    // ----- Form Validations -----
+    // ----------------------------
+    var formValidate = function() {
+        clearError();
+        isValid = true;
+
+        var agent  = $(fieldIDs.ddlAgents).val().trim(),
+            amount = $(fieldIDs.txtAmount).val().trim(),
+            desc   = $(fieldIDs.txtDesc).val().trim();
+        
+        var letters = Content.localize().textLetters,
+            numbers = Content.localize().textNumbers,
+            space   = Content.localize().textSpace,
+            period  = Content.localize().textPeriod,
+            comma   = Content.localize().textComma;
+        
+        // Payment Agent
+        isRequiredError(fieldIDs.ddlAgents);
+
+        // Amount
+        if(!isRequiredError(fieldIDs.txtAmount)){
+            if(!(/(^[0-9\.]+$)/).test(amount) || !$.isNumeric(amount)) {
+                showError(fieldIDs.txtAmount, Content.errorMessage('reg', [numbers]));
+            }
+            else if(amount < minAmount) {
+                showError(fieldIDs.txtAmount, text.localize('Invalid amount, minimum is') + ' ' + withdrawCurrency + ' ' + minAmount);
+            }
+            else if(amount > maxAmount) {
+                showError(fieldIDs.txtAmount, text.localize('Invalid amount, maximum is') + ' ' + withdrawCurrency + ' ' + maxAmount);
+            }
+        }
+
+        // Description
+        if(!(/^[a-zA-Z0-9\s\.\,\-']*$/).test(desc)) {
+            showError(fieldIDs.txtDesc, Content.errorMessage('reg', [letters, numbers, space, period, comma, '- \'']));
+        }
+
+        if(isValid) {
+            return {
+                agent    : agent,
+                agentname: $(fieldIDs.ddlAgents + ' option:selected').text(),
+                currency : withdrawCurrency,
+                amount   : amount,
+                desc     : desc
+            };
+        }
+        else {
+            return false;
+        }
+    };
+
+    var isRequiredError = function(fieldID) {
+        if(!(/.+/).test($(fieldID).val().trim())){
+            showError(fieldID, Content.errorMessage('req'));
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    var isCountError = function(fieldID, min, max) {
+        var fieldValue = $(fieldID).val().trim();
+        if((fieldValue.length > 0 && fieldValue.length < min) || fieldValue.length > max) {
+            showError(fieldID, Content.errorMessage('range', '(' + min + '-' + max + ')'));
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    // ----------------------------
+    // ----- Withdraw Process -----
+    // ----------------------------
+    var withdrawRequest = function(isDryRun) {
+        var dry_run = isDryRun ? 1 : 0;
+
+        BinarySocket.send({
+            "paymentagent_withdraw" : 1,
+            "paymentagent_loginid"  : formData.agent,
+            "currency"    : formData.currency,
+            "amount"      : formData.amount,
+            "description" : formData.desc,
+            "dry_run"     : dry_run
+        });
+    };
+
+    var withdrawResponse = function(response) {
+        var responseCode = response.paymentagent_withdraw;
+        switch(responseCode){
+            case 2: // dry_run success: showing the confirmation page
+                setActiveView(viewIDs.confirm);
+
+                $('#lblAgentName').text(formData.agentname);
+                $('#lblCurrency').text(formData.currency);
+                $('#lblAmount').text(formData.amount);
+
+                $(viewIDs.confirm + ' #btnConfirm').click(function(){
+                    withdrawRequest(false);
+                });
+                $(viewIDs.confirm + ' #btnBack').click(function(){
+                    setActiveView(viewIDs.form);
+                });
+                break;
+
+            case 1: // withdrawal success
+                setActiveView(viewIDs.success);
+                $('#successMessage').css('display', '')
+                    .attr('class', 'success-msg')
+                    .html(
+                        '<ul class="checked"><li>' +
+                        text.localize('Your request to withdraw [_1] [_2] from your account [_3] to Payment Agent [_4] account has been successfully processed.')
+                            .replace('[_1]', formData.currency)
+                            .replace('[_2]', formData.amount)
+                            .replace('[_3]', $.cookie('loginid'))
+                            .replace('[_4]', formData.agentname) +
+                        '</li></ul>'
+                    );
+                break;
+
+            default: // error
+                if(response.echo_req.dry_run === 1) {
+                    setActiveView(viewIDs.form);
+                    $('#formMessage').css('display', '')
+                        .attr('class', errorClass)
+                        .html(response.error.message);
+                } else {
+                    showPageError(response.error.message);
+                }
+                break;
+        }
+    };
+
+    // -----------------------------
+    // ----- Message Functions -----
+    // -----------------------------
+    var showPageError = function(errMsg) {
+        setActiveView(viewIDs.error);
+        $(viewIDs.error + ' > p').html(errMsg);
+    };
+
+    var showError = function(fieldID, errMsg) {
+        $(fieldID).parent().append($('<p/>', {class: errorClass, text: errMsg}));
+        isValid = false;
+    };
+
+    var clearError = function(fieldID) {
+        $(fieldID ? fieldID : viewIDs.form + ' .' + errorClass).remove();
+    };
+
+    // ----- View Control -----
+    var setActiveView = function(viewID) {
+        $views.addClass('hidden');
+        $(viewID).removeClass('hidden');
+    };
+
+
+    return {
+        init: init,
+        populateAgentsList: populateAgentsList,
+        withdrawResponse: withdrawResponse
+    };
+}());
+
+
+
+pjax_config_page("paymentagent/withdrawws", function() {
+    return {
+        onLoad: function() {
+            if (!$.cookie('login')) {
+                window.location.href = page.url.url_for('login');
+                return;
+            }
+
+            BinarySocket.init({
+                onmessage: function(msg) {
+                    var response = JSON.parse(msg.data);
+                    if (response) {
+                        var type = response.msg_type;
+                        switch(type){
+                            case "paymentagent_list":
+                                PaymentAgentWithdrawWS.populateAgentsList(response);
+                                break;
+                            case "paymentagent_withdraw":
+                                PaymentAgentWithdrawWS.withdrawResponse(response);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else {
+                        console.log('some error occured');
+                    }
+                }
+            });
+
+            Content.populate();
+            PaymentAgentWithdrawWS.init();
+        }
+    };
+});
 ;var Button = (function(){
     "use strict";
     function createBinaryStyledButton(){
